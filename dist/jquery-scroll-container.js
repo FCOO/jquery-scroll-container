@@ -47,8 +47,7 @@
             newHeight = this.innerHeight();
         }
         else{
-            var $refElement = options.refElement || $(window),
-                refElementHeight = options.size*$refElement.height() - options.padding,
+            var refElementHeight = options.size * options.$refElement.height() - options.padding,
                 containerHeight = _scrollContainer.$container.height();
             newHeight = Math.max( 0, Math.min( refElementHeight, containerHeight) );
         }
@@ -86,10 +85,14 @@
                 //Relative size => update scroll-box when contents are changed or when refElement's height is changed
                 //If refElement == null then it is window that is refElement 
                 var onResizeFunc = $.proxy( this._updateScrollContainer, this );
-                if (options.refElement)
-                    window.addResizeListener(options.refElement instanceof $ ? options.refElement[0] : options.refElement, onResizeFunc );
-                else
-                    $(window).resize( onResizeFunc );
+                if (options.refElement){
+                    options.$refElement = options.refElement instanceof $ ? options.refElement : $(options.refElement);                         
+                    window.addResizeListener(options.$refElement[0], onResizeFunc );
+                }
+                else {
+                    options.$refElement = $(window);
+                    options.$refElement.resize( onResizeFunc );
+                }
                 
                 onSelectorChange = updateScrollContainer_from_mCustomScrollbar;              
             }
