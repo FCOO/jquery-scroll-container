@@ -1,0 +1,42 @@
+{
+  "name": "jquery-scroll-container",
+  "version": "1.0.0",
+  "homepage": "https://github.com/FCOO/jquery-scroll-container",
+  "authors": [
+    "Niels Holt"
+  ],
+  "description": "",
+  "main": [
+    "dist/jquery-scroll-container.js",
+    "dist/jquery-scroll-container.css"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/FCOO/jquery-scroll-container.git"
+  },
+  "dependencies": {
+    "malihu-custom-scrollbar-plugin": "malihu/malihu-custom-scrollbar-plugin#^3.1.5",
+    "javascript-detect-element-resize": "sdecima/javascript-detect-element-resize#^0.5.3"
+  },
+  "overrides": {
+    "mresize": {
+      "main": [
+        "mresize.js"
+      ]
+    }
+  },
+  "devDependencies": {
+    "bourbon": "latest"
+  },
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "moduleType": [
+    "es6"
+  ]
+}
