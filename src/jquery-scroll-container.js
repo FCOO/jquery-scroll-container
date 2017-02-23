@@ -81,7 +81,7 @@
             window.addResizeListener(this[0], updateScrollContainer_from_this ); 
         }
         else
-            if (options.size < 1){
+            if (options.size <= 1){
                 //Relative size => update scroll-box when contents are changed or when refElement's height is changed
                 //If refElement == null then it is window that is refElement 
                 var onResizeFunc = $.proxy( this._updateScrollContainer, this );
