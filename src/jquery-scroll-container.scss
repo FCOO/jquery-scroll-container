@@ -11,13 +11,36 @@
 //BOURBON - http://bourbon.io/
 @import "../bower_components/bourbon/app/assets/stylesheets/bourbon";
 
+$scrollbar-width : 3px;
+$scrollbar-margin: 3px;
+$scroll-width: $scrollbar-margin + $scrollbar-width + $scrollbar-margin;
 
-.jquery-scroll-container {
+
+.jquery-scroll-outer-container {
     background-color: transparent;
     padding: 0;
     margin : 0;
     height : 0;
+
+    //Adjust the width of the scrollbar
+    .mCSB_scrollTools {
+        width: $scroll-width; 
+        .mCSB_dragger_bar {
+            width: $scrollbar-width;
+        }
+    }
 }
+
+//Container with contents
+.jquery-scroll-container {
+    background-color: transparent;
+    padding: 0;
+     margin-top  : 4px;
+    margin-bottom: 4px;
+    margin-right : $scroll-width;
+    margin-left  : $scroll-width;
+}
+
 
 //Shadow at the top/bottom when scrolling
 .mCustomScrollBox {
@@ -56,3 +79,4 @@
         box-shadow: $noTopShadow, $bottomShadow;    
     }
 }
+

@@ -8,11 +8,23 @@
 
 
 ************************************************/
-.jquery-scroll-container {
+.jquery-scroll-outer-container {
   background-color: transparent;
   padding: 0;
   margin: 0;
   height: 0; }
+  .jquery-scroll-outer-container .mCSB_scrollTools {
+    width: 9px; }
+    .jquery-scroll-outer-container .mCSB_scrollTools .mCSB_dragger_bar {
+      width: 3px; }
+
+.jquery-scroll-container {
+  background-color: transparent;
+  padding: 0;
+  margin-top: 4px;
+  margin-bottom: 4px;
+  margin-right: 9px;
+  margin-left: 9px; }
 
 .mCustomScrollBox:before, .mCustomScrollBox:after {
   content: "";

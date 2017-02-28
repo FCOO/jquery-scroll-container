@@ -102,7 +102,7 @@
 
         var $outerContainer = 
             $('<div/>')
-                .addClass('jquery-scroll-container')
+                .addClass('jquery-scroll-outer-container')
                 .appendTo( this ),
 
             mCustomScrollbar = 
@@ -125,7 +125,10 @@
                     }
                 }),
             
-            $container = $outerContainer.find('.mCSB_container');
+            $container = $('<div/>')
+                            .addClass('jquery-scroll-container')
+                            .appendTo( $outerContainer.find('.mCSB_container') );
+
 
         if (options.size > 1)
             $outerContainer.height( options.size+'px' );
@@ -191,7 +194,7 @@ TODO: NEW METHODS
     //Initialize/ready 
     $(function() { 
         //Update all scrollContainer
-        $('.jquery-scroll-container').each( function(){
+        $('.jquery-scroll-outer-container').each( function(){
             $(this).parent()._updateScrollContainer();
         });
 

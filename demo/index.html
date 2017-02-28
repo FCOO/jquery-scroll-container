@@ -67,10 +67,15 @@
         
         .innerContent {
             width:100%; 
+            border: 1px solid black;
             margin-top:4px; 
             background-color: #eee;
+            text-align: center;
         }
-
+        .innerContent:hover {
+            background-color: blue;
+            color: white;
+        }
         button {
             position: relative;
             left: 50%;
@@ -120,16 +125,16 @@
         });
         
         $scrollContainer1
-            .append('<div class="first innerContent">***FIRST***</div>')
-            .append('<div class="last innerContent">***LAST***</div>');
+            .append('<div class="first innerContent">FIRST</div>')
+            .append('<div class="last innerContent">LAST</div>');
         
         $scrollContainer2
-            .append('<div class="first innerContent">***FIRST***</div>')
-            .append('<div class="last innerContent">***LAST***</div>');
+            .append('<div class="first innerContent">FIRST</div>')
+            .append('<div class="last innerContent">LAST</div>');
 
         $scrollContainer3
-            .append('<div class="first innerContent">***FIRST***</div>')
-            .append('<div class="last innerContent">***LAST***</div>');
+            .append('<div class="first innerContent">FIRST</div>')
+            .append('<div class="last innerContent">LAST</div>');
 
         for (var i=1; i<=40; i++ ){
             $scrollContainer1.find('.last').before('<div class="normal innerContent">'+i+'</div>');        
