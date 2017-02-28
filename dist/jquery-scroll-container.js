@@ -48,7 +48,7 @@
         }
         else{
             var refElementHeight = options.size * options.$refElement.height() - options.padding,
-                containerHeight = _scrollContainer.$container.height();
+                containerHeight = _scrollContainer.$container.outerHeight();
             newHeight = Math.max( 0, Math.min( refElementHeight, containerHeight) );
         }
         _scrollContainer.$outerContainer.height( newHeight );

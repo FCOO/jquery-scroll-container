@@ -35,10 +35,19 @@ $scroll-width: $scrollbar-margin + $scrollbar-width + $scrollbar-margin;
 .jquery-scroll-container {
     background-color: transparent;
     padding: 0;
-     margin-top  : 4px;
-    margin-bottom: 4px;
+    margin: 0;
+
+    padding-top   : 4px;
+    padding-bottom: 4px;
     margin-right : $scroll-width;
     margin-left  : $scroll-width;
+
+    & > *:first-child {
+        margin-top: 0 !important;
+    }
+    & > *:last-child {
+        margin-botom: 0 !important;
+    }
 }
 
 

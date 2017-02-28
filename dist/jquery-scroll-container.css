@@ -21,10 +21,15 @@
 .jquery-scroll-container {
   background-color: transparent;
   padding: 0;
-  margin-top: 4px;
-  margin-bottom: 4px;
+  margin: 0;
+  padding-top: 4px;
+  padding-bottom: 4px;
   margin-right: 9px;
   margin-left: 9px; }
+  .jquery-scroll-container > *:first-child {
+    margin-top: 0 !important; }
+  .jquery-scroll-container > *:last-child {
+    margin-botom: 0 !important; }
 
 .mCustomScrollBox:before, .mCustomScrollBox:after {
   content: "";
