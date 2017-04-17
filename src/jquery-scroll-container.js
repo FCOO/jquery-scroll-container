@@ -78,7 +78,7 @@
         //Sets the element that controls the scroll-box height
         if (options.size == 0){
             //Full size = fill the parent 100%: Update when this is resized
-            window.addResizeListener(this[0], updateScrollContainer_from_this ); 
+            this.resize( updateScrollContainer_from_this ); 
         }
         else
             if (options.size <= 1){
@@ -87,7 +87,7 @@
                 var onResizeFunc = $.proxy( this._updateScrollContainer, this );
                 if (options.refElement){
                     options.$refElement = options.refElement instanceof $ ? options.refElement : $(options.refElement);                         
-                    window.addResizeListener(options.$refElement[0], onResizeFunc );
+                    options.$refElement.resize( onResizeFunc );
                 }
                 else {
                     options.$refElement = $(window);
