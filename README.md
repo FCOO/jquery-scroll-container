@@ -51,5 +51,8 @@ Copyright (c) 2017 [FCOO](https://github.com/FCOO)
 Niels Holt nho@fcoo.dk
 
 
-## Credits and acknowledgements
+## Credits and acknowledgments
 Using the great [jquery-custom-content-scroller](http://manos.malihu.gr/jquery-custom-content-scroller/) by [malihu](https://github.com/malihu)
+
+### NOTE
+Currently using the [patch-1](https://github.com/Skripatch/malihu-custom-scrollbar-plugin/tree/patch-1) by [Skripatch](https://github.com/Skripatch) to fix bug in iframes

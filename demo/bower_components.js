@@ -11740,7 +11740,8 @@ and dependencies (minified).
 			if(o.advanced.extraDraggableSelectors){sel.add($(o.advanced.extraDraggableSelectors));}
 			if(d.bindEvents){ /* check if events are bound */
 				/* unbind namespaced events from document/selectors */
-				$(document).add($(!_canAccessIFrame() || top.document)).unbind("."+namespace);
+				var doc=_canAccessIFrame() ? top.document : document;
+				$(document).add($(doc)).unbind("."+namespace);
 				sel.each(function(){
 					$(this).unbind("."+namespace);
 				});
@@ -11832,7 +11833,8 @@ and dependencies (minified).
 				mCSB_dragger=$("#"+draggerId[0]+",#"+draggerId[1]),
 				draggable,dragY,dragX,
 				rds=o.advanced.releaseDraggableSelectors ? mCSB_dragger.add($(o.advanced.releaseDraggableSelectors)) : mCSB_dragger,
-				eds=o.advanced.extraDraggableSelectors ? $(!_canAccessIFrame() || top.document).add($(o.advanced.extraDraggableSelectors)) : $(!_canAccessIFrame() || top.document);
+				doc=_canAccessIFrame() ? top.document : document,
+				eds=o.advanced.extraDraggableSelectors ? $(doc).add($(o.advanced.extraDraggableSelectors)) : $(doc);
 			mCSB_dragger.bind("contextmenu."+namespace,function(e){
 				e.preventDefault(); //prevent right click
 			}).bind("mousedown."+namespace+" touchstart."+namespace+" pointerdown."+namespace+" MSPointerDown."+namespace,function(e){
