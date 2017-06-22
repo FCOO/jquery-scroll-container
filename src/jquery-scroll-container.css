@@ -6,52 +6,243 @@
     https://github.com/FCOO/jquery-scroll-container
     https://github.com/FCOO
 
+    USING MODIFIED VERSIONS OF THE STYLE 
+    FROM JQUERY.SCROLLBAR 
+    https://github.com/gromo/jquery.scrollbar
 
 ************************************************/
-.jquery-scroll-outer-container {
-  background-color: transparent;
-  padding: 0;
-  margin: 0;
-  height: 0; }
-  .jquery-scroll-outer-container .mCSB_scrollTools {
-    width: 9px; }
-    .jquery-scroll-outer-container .mCSB_scrollTools .mCSB_dragger_bar {
-      width: 3px; }
+/*********************************************************
+COPYED AND MODIFIED FROM 
+../bower_components/jquery.scrollbar/sass/jquery.scrollbar.scss
+**********************************************************/
+/*************** SCROLLBAR BASE CSS ***************/
+.scroll-wrapper {
+  overflow: hidden !important;
+  padding: 0 !important;
+  position: relative; }
+  .scroll-wrapper > .scroll-content {
+    position: relative !important;
+    left: 0;
+    top: 0;
+    margin: 0;
+    padding: 0;
+    border: none !important;
+    box-sizing: content-box !important;
+    height: auto;
+    max-height: none;
+    width: auto !important;
+    max-width: none !important;
+    overflow: scroll !important; }
+    .scroll-wrapper > .scroll-content::-webkit-scrollbar {
+      height: 0;
+      width: 0; }
+  .scroll-wrapper.scroll--rtl {
+    direction: rtl; }
 
+.scroll-element {
+  box-sizing: content-box;
+  display: none; }
+  .scroll-element div {
+    box-sizing: content-box; }
+  .scroll-element .scroll-bar,
+  .scroll-element .scroll-arrow {
+    cursor: default; }
+  .scroll-element.scroll-x.scroll-scrollx_visible, .scroll-element.scroll-y.scroll-scrolly_visible {
+    display: block; }
+
+.scroll-textarea {
+  border: 1px solid #cccccc;
+  border-top-color: #999999; }
+  .scroll-textarea > .scroll-content {
+    overflow: hidden !important; }
+    .scroll-textarea > .scroll-content > textarea {
+      border: none !important;
+      box-sizing: border-box;
+      height: 100% !important;
+      margin: 0;
+      max-height: none !important;
+      max-width: none !important;
+      overflow: scroll !important;
+      outline: none;
+      padding: 0.1875rem;
+      position: relative !important;
+      top: 0;
+      width: 100% !important; }
+      .scroll-textarea > .scroll-content > textarea::-webkit-scrollbar {
+        height: 0;
+        width: 0; }
+
+/**************************************************************************************
+INNER
+**************************************************************************************/
+.scrollbar-inner > .scroll-element,
+.scrollbar-inner > .scroll-element div {
+  border: none;
+  margin: 0;
+  padding: 0;
+  position: absolute;
+  z-index: 10; }
+
+.scrollbar-inner > .scroll-element div {
+  display: block;
+  height: 100%;
+  left: 0;
+  top: 0;
+  width: 100%; }
+
+/*********************
+Dimentions and positions
+*********************/
+.scrollbar-inner > .scroll-element.scroll-x {
+  bottom: 0;
+  height: 0.5625rem;
+  left: 0;
+  width: 100%; }
+  .scrollbar-inner > .scroll-element.scroll-x.scroll-scrolly_visible .scroll-element_track, .scrollbar-inner > .scroll-element.scroll-x.scroll-scrolly_visible .scroll-element_size {
+    left: -0.5625rem; }
+
+.scrollbar-inner > .scroll-element.scroll-y {
+  height: 100%;
+  right: 0;
+  top: 0;
+  width: 0.5625rem; }
+  .scrollbar-inner > .scroll-element.scroll-y.scroll-scrollx_visible .scroll-element_track, .scrollbar-inner > .scroll-element.scroll-y.scroll-scrollx_visible .scroll-element_size {
+    top: -0.5625rem; }
+
+.scrollbar-inner > .scroll-element .scroll-element_outer {
+  overflow: hidden;
+  background-color: rgba(255, 255, 255, 0.5); }
+
+/*********************
+Border and padding
+*********************/
+.scrollbar-inner > .scroll-element .scroll-element_track, .scrollbar-inner > .scroll-element .scroll-bar {
+  background-clip: content-box;
+  box-sizing: border-box;
+  padding: 0.1875rem; }
+  .scrollbar-inner > .scroll-element .scroll-element_track:after, .scrollbar-inner > .scroll-element .scroll-bar:after {
+    display: block;
+    box-sizing: border-box;
+    width: 100%;
+    height: 100%;
+    content: "";
+    border-radius: 0.09375rem; }
+
+.scrollbar-inner > .scroll-element.scroll-y .scroll-element_track, .scrollbar-inner > .scroll-element.scroll-y .scroll-bar {
+  padding-top: 0;
+  padding-bottom: 0; }
+
+.scrollbar-inner > .scroll-element.scroll-x .scroll-element_track, .scrollbar-inner > .scroll-element.scroll-x .scroll-bar {
+  padding-left: 0;
+  padding-right: 0; }
+
+/*********************
+Color and Opacity
+*********************/
+.scrollbar-inner > .scroll-element:hover .scroll-element_track, .scrollbar-inner > .scroll-element.scroll-draggable .scroll-element_track {
+  padding: 0.0625rem; }
+  .scrollbar-inner > .scroll-element:hover .scroll-element_track:after, .scrollbar-inner > .scroll-element.scroll-draggable .scroll-element_track:after {
+    background-color: rgba(0, 0, 0, 0.2);
+    border-radius: 0.21875rem; }
+
+.scrollbar-inner > .scroll-element .scroll-element_track, .scrollbar-inner > .scroll-element .scroll-bar {
+  transition: padding .2s ease-in-out; }
+
+.scrollbar-inner > .scroll-element .scroll-element_track:after, .scrollbar-inner > .scroll-element .scroll-bar:after {
+  transition: opacity .2s ease-in-out, background-color .2s ease-in-out, padding .2s ease-in-out, border-radius .2s ease-in-out; }
+
+.scrollbar-inner > .scroll-element .scroll-bar:after {
+  background-color: rgba(0, 0, 0, 0.2); }
+
+.scrollbar-inner > .scroll-element .scroll-element_track:after {
+  background-color: transparent; }
+
+.scrollbar-inner:hover > .scroll-element .scroll-bar:after {
+  background-color: rgba(0, 0, 0, 0.29); }
+
+.scrollbar-inner:hover > .scroll-element .scroll-element_track:after {
+  background-color: rgba(0, 0, 0, 0.2); }
+
+.scrollbar-inner > .scroll-element:hover .scroll-bar {
+  padding: 0.0625rem; }
+  .scrollbar-inner > .scroll-element:hover .scroll-bar:after {
+    background-color: rgba(0, 0, 0, 0.44);
+    border-radius: 0.21875rem; }
+
+.scrollbar-inner > .scroll-element.scroll-draggable .scroll-bar {
+  padding: 0.0625rem; }
+  .scrollbar-inner > .scroll-element.scroll-draggable .scroll-bar:after {
+    background-color: rgba(0, 0, 0, 0.62);
+    border-radius: 0.21875rem; }
+
+/*********************************************************
+END OF ../bower_components/jquery.scrollbar/sass/jquery.scrollbar.scss
+**********************************************************/
 .jquery-scroll-container {
   background-color: transparent;
   padding: 0;
-  margin: 0;
-  padding-top: 4px;
-  padding-bottom: 4px;
-  margin-right: 9px;
-  margin-left: 9px; }
-  .jquery-scroll-container > *:first-child {
-    margin-top: 0 !important; }
-  .jquery-scroll-container > *:last-child {
-    margin-botom: 0 !important; }
+  margin: 0; }
+  .scrollbar-horizontal .jquery-scroll-container {
+    padding-left: 0.25rem;
+    padding-right: 0.25rem;
+    margin-top: 0.25rem;
+    margin-bottom: 0.5625rem; }
+    .scrollbar-horizontal .jquery-scroll-container > *:first-child {
+      margin-left: 0 !important; }
+    .scrollbar-horizontal .jquery-scroll-container > *:last-child {
+      margin-right: 0 !important; }
+  .scrollbar-vertical .jquery-scroll-container {
+    padding-top: 0.25rem;
+    padding-bottom: 0.25rem;
+    margin-left: 0.5625rem;
+    margin-right: 0.5625rem; }
+    .scrollbar-vertical .jquery-scroll-container > *:first-child {
+      margin-top: 0 !important; }
+    .scrollbar-vertical .jquery-scroll-container > *:last-child {
+      margin-bottom: 0 !important; }
 
-.mCustomScrollBox:before, .mCustomScrollBox:after {
+.scroll-wrapper.scrollbar-horizontal:before, .scroll-wrapper.scrollbar-horizontal:after, .scroll-wrapper.scrollbar-vertical:before, .scroll-wrapper.scrollbar-vertical:after {
   content: "";
   position: absolute;
-  left: 0;
-  right: 0;
-  height: 0.375rem;
   display: none;
   background: transparent;
   z-index: 10000;
   transition: box-shadow 0.1s linear; }
 
-.mCustomScrollBox:before {
+.scroll-wrapper.scrollbar-horizontal:before, .scroll-wrapper.scrollbar-horizontal:after {
+  top: 0;
+  bottom: 0;
+  width: 0.375rem; }
+
+.scroll-wrapper.scrollbar-horizontal:before {
+  left: 0; }
+
+.scroll-wrapper.scrollbar-horizontal:after {
+  right: 0; }
+
+.scroll-wrapper.scrollbar-horizontal.shadow-left:before {
+  display: inline-block;
+  box-shadow: inset 0.375rem 0 0.375rem -0.25rem rgba(0, 0, 0, 0.5), inset -0.375rem 0 0.375rem -0.25rem transparent; }
+
+.scroll-wrapper.scrollbar-horizontal.shadow-right:after {
+  display: inline-block;
+  box-shadow: inset 0.375rem 0 0.375rem -0.25rem transparent, inset -0.375rem 0 0.375rem -0.25rem rgba(0, 0, 0, 0.5); }
+
+.scroll-wrapper.scrollbar-vertical:before, .scroll-wrapper.scrollbar-vertical:after {
+  left: 0;
+  right: 0;
+  height: 0.375rem; }
+
+.scroll-wrapper.scrollbar-vertical:before {
   top: 0; }
 
-.mCustomScrollBox:after {
+.scroll-wrapper.scrollbar-vertical:after {
   bottom: 0; }
 
-.mCSB_shadowTop .mCustomScrollBox:before {
+.scroll-wrapper.scrollbar-vertical.shadow-top:before {
   display: inline-block;
   box-shadow: inset 0 0.375rem 0.375rem -0.25rem rgba(0, 0, 0, 0.5), inset 0 -0.375rem 0.375rem -0.25rem transparent; }
 
-.mCSB_shadowBottom .mCustomScrollBox:after {
+.scroll-wrapper.scrollbar-vertical.shadow-bottom:after {
   display: inline-block;
   box-shadow: inset 0 0.375rem 0.375rem -0.25rem transparent, inset 0 -0.375rem 0.375rem -0.25rem rgba(0, 0, 0, 0.5); }

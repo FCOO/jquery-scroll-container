@@ -8,139 +8,103 @@
 
 ****************************************************************************/
 
-(function ($, window /*, document, undefined*/) {
+(function ($ /*, window, document, undefined*/) {
     "use strict";
+
     
-    //*****************************************************
-    //updateScrollBoxShadow() - Update the container with class mCSB_shadowTop and mCSB_shadowBottom to show or hide shadow at the top and bottom
-    function updateScrollBoxShadow(){ 
-        var $this = $(this),
-            showShadow = $this.find('.mCSB_container').height() > $this.find('.mCustomScrollBox').height(),
-            scrollPct = this.mcs ? this.mcs.topPct : 0;
-        $this
-            .toggleClass('mCSB_shadowTop',    showShadow && (scrollPct > 0)   )
-            .toggleClass('mCSB_shadowBottom', showShadow && (scrollPct < 100) );
-
+    function adjust( scroll ){
+        scroll.maxScroll = Math.floor( scroll.maxScroll );
+        scroll.scroll = Math.floor( scroll.scroll );
+        scroll.size = Math.floor( scroll.size );
+        scroll.visible = Math.floor( scroll.visible );
+        return scroll;
     }
 
-    //*****************************************************
-    //
-    function updateScrollContainer_from_mCustomScrollbar(){ 
-        $(this).parent()._updateScrollContainer();
+
+    function scrollbar_onScroll( scrollY, scrollX ){ 
+        scrollY = adjust( scrollY );
+        scrollX = adjust( scrollX );
+        if (this.options.isVertical)
+            this.wrapper
+                .toggleClass('shadow-top',    scrollY.scroll > 0   )
+                .toggleClass('shadow-bottom', scrollY.scroll < scrollY.maxScroll );
+
+        if (this.options.isHorizontal)
+            this.wrapper
+            .toggleClass('shadow-left',  scrollX.scroll > 0   )
+            .toggleClass('shadow-right', scrollX.scroll < scrollX.maxScroll );
     }
-
-    function updateScrollContainer_from_this(){ 
-        $(this)._updateScrollContainer();
-    }
-
-    //*****************************************************
-    //$.fn._updateScrollContainer - updates the size of the scroll-container
-    $.fn._updateScrollContainer = function(){
-        var _scrollContainer = this.data('_scrollContainer'),
-            options          = _scrollContainer.options,
-            newHeight;
-
-        if (options.size > 1)
-            return this;
-
-        if (options.size == 0){
-            newHeight = this.innerHeight();
-        }
-        else{
-            var refElementHeight = options.size * options.$refElement.height() - options.padding,
-                containerHeight = _scrollContainer.$container.outerHeight();
-            newHeight = Math.max( 0, Math.min( refElementHeight, containerHeight) );
-        }
-        _scrollContainer.$outerContainer.height( newHeight );
-
-        return this;
-    };
     
 
-    //*****************************************************
-    //scrollContainer as jQuery prototype
-    $.fn.scrollContainer = function (options) {
-        options = $.extend({
-            //Default options
-            theme        : "minimal-dark",
-            scrollInertia: 100, //1000
-//            snapAmount:42 <- used for scrolling tables with equal row-height
+    function mousewheel( event, delta ){
+        this.container.scrollLeft(
+            this.container.scrollLeft() - delta*this.options.scrollStep
+        );
+        if (this.options.disableBodyScroll)
+            event.preventDefault();
+    }
 
-            size   : 0,
-            padding: 0
 
-        }, options || {} );
+    var scrollbarOptions = {
+            //autoScrollSize [true|false] (default: true) //automatically calculate scrollbar size depending on container/content size
+            //autoUpdate [true|false] (default: true)   //automatically update scrollbar if container/content size is changed
 
-        this.css('overflow', 'hidden');
+            //disableBodyScroll [true|false] (default: false) //if this option is enabled and the mouse is over the scrollable container, the main page won't be scrolled
+            disableBodyScroll: true,
 
-        var onSelectorChange = null; 
+            //duration [ms] (default: 200)  //scroll speed duration when the mouse is over scrollbar (scroll emulating mode)
+            //ignoreMobile [true|false] (default: false)    //do not initialize custom scrollbars on mobile devices
+            //ignoreOverlay [true|false] (default: false)   //do not initialize custom scrollbars in browsers when native scrollbars overlay content (Mac OS, mobile devices, etc...)
+            //scrollStep [px] (default: 30) //scroll step when the mouse is over the scrollbar (scroll emulating mode)
+            //showArrows [true|false] (default: false)  //add a class to show scrollbar arrows in the advanced scrollbar
+            //stepScrolling [true|false] (default: true)    //emulate step scrolling on mousedown over scrollbar
+            //scrollx [string|element] (default: simple)    //simple, advanced, HTML or jQuery element for horizontal scrollbar
+            //scrolly [string|element] (default: simple)    //simple, advanced, HTML or jQuery element for vertical scrollbar
+            //onDestroy [function] (default: null)  //callback function when scrollbar is destroyed
 
-        //Sets the element that controls the scroll-box height
-        if (options.size == 0){
-            //Full size = fill the parent 100%: Update when this is resized
-            this.resize( updateScrollContainer_from_this ); 
-        }
-        else
-            if (options.size <= 1){
-                //Relative size => update scroll-box when contents are changed or when refElement's height is changed
-                //If refElement == null then it is window that is refElement 
-                var onResizeFunc = $.proxy( this._updateScrollContainer, this );
-                if (options.refElement){
-                    options.$refElement = options.refElement instanceof $ ? options.refElement : $(options.refElement);                         
-                    options.$refElement.resize( onResizeFunc );
-                }
-                else {
-                    options.$refElement = $(window);
-                    options.$refElement.resize( onResizeFunc );
-                }
-                
-                onSelectorChange = updateScrollContainer_from_mCustomScrollbar;              
-            }
-            else {
-                //Fixed size: Nothing here
-            }
+            //onInit [function] (default: null) //callback function when scrollbar is initialized at the first time
+            onInit: function(){
+                //Add horizontal scroll with mouse-wheel
+                if (this.options.isHorizontal)
+                    this.wrapper.on( 'mousewheel'+ this.namespace,  $.proxy( mousewheel, this ) );
 
-        var $outerContainer = 
+                this.wrapper
+                    //Set direction class
+                    .toggleClass( 'scrollbar-horizontal', this.options.isHorizontal )
+                    .toggleClass( 'scrollbar-vertical', this.options.isVertical )
+                    .toggleClass( 'scrollbar-both', this.options.isBoth )
+
+                    //Call init when parent element is updated
+                    .parent().resize( $.proxy( this.init, this ) );
+            },
+
+            //onScroll [function] (default: null)   //callback function when container is scrolled
+            onScroll: scrollbar_onScroll, 
+
+            //onUpdate [function] (default: null)   //callback function before scrollbars size is calculated
+
+            direction: 'vertical' //["vertical"|"horizontal"|"both"] (default: "vertical")
+        };
+
+
+
+    $.fn.addScrollbar = function( options ){
+
+        this.addClass( 'scrollbar-inner' );
+
+        this.scrollbarContainer = 
             $('<div/>')
-                .addClass('jquery-scroll-outer-container')
-                .appendTo( this ),
+                .addClass('jquery-scroll-container')
+                .appendTo( this );
 
-            mCustomScrollbar = 
-                $outerContainer.mCustomScrollbar({
-                    theme        : options.theme,
-                    scrollInertia: options.scrollInertia, 
-                    keyboard: { 
-                        enable: true 
-                    },
-                    callbacks:{
-                        onUpdate        : updateScrollBoxShadow, 
-                        onOverflowY     : updateScrollBoxShadow, 
-                        onOverflowYNone : updateScrollBoxShadow, 
-                        whileScrolling  : updateScrollBoxShadow, 
-                        onSelectorChange: onSelectorChange 
-                    },
-                    advanced:{ 
-                        updateOnContentResize : true,
-                        updateOnSelectorChange: true
-                    }
-                }),
-            
-            $container = $('<div/>')
-                            .addClass('jquery-scroll-container')
-                            .appendTo( $outerContainer.find('.mCSB_container') );
+        options = $.extend( scrollbarOptions, options || {} );
+        options.isVertical   = (options.direction == 'vertical');
+        options.isHorizontal = (options.direction == 'horizontal');
+        options.isBoth       = (options.direction == 'both');
 
+        this.scrollbar( options );
 
-        if (options.size > 1)
-            $outerContainer.height( options.size+'px' );
-
-        this.data('_scrollContainer', {
-            options         : options,
-            $outerContainer : $outerContainer,
-            mCustomScrollbar: mCustomScrollbar,
-            $container      : $container
-        });
-
-        return $container;
+        return this.scrollbarContainer;
     };
 
 
@@ -193,10 +157,6 @@ TODO: NEW METHODS
     
     //Initialize/ready 
     $(function() { 
-        //Update all scrollContainer
-        $('.jquery-scroll-outer-container').each( function(){
-            $(this).parent()._updateScrollContainer();
-        });
 
     }); 
 

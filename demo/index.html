@@ -1,5 +1,5 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
-<html lang="da" style="font-size: 100%">
+<html lang="da" style="padding: 10px; font-size: 100%">
 <head>
 	<title>fcoo.dk - jquery-scroll-container - Demo</title>
 	<meta charset="utf-8" />
@@ -9,63 +9,114 @@
 	<meta name='copyright' content='FCOO'>
 	<meta name='owner' content='FCOO'>
 
-  <link  href="bower_components.css" rel="stylesheet">	
+  <!-- <link  href="bower_components.css" rel="stylesheet">	 -->
   <link  href="../src/jquery-scroll-container.css" rel="stylesheet">	
 
    <style>
         * { box-sizing: border-box; }
+        .header {
+            width: 100%;
+            height: 20px;
+            border-bottom: 2px solid black;
+        }
+
         .outer1 {
             position: absolute;
-            left: 0px; top:0px;
+            left: 10px; top:10px;
             display: flex;
             flex-direction: column;
             
             border: 2px solid black;
-            width: 150px;
-            height: 100%;
+            width: 200px;
+            height: 40%;
         }
-        .header1 {
-            width: 100%;
-            height: 20px;
-            border-bottom: 2px solid black;
+        .outer .header {
             flex: 0 0 auto;
         }
         .container1 {
             flex: 1 1 auto;
         }
 
+
+        
         .outer2 {
             position: absolute;
-            left: 160px; top:10px;
+            left: 220px; top:10px;
             border: 2px solid black;
-            width: 120px;
+            width: 200px;
+            height: auto;
         }
-            
-        .header2 {
-            width: 100%;
-            height: 20px;
-            border-bottom: 2px solid black;
+                
+        .outer2 > div {
+            max-height: 300px;
         }
-
 
 
         .outerouter3 {
             position: absolute;
             right: 0px; top:10px;
             background-color: red;
-            border: 2px solid green;
-            width: 200px;
-            height: 75%;
+            border: 2px solid black;
+            width: 220px;
+            height: 300px;
         }
 
         .outer3 {
             border: 2px solid black;
-            width: 120px;
+            width: 200px;
             background-color: white;
+            height: 100%;
+            //height: 50%;
+            
+        }
+        .outer3 > div {
+            max-height: 50%;
+        }
+
+        .container3 {
+            border: 1px solid black;
+        }
+
+        .outerouter3 > div {
+//            max-height: 250px;
+        }
+
+
+        .outer4 {
+            position: absolute;
+            left: 20px; 
+            top:75%;
+            border: 2px solid black;
+            width: auto;
+
+        }
+                
+        .outer4 > div {
+            max-width: 500px;
         }
         
+        .container4 {
+            //height: 150px;
+            //border: 1px solid black;
+        }
         
+
+        .outer5 {
+            position: absolute;
+            left: 600px; 
+            top:40%;
+            border: 2px solid black;
+        }
+        
+        .container5 {
+            height: 400px;
+            width: 400px;
+            border: 1px solid black;
+        }
+
+
         .innerContent {
+            display: block;
             width:100%; 
             border: 1px solid black;
             margin-top:4px; 
@@ -76,6 +127,18 @@
             background-color: blue;
             color: white;
         }
+        .scrollbar-horizontal .innerContent {
+            display: inline-block;
+            margin-top: 0;
+            margin-left: 4px;
+            width : 80px;
+            height: 100px; 
+        }
+
+        .scrollbar-horizontal .jquery-scroll-container {
+            display: inline-flex; height: 100%;
+        }
+
         button {
             position: relative;
             left: 50%;
@@ -87,83 +150,85 @@
 
 <body>
     <div class="outer1">
-        <div class="header1">HEADER1</div>
+        <div class="header">HEADER1 50/90%</div>
         <div class="container1"></div>
     </div>
 
     <div class="outer2">
-        <div class="header2">HEADER2</div>
+        <div class="header">HEADER2 max 300px</div>
         <div class="container2"></div>
     </div>
 
     <div class="outerouter3">
         <div class="outer3">
-            <div class="header2">HEADER3</div>
+            <div class="header">HEADER3 50% of red</div>
             <div class="container3"></div>
         </div>
     </div>
-	<button onClick="add()">Add</button><br>
+
+    <div class="outer4">
+        <div class="header">HEADER4 max 500px</div>
+        <div class="container4"></div>
+    </div>
+    <div class="outer5">
+        <div class="header">HEADER5 400px x 400px</div>
+        <div class="container5"></div>
+    </div>
+
+    <button onClick="add()">Add</button><br>
 	<button onClick="remove()">Remove</button><br>
-	<button onClick="size()">Left 50% / 100%</button><br>
-	<button onClick="size2()">Red 50% / 600px</button>
+	<button onClick="size()">Left 40% / 70%</button><br>
+	<button onClick="size2()">Red 30% / 300px</button>
 	
 	<script src="bower_components.js"></script>
 	<script src="../src/jquery-scroll-container.js"></script>
 	<script>
-        var $scrollContainer1 = $('.container1').scrollContainer({
-            size: 0
-        });
+        var $containers = [
+                $('.container1').addScrollbar(),
+                $('.container2').addScrollbar(),
+                $('.container3').addScrollbar(), 
+                $('.container4').addScrollbar({direction: 'horizontal'})
+            ];
 
-        var $scrollContainer2 = $('.container2').scrollContainer({
-            size: 0.5,
-            padding: 10+30+10
-        });
+        $('.container5').addScrollbar({direction: 'both'}).append( $('<img src="tarzan.jpg"/>') ); 
 
-        var $scrollContainer3 = $('.container3').scrollContainer({
-            size: 0.6,
-            refElement: $('.outerouter3')
-        });
-        
-        $scrollContainer1
-            .append('<div class="first innerContent">FIRST</div>')
-            .append('<div class="last innerContent">LAST</div>');
-        
-        $scrollContainer2
-            .append('<div class="first innerContent">FIRST</div>')
-            .append('<div class="last innerContent">LAST</div>');
-
-        $scrollContainer3
-            .append('<div class="first innerContent">FIRST</div>')
-            .append('<div class="last innerContent">LAST</div>');
-
-        for (var i=1; i<=40; i++ ){
-            $scrollContainer1.find('.last').before('<div class="normal innerContent">'+i+'</div>');        
-            $scrollContainer2.find('.last').before('<div class="normal innerContent">'+i+'</div>');        
-            $scrollContainer3.find('.last').before('<div class="normal innerContent">'+i+'</div>');        
+        function each( func ){
+            $.each($containers, function( index, $container ){
+                func( $container );
+            });
         }
-        
+
+        each( function( $container ){
+            $container.append('<div class="first innerContent">FIRST</div>');
+            for (var i=1; i<=40; i++ )
+                $container.append('<div class="normal innerContent">'+i+'</div>');        
+            $container.append('<div class="last innerContent">LAST</div>');
+        });
+
+       
 
         function add(){
-            $scrollContainer1.find('.first').after('<div class="normal innerContent">NEW</div>');
-            $scrollContainer2.find('.first').after('<div class="normal innerContent">NEW</div>');
-            $scrollContainer3.find('.first').after('<div class="normal innerContent">NEW</div>');
+            each( function( $container ){
+                $container.find('.last').before('<div class="normal innerContent">NEW</div>');
+            });
         }
 
         function remove(){
-            $scrollContainer1.find('.first').siblings().first().remove();
-            $scrollContainer2.find('.first').siblings().first().remove();
-            $scrollContainer3.find('.first').siblings().first().remove();
-        }
-        var hundred = true;
-        function size(){
-            hundred = !hundred;
-            $('.outer1').css( 'height', hundred ? '100%' : '50%' );
+            each( function( $container ){
+                $container.find('.last').siblings().last().remove();
+            });
         }
 
-        var scroll3IsFixed = false;
+        var full = false;
+        function size(){
+            full = !full;
+            $('.outer1').css( 'height', full ? '70%' : '40%' );
+        }
+
+        var scroll3IsFixed = true;
         function size2(){
             scroll3IsFixed = !scroll3IsFixed;
-            $('.outerouter3').css( 'height', scroll3IsFixed ? '600px' : '50%' );
+            $('.outerouter3').css( 'height', scroll3IsFixed ? '300px' : '30%' );
         }
     </script>
 </body>

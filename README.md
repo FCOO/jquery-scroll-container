@@ -14,30 +14,23 @@ http://FCOO.github.io/jquery-scroll-container/demo/
 
 ## Usage
 
-    var $myContainer = $(aElement).scrollContainer( options );
+    var $myContainer = $(aElement).addScrollbar( options );
 
     //$myContainer is now a jQuery-element where the contents of the scroll-box can be added or removed
 
 ### options
 
-There are tree ways to set and control the size of the scroll-container using The `options.size`:
+    direction: ["vertical"|"horizontal"|"both"] (default: "vertical")
 
-#### Full: `options.size` = 0 (default)
-The scroll-container have always the same size as its parent element regardless of the contents of the scroll-container
 
-#### Fixed: `options.size` > 1
-The scroll-container have always the same fixed size (`options.size px`) regardless of the contents of the scroll-container
 
-#### Relative: `options.size` <= 1
-Using additional options:
-`refELement`: DOM- or jQuery-element (default = `window` )
-`padding`: number (default = 0)
+- `direction: "vertical"` adds left and right margin to contents to make room for the slider
+- `direction: "horizontal"` adds top and bottom margin to contents to make room for the slider
+- `direction: "both"` **do not** adds margins
 
-The scroll-container have a **maximum** size = `options.size`x(the height of refElement) minus `options.padding`
-
-E.g.
-If `options = {size:0.6, padding:30}`the maximum height of the scroll-container will be 60% of the height of the window minus `30px`
-
+## Size
+The size (absolute, minimum, and/or maximum) is set using css on the the inner or outer container. 
+See source code for [the demo page](http://FCOO.github.io/jquery-scroll-container/demo/ ) for examples
 
 
 
@@ -52,7 +45,5 @@ Niels Holt nho@fcoo.dk
 
 
 ## Credits and acknowledgments
-Using the great [jquery-custom-content-scroller](http://manos.malihu.gr/jquery-custom-content-scroller/) by [malihu](https://github.com/malihu)
+Using the great [jquery.scrollbar](https://github.com/gromo/jquery.scrollbar) by [gromo](https://github.com/gromo)
 
-### NOTE
-Currently using the [patch-1](https://github.com/Skripatch/malihu-custom-scrollbar-plugin/tree/patch-1) by [Skripatch](https://github.com/Skripatch) to fix bug in iframes
