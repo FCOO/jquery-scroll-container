@@ -32,7 +32,10 @@ http://FCOO.github.io/jquery-scroll-container/demo/
 The size (absolute, minimum, and/or maximum) is set using css on the the inner or outer container. 
 See source code for [the demo page](http://FCOO.github.io/jquery-scroll-container/demo/ ) for examples
 
+## Modernizr
+The package uses class `touchevents` and `no-touchevents` for the `<html>` element as in [modernizr](https://modernizr.com/) test `touchevents` to enable or disable dragging the bar. 
 
+[modernizr](https://modernizr.com/) is not included automatic.
 
 ## Copyright and License
 This plugin is licensed under the [MIT license](https://github.com/FCOO/jquery-scroll-container/LICENSE).

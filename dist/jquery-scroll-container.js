@@ -11,7 +11,14 @@
 (function ($ /*, window, document, undefined*/) {
     "use strict";
 
-    
+
+    if ( $('html').hasClass('touchevents') || $('html').hasClass('no-touchevents') )
+        ;    //Modernizr (or someone else) has set the correct class      
+    else
+        //Default: No touch
+        $('html').addClass('no-touchevents');
+
+
     function adjust( scroll ){
         scroll.maxScroll = Math.floor( scroll.maxScroll );
         scroll.scroll = Math.floor( scroll.scroll );

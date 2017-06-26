@@ -170,6 +170,11 @@ Dimentions and positions
 }
 
 /*********************
+Disable scrolling with scrollbar on touch-device
+*********************/
+.touchevents .scroll-element_track { z-index: 100; }
+
+/*********************
 Border and padding
 *********************/
 .scrollbar-inner > .scroll-element {
@@ -243,29 +248,32 @@ $track-background-opacity: 0.2;
     .scroll-element_track { @include scrollbar-background(0) }
 }
 
-//Hover contents
-.scrollbar-inner:hover > .scroll-element {
-    //Bar
-    .scroll-bar           { @include scrollbar-background(.29) }
-    //Slider
-    .scroll-element_track { @include scrollbar-background() }
-}
 
-//Hover scrollbar
-.scrollbar-inner > .scroll-element:hover {
-    //Bar
-    .scroll-bar           { @include scrollbar-background(.44, true) }
-    //Slider
-    .scroll-element_track { @extend %track-background-extended }
-}
+//Hover contents - but only for non toush devices
+.no-touchevents .scrollbar-inner {
 
-//Dragging scrollbar
-.scrollbar-inner > .scroll-element.scroll-draggable {
-    //Bar
-    .scroll-bar           { @include scrollbar-background(.62, true); 
+    &:hover > .scroll-element {
+        //Bar
+        .scroll-bar           { @include scrollbar-background(.29) }
+        //Slider
+        .scroll-element_track { @include scrollbar-background() }
     }
-    //Slider
-    .scroll-element_track { @extend %track-background-extended }
+
+    //Hover scrollbar
+    & > .scroll-element:hover {
+        //Bar
+        .scroll-bar           { @include scrollbar-background(.44, true) }
+        //Slider
+        .scroll-element_track { @extend %track-background-extended }
+    }
+
+    //Dragging scrollbar
+    & > .scroll-element.scroll-draggable {
+        //Bar
+        .scroll-bar           { @include scrollbar-background(.62, true); }
+        //Slider
+        .scroll-element_track { @extend %track-background-extended }
+    }
 }
 
 /*********************************************************

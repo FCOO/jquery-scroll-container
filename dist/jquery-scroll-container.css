@@ -114,6 +114,12 @@ Dimentions and positions
   background-color: rgba(255, 255, 255, 0.5); }
 
 /*********************
+Disable scrolling with scrollbar on touch-device
+*********************/
+.touchevents .scroll-element_track {
+  z-index: 100; }
+
+/*********************
 Border and padding
 *********************/
 .scrollbar-inner > .scroll-element .scroll-element_track, .scrollbar-inner > .scroll-element .scroll-bar {
@@ -139,9 +145,9 @@ Border and padding
 /*********************
 Color and Opacity
 *********************/
-.scrollbar-inner > .scroll-element:hover .scroll-element_track, .scrollbar-inner > .scroll-element.scroll-draggable .scroll-element_track {
+.no-touchevents .scrollbar-inner > .scroll-element:hover .scroll-element_track, .no-touchevents .scrollbar-inner > .scroll-element.scroll-draggable .scroll-element_track {
   padding: 0.0625rem; }
-  .scrollbar-inner > .scroll-element:hover .scroll-element_track:after, .scrollbar-inner > .scroll-element.scroll-draggable .scroll-element_track:after {
+  .no-touchevents .scrollbar-inner > .scroll-element:hover .scroll-element_track:after, .no-touchevents .scrollbar-inner > .scroll-element.scroll-draggable .scroll-element_track:after {
     background-color: rgba(0, 0, 0, 0.2);
     border-radius: 0.21875rem; }
 
@@ -157,21 +163,21 @@ Color and Opacity
 .scrollbar-inner > .scroll-element .scroll-element_track:after {
   background-color: transparent; }
 
-.scrollbar-inner:hover > .scroll-element .scroll-bar:after {
+.no-touchevents .scrollbar-inner:hover > .scroll-element .scroll-bar:after {
   background-color: rgba(0, 0, 0, 0.29); }
 
-.scrollbar-inner:hover > .scroll-element .scroll-element_track:after {
+.no-touchevents .scrollbar-inner:hover > .scroll-element .scroll-element_track:after {
   background-color: rgba(0, 0, 0, 0.2); }
 
-.scrollbar-inner > .scroll-element:hover .scroll-bar {
+.no-touchevents .scrollbar-inner > .scroll-element:hover .scroll-bar {
   padding: 0.0625rem; }
-  .scrollbar-inner > .scroll-element:hover .scroll-bar:after {
+  .no-touchevents .scrollbar-inner > .scroll-element:hover .scroll-bar:after {
     background-color: rgba(0, 0, 0, 0.44);
     border-radius: 0.21875rem; }
 
-.scrollbar-inner > .scroll-element.scroll-draggable .scroll-bar {
+.no-touchevents .scrollbar-inner > .scroll-element.scroll-draggable .scroll-bar {
   padding: 0.0625rem; }
-  .scrollbar-inner > .scroll-element.scroll-draggable .scroll-bar:after {
+  .no-touchevents .scrollbar-inner > .scroll-element.scroll-draggable .scroll-bar:after {
     background-color: rgba(0, 0, 0, 0.62);
     border-radius: 0.21875rem; }
 
