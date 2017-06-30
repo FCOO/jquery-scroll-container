@@ -22,11 +22,9 @@ http://FCOO.github.io/jquery-scroll-container/demo/
 
     direction: ["vertical"|"horizontal"|"both"] (default: "vertical")
 
-
-
 - `direction: "vertical"` adds left and right margin to contents to make room for the slider
 - `direction: "horizontal"` adds top and bottom margin to contents to make room for the slider
-- `direction: "both"` **do not** adds margins
+- `direction: "both"` **do not** adds margins **>>NOT IMPLEMENTED<<**
 
 ## Size
 The size (absolute, minimum, and/or maximum) is set using css on the the inner or outer container. 
@@ -48,5 +46,5 @@ Niels Holt nho@fcoo.dk
 
 
 ## Credits and acknowledgments
-Using the great [jquery.scrollbar](https://github.com/gromo/jquery.scrollbar) by [gromo](https://github.com/gromo)
+Using the great [perfect-scrollbar](https://github.com/noraesae/perfect-scrollbar) by [noraesae](https://github.com/noraesae)
 

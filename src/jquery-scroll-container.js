@@ -11,7 +11,6 @@
 (function ($ /*, window, document, undefined*/) {
     "use strict";
 
-
     if ( $('html').hasClass('touchevents') || $('html').hasClass('no-touchevents') )
         ;    //Modernizr (or someone else) has set the correct class      
     else
@@ -19,6 +18,64 @@
         $('html').addClass('no-touchevents');
 
 
+    //Extend $.fn with internal scrollbar methods
+    $.fn.extend({
+        _psUpdate: function(){
+            this.perfectScrollbar('update');
+            this._psUpdateShadow();
+        },
+
+        _psSetShadow: function( $rail, postfix, on ){
+            $rail.toggleClass('shadow-'+postfix, on );
+        },
+        _psSetXShadow: function( postfix, on ){
+            this._psSetShadow( this.scrollbarXRail , postfix, on );
+        },
+        _psSetYShadow: function( postfix, on ){
+            this._psSetShadow( this.scrollbarYRail , postfix, on );
+        },
+        _psUpdateShadow: function( event ){
+            
+            this._psSetXShadow( 'left',   this.scrollLeft() > 0 ); 
+            this._psSetXShadow( 'right',  this.scrollLeft() < (this.get(0).scrollWidth - this.get(0).clientWidth) ); 
+
+            this._psSetYShadow( 'top',    this.scrollTop() > 0 ); 
+            this._psSetYShadow( 'bottom', this.scrollTop() < (this.get(0).scrollHeight - this.get(0).clientHeight) ); 
+
+/*
+value >= i.contentWidth - i.containerWidth
+
+i.containerWidth = element.clientWidth;
+  i.containerHeight = element.clientHeight;
+  i.contentWidth = element.scrollWidth;
+  i.contentHeight = element.scrollHeight;
+*/
+return;
+
+
+            switch (event.type){
+                case 'ps-x-reach-start': this._psSetXShadow('left',    false ); break;
+                case 'ps-scroll-right' : this._psSetXShadow('left',    true  ); break;
+                case 'ps-x-reach-end'  : this._psSetXShadow('right',   false ); break;
+                case 'ps-scroll-left'  : this._psSetXShadow('right',   true  ); break;
+
+                case 'ps-y-reach-start': this._psSetYShadow( 'top',    false ); break;
+                case 'ps-scroll-down'  : this._psSetYShadow( 'top',    true  ); break;
+                case 'ps-y-reach-end'  : this._psSetYShadow( 'bottom', false ); break;
+                case 'ps-scroll-up'    : this._psSetYShadow( 'bottom', true  ); break;
+            }
+        }
+
+    });
+    
+
+
+
+
+
+
+
+/*
     function adjust( scroll ){
         scroll.maxScroll = Math.floor( scroll.maxScroll );
         scroll.scroll = Math.floor( scroll.scroll );
@@ -51,7 +108,7 @@
             event.preventDefault();
     }
 
-
+*/
     var scrollbarOptions = {
             //autoScrollSize [true|false] (default: true) //automatically calculate scrollbar size depending on container/content size
             //autoUpdate [true|false] (default: true)   //automatically update scrollbar if container/content size is changed
@@ -86,7 +143,7 @@
             },
 
             //onScroll [function] (default: null)   //callback function when container is scrolled
-            onScroll: scrollbar_onScroll, 
+//            onScroll: scrollbar_onScroll, 
 
             //onUpdate [function] (default: null)   //callback function before scrollbars size is calculated
 
@@ -96,20 +153,51 @@
 
 
     $.fn.addScrollbar = function( options ){
-
-        this.addClass( 'scrollbar-inner' );
-
-        this.scrollbarContainer = 
-            $('<div/>')
-                .addClass('jquery-scroll-container')
-                .appendTo( this );
-
+        //Update options
         options = $.extend( scrollbarOptions, options || {} );
         options.isVertical   = (options.direction == 'vertical');
         options.isHorizontal = (options.direction == 'horizontal');
         options.isBoth       = (options.direction == 'both');
 
-        this.scrollbar( options );
+        this.psOptions = options;
+        this
+            //Set direction class
+            .toggleClass( 'scrollbar-horizontal', this.psOptions.isHorizontal )
+            .toggleClass( 'scrollbar-vertical', this.psOptions.isVertical )
+            .toggleClass( 'scrollbar-both', this.psOptions.isBoth )
+
+        
+        
+        this.perfectScrollbar();
+
+        //Find the rail for x and y scroll
+        this.scrollbarXRail = this.find('.ps__scrollbar-x-rail');
+        this.scrollbarYRail = this.find('.ps__scrollbar-y-rail');
+
+        //Add background for the bar
+        this.scrollbarXRail.prepend( $('<div/>').addClass('ps__scrollbar-x-bg') );
+        this.scrollbarYRail.prepend( $('<div/>').addClass('ps__scrollbar-y-bg') );
+        
+       
+        //Assume the the content is scrolled to the top/left 
+        this._psSetXShadow('right',   true  ); 
+        this._psSetYShadow( 'bottom', true  );
+
+        // Adding event to update shadows
+        this.on('ps-scroll-y ps-scroll-x', $.proxy( this._psUpdateShadow, this ) );
+        
+        
+        //Add inner container to cache resize when adding/removing elements from container
+        this.scrollbarContainer = 
+            $('<div/>')
+                .addClass('jquery-scroll-container')
+                .appendTo( this );
+
+
+        //Update scrollbar when container or content change size        
+        var _psUpdate = $.proxy( this._psUpdate, this );
+        this.resize( _psUpdate );
+        this.scrollbarContainer.resize( _psUpdate );
 
         return this.scrollbarContainer;
     };
@@ -164,7 +252,6 @@ TODO: NEW METHODS
     
     //Initialize/ready 
     $(function() { 
-
     }); 
 
 
