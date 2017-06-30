@@ -19,6 +19,7 @@
             border-bottom: 2px solid black;
         }
 
+      
         .outer1 {
             position: absolute;
             left: 10px; top:10px;
@@ -29,7 +30,7 @@
             width: 200px;
             height: 40%;
         }
-        .outer .header {
+        .outer1 .header {
             flex: 0 0 auto;
         }
         .container1 {
@@ -128,6 +129,7 @@
         }
         .scrollbar-horizontal .innerContent {
             display: inline-block;
+            flex-shrink: 0;
             margin-top: 0;
             margin-left: 4px;
             width : 80px;
@@ -181,9 +183,11 @@
 	
 	<script src="bower_components.js"></script>
 	<script src="modernizr-custom.js"></script>
-	<script src="../src/jquery-scroll-container.js"></script>
-	<script src="../src/perfect-scrollbar.jquery.js"></script>
-	<script>
+
+    <script src="../src/jquery-scroll-container.js"></script>
+    <script src="../src/perfect-scrollbar.jquery.js"></script>
+
+    <script>
         var $containers = [
                 $('.container1').addScrollbar(),
                 $('.container2').addScrollbar(),

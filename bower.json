@@ -1,6 +1,6 @@
 {
   "name": "jquery-scroll-container",
-  "version": "2.1.0",
+  "version": "3.0.0",
   "homepage": "https://github.com/FCOO/jquery-scroll-container",
   "authors": [
     "Niels Holt"
@@ -16,9 +16,7 @@
   },
   "dependencies": {
     "jquery": "latest",
-    "jquery.scrollbar": "https://github.com/gromo/jquery.scrollbar.git#^0.2.11",
-    "jquery-detect-element-resize": "fcoo/jquery-detect-element-resize#^1.0.0",
-    "jquery-mousewheel": "jquery/jquery-mousewheel#^3.1.13"
+    "jquery-detect-element-resize": "fcoo/jquery-detect-element-resize#^1.0.0"
   },
   "overrides": {
     "jquery.scrollbar": {
@@ -28,7 +26,8 @@
     }
   },
   "devDependencies": {
-    "bourbon": "latest"
+    "bourbon": "latest",
+    "perfect-scrollbar": "https://github.com/noraesae/perfect-scrollbar.git#^0.7.1"
   },
   "license": "MIT",
   "ignore": [

@@ -32,6 +32,8 @@ SHAPE AND POSITION
 *****************************************************
 ****************************************************/
 .ps { /*1*/
+    position: relative; 
+
     -ms-touch-action  : auto;
     touch-action      : auto;
     overflow          : hidden !important;
@@ -51,33 +53,11 @@ SHAPE AND POSITION
     &.ps--active-y > .ps__scrollbar-y-rail {
         display         : block;
     }
-/* MANGLER
-    @include in-scrolling($theme);
-@mixin in-scrolling($theme) {
-  &.ps--in-scrolling {
-    &.ps--x > .ps__scrollbar-x-rail {
-      @include scrollbar-rail-hover($theme);
-      > .ps__scrollbar-x {
-        @include scrollbar-hover($theme);
-        height: map_get($theme, scrollbar-x-hover-height);
-      }
-    }
-    &.ps--y > .ps__scrollbar-y-rail {
-      @include scrollbar-rail-hover($theme);
-      > .ps__scrollbar-y {
-        @include scrollbar-hover($theme);
-        width: map_get($theme, scrollbar-y-hover-width);
-      }
-    }
-  }
-}
-*/
+
     //RAIL: Common for both rails
     > .ps__scrollbar-x-rail, > .ps__scrollbar-y-rail {
         display : none;
         position: absolute; 
-//        opacity   : 1; //MANGLER map_get($theme, rail-default-opacity) = 0
-//        transition: background-color 2s linear, opacity 2s linear;
     }
 
     //BAR + BAR-BG: Common for both bars
@@ -153,15 +133,30 @@ SHAPE AND POSITION
 COLOR AND OPACITY
 *****************************************************
 ****************************************************/
-@mixin scrollbar-background( $opacity, $extended: false ){
-    @if ($extended){
-        padding: $scrollbar-margin-extended; 
-    }
+@mixin scrollbar-background( $opacity ){
     &:after {
         background-color: rgba(0,0,0, $opacity);
-        @if ($extended){
-            border-radius: $scrollbar-size-extended / 2;
-        }
+    }
+}
+
+@mixin scrollbar-bar( $bg-color ){
+    &:after {
+        background-color: #{$bg-color};
+        opacity: 1; 
+    }
+}
+
+@mixin extended( $horizontal ){
+    @if ($horizontal){
+        padding-top   : $scrollbar-margin-extended; 
+        padding-bottom: $scrollbar-margin-extended; 
+    }
+    @else {
+        padding-left : $scrollbar-margin-extended; 
+        padding-right: $scrollbar-margin-extended; 
+    }
+    &:after {
+        border-radius: $scrollbar-size-extended / 2;
     }
 }
 
@@ -178,7 +173,7 @@ COLOR AND OPACITY
     //BAR
     .ps__scrollbar-x, .ps__scrollbar-y { 
         @include scrollbar-background(.2) 
-    } //0.2
+    } 
 
     //BAR-BG
     .ps__scrollbar-x-bg, .ps__scrollbar-y-bg { 
@@ -203,42 +198,41 @@ COLOR AND OPACITY
 
         /* Hover scrollbar (bar or bar-bg) */
         //BAR
-        .ps__scrollbar-x-bg:hover ~ .ps__scrollbar-x, .ps__scrollbar-x:hover,
+        .ps__scrollbar-x-bg:hover ~ .ps__scrollbar-x, .ps__scrollbar-x:hover {
+            @include scrollbar-bar('#8F8F8F');
+            @include extended(true);
+        }
         .ps__scrollbar-y-bg:hover ~ .ps__scrollbar-y, .ps__scrollbar-y:hover  {
-            @include scrollbar-background(.44, true);
+            @include scrollbar-bar('#8F8F8F');
+            @include extended(false);
         }
 
         /* Dragging scrollbar */
         &.ps--in-scrolling  {
             //BAR
-            .ps__scrollbar-x, .ps__scrollbar-y { 
-                @include scrollbar-background(.62, true); 
+            .ps__scrollbar-x { 
+                @include scrollbar-bar('#616161');
+                @include extended(true);
+
+            }
+            .ps__scrollbar-y { 
+                @include scrollbar-bar('#616161');
+                @include extended(false);
             }
             //BAR-BG
             .ps__scrollbar-x-bg, .ps__scrollbar-y-bg { 
                 @include scrollbar-background(.3); 
             }
         }
-    
     }
 }
-
 
 
 /*********************
 Disable scrolling with scrollbar on touch-device
 *********************/
-.touchevents .scroll-element_track { z-index: 100; }
+//MANGLER .touchevents .scroll-element_track { z-index: 100; }
 
-
-
-/*********************************************************
-END OF ../bower_components/jquery.scrollbar/sass/jquery.scrollbar.scss
-**********************************************************/
-
-.ps {
-    position: relative; 
-}
 
 //Container with contents
 .jquery-scroll-container {
@@ -279,7 +273,7 @@ END OF ../bower_components/jquery.scrollbar/sass/jquery.scrollbar.scss
 
 
 //Adding shadow at the top/bottom using the rails. Using :before and :after to allow inner shadow on <ul>-<li>
-.ps {
+.ps { /*2*/
     //Extend rail to full width/height
     .ps__scrollbar-y-rail { width : 100%; }
     .ps__scrollbar-x-rail { height: 100%; }
@@ -362,5 +356,5 @@ END OF ../bower_components/jquery.scrollbar/sass/jquery.scrollbar.scss
             }
         }
     }
-} //end of .ps
+} //end of .ps /*2*/
 
