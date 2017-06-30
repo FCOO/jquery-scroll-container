@@ -834,7 +834,7 @@ function bindMouseWheelHandler(element, i) {
   }
 
   function mousewheelHandler(e) {
-    var delta = getDeltaFromEvent(e); console.log(delta);
+    var delta = getDeltaFromEvent(e); 
 
     var deltaX = delta[0];
     var deltaY = delta[1];
