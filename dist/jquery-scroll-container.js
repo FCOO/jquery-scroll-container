@@ -61,6 +61,8 @@
         //scrollYMarginOffset   //The number of pixels the content height can surpass the container height without enabling the Y axis scroll bar. Allows some "wiggle room" or "offset break", so that Y axis scroll bar is not enabled just because of a few pixels.Default: 0
 
         useBothWheelAxes: true, //=> Mousewheel works in both horizontal and vertical scroll
+        scrollXMarginOffset: 2, //Prevent dimentions to be mis-calculated when box-sizing: box-border
+        scrollYMarginOffset: 2, //                         --||--
             
         direction: 'vertical' //["vertical"|"horizontal"|"both"] (default: "vertical")
     };
