@@ -14,16 +14,9 @@
 //BOURBON - http://bourbon.io/
 @import "../bower_components/bourbon/app/assets/stylesheets/bourbon";
 
-$scrollbar-size  : 3rem / 16;
-$scrollbar-margin: 3rem / 16;
-$scroll-size     : $scrollbar-margin + $scrollbar-size + $scrollbar-margin;
 
-//Extended bar when hover and dragging
-$scrollbar-margin-extended: 1rem / 16;
-$scrollbar-size-extended  : $scroll-size - 2 * $scrollbar-margin-extended;
 
-$scroll-shadow-size: 4rem / 16; 
-
+@import "jquery-scroll-container-variables";
 
 
 /****************************************************

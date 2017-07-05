@@ -1,0 +1,23 @@
+/***********************************************
+    _jquery-scroll-container-variables.scss, 
+
+    (c) 2017, FCOO
+
+    https://github.com/FCOO/jquery-scroll-container
+    https://github.com/FCOO
+
+    USING MODIFIED VERSIONS OF THE STYLE 
+    FROM PERFECT-SCROLLBAR
+    https://github.com/noraesae/perfect-scrollbar
+
+************************************************/
+$scrollbar-size  : 3rem / 16;
+$scrollbar-margin: 3rem / 16;
+$scroll-size     : $scrollbar-margin + $scrollbar-size + $scrollbar-margin;
+
+//Extended bar when hover and dragging
+$scrollbar-margin-extended: 1rem / 16;
+$scrollbar-size-extended  : $scroll-size - 2 * $scrollbar-margin-extended;
+
+$scroll-shadow-size: 4rem / 16; 
+
