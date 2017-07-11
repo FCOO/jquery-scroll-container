@@ -24,6 +24,7 @@
 SHAPE AND POSITION
 *****************************************************
 ****************************************************/
+$scrollbar-z-index: 1000;
 .ps { /*1*/
     position: relative; 
 
@@ -59,6 +60,7 @@ SHAPE AND POSITION
     > .ps__scrollbar-y-rail > .ps__scrollbar-y,
     > .ps__scrollbar-y-rail > .ps__scrollbar-y-bg {
         position       : absolute; 
+        z-index        : $scrollbar-z-index; 
         background-clip: content-box;
         box-sizing     : border-box;
         padding        : $scrollbar-margin; 
@@ -221,14 +223,12 @@ COLOR AND OPACITY
 }
 
 
-/*********************
-Disable scrolling with scrollbar on touch-device
-*********************/
-//MANGLER .touchevents .scroll-element_track { z-index: 100; }
-
-
 //Container with contents
 .jquery-scroll-container {
+    //Move content over scrollbars
+    position: relative;
+    z-index : $scrollbar-z-index + 1;
+
     background-color: transparent;
     padding: 0;
     margin : 0;
@@ -305,8 +305,8 @@ Disable scrolling with scrollbar on touch-device
         .ps__scrollbar-x-rail{
             //Position
             &:before, &:after {
-                top   : 0;
-                bottom: 0;
+                top   : $scroll-shadow-size;  
+                bottom: $scroll-size;
                 width : $shadow-size;
             }
             &:before { left : 0; }
@@ -330,8 +330,8 @@ Disable scrolling with scrollbar on touch-device
         .ps__scrollbar-y-rail{
             //Position
             &:before, &:after {
-                left  : 0; 
-                right : 0; 
+                left  : $scroll-size; 
+                right : $scroll-size; 
                 height: $shadow-size;
             }
             &:before { top   : 0; }
