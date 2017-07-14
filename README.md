@@ -3,7 +3,7 @@
 
 
 ## Description
-Create a container with auto scroll and resize
+Create a container with auto scroll and resize. The container has `padding` = 0 meaning that the content must have `margin` > 0 to make space between content and scrollbar
 
 ## Installation
 ### bower

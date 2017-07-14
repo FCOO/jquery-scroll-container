@@ -24,7 +24,7 @@
 SHAPE AND POSITION
 *****************************************************
 ****************************************************/
-$scrollbar-z-index: 1000;
+$scrollbar-z-index: 100;
 .ps { /*1*/
     position: relative; 
 
@@ -234,31 +234,35 @@ COLOR AND OPACITY
     margin : 0;
 
     .scrollbar-horizontal & /*, .scrollbar-both &*/ {
-        padding-left : $scroll-shadow-size;
-        padding-right: $scroll-shadow-size;
-        margin-top   : $scroll-shadow-size; 
+        //REMOVED: No margin/padding except for the scrollbar
+        //padding-left : $scroll-shadow-size;
+        //padding-right: $scroll-shadow-size;
+        //margin-top   : $scroll-shadow-size;
         margin-bottom: $scroll-size; 
 
-        & > *:first-child {
-            margin-left: 0 !important;
-        }
-        & > *:last-child {
-            margin-right: 0 !important;
-        }
+        //REMOVED - Not nedded when margin == 0
+        //& > .resize-triggers + * {
+        //    margin-left: 0 !important;
+        //}
+        //& > *:last-child {
+        //    margin-right: 0 !important;
+        //}
     }
 
     .scrollbar-vertical & /*, .scrollbar-both & */ {
-        padding-top   : $scroll-shadow-size;
-        padding-bottom: $scroll-shadow-size;
+        //REMOVED: No margin/padding except for the scrollbar
+        //padding-top   : $scroll-shadow-size;
+        //padding-bottom: $scroll-shadow-size;
         margin-left   : $scroll-size; 
         margin-right  : $scroll-size; 
 
-        & > *:first-child {
-            margin-top: 0 !important;
-        }
-        & > *:last-child {
-            margin-bottom: 0 !important;
-        }
+        //REMOVED - Not nedded when margin == 0
+        //& > .resize-triggers + * {
+        //    margin-top: 0 !important;
+        //}
+        //& > *:last-child {
+        //    margin-bottom: 0 !important;
+        //}
     }
 }
 
@@ -305,8 +309,8 @@ COLOR AND OPACITY
         .ps__scrollbar-x-rail{
             //Position
             &:before, &:after {
-                top   : $scroll-shadow-size;  
-                bottom: $scroll-size;
+                top   : 0;//$scroll-shadow-size;  
+                bottom: 0;//$scroll-size;
                 width : $shadow-size;
             }
             &:before { left : 0; }
@@ -330,8 +334,8 @@ COLOR AND OPACITY
         .ps__scrollbar-y-rail{
             //Position
             &:before, &:after {
-                left  : $scroll-size; 
-                right : $scroll-size; 
+                left  : 0;//$scroll-size; 
+                right : 0;//$scroll-size; 
                 height: $shadow-size;
             }
             &:before { top   : 0; }
