@@ -18,6 +18,16 @@
         $('html').addClass('no-touchevents');
 
 
+    //Extend $.fn with scrollIntoView
+    $.fn.extend({
+        scrollIntoView: function( arg ){
+            if (this.get(0).scrollIntoView)
+                this.get(0).scrollIntoView( arg );
+        }
+    });
+
+
+
     //Extend $.fn with internal scrollbar methods
     $.fn.extend({
         _psUpdate: function(){

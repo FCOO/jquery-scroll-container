@@ -35,6 +35,12 @@ The package uses class `touchevents` and `no-touchevents` for the `<html>` eleme
 
 [modernizr](https://modernizr.com/) is not included automatic.
 
+## `Element.scrollIntoView`
+The [Element.scrollIntoView](https://developer.mozilla.org/en-US/docs/Web/API/Element/scrollIntoView) is partly supported by most browser
+
+A `$.fn.scrollIntoView()` is added to scroll a jQuery-element into view
+
+
 ## Copyright and License
 This plugin is licensed under the [MIT license](https://github.com/FCOO/jquery-scroll-container/LICENSE).
 

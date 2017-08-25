@@ -208,9 +208,21 @@
 
         each( function( $container ){
             $container.append('<div class="first innerContent">FIRST</div>');
-            for (var i=1; i<=40; i++ )
-                $container.append('<div class="normal innerContent">'+i+'</div>');        
-            $container.append('<div class="last innerContent">LAST</div>');
+            for (var i=1; i<=40; i++ ){
+                if (i==20){
+                    var $middle = $('<div class="last innerContent">## MIDDLE ##</div>');
+                    $container.append($middle);
+                }
+                else
+                    $container.append('<div class="normal innerContent">'+i+'</div>');        
+            }
+            var $last = $('<div class="last innerContent">LAST</div>');
+            $container.append($last);
+            
+            $last.on('click', function(){ $middle.scrollIntoView() });
+            $middle.on('click', function(){ $last.scrollIntoView() });
+            $last.scrollIntoView();
+
         });
 
        
