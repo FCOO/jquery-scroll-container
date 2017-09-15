@@ -45,13 +45,16 @@
             this._psSetShadow( this.scrollbarYRail , postfix, on );
         },
         _psUpdateShadow: function(){
+            //Round up due to some browser using decimal in scroll-values
+            var scrollLeft = Math.ceil( this.scrollLeft() ),
+                scrollTop  = Math.ceil( this.scrollTop()  );
+
+            this._psSetXShadow( 'left',   scrollLeft > 0 ); 
+            this._psSetXShadow( 'right',  scrollLeft < (this.get(0).scrollWidth - this.get(0).clientWidth) ); 
+
+            this._psSetYShadow( 'top',    scrollTop > 0 ); 
+            this._psSetYShadow( 'bottom', scrollTop < (this.get(0).scrollHeight - this.get(0).clientHeight) ); 
             
-            this._psSetXShadow( 'left',   this.scrollLeft() > 0 ); 
-            this._psSetXShadow( 'right',  this.scrollLeft() < (this.get(0).scrollWidth - this.get(0).clientWidth) ); 
-
-            this._psSetYShadow( 'top',    this.scrollTop() > 0 ); 
-            this._psSetYShadow( 'bottom', this.scrollTop() < (this.get(0).scrollHeight - this.get(0).clientHeight) ); 
-
         }
 
     });

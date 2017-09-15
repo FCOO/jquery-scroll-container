@@ -1,6 +1,6 @@
 {
   "name": "jquery-scroll-container",
-  "version": "3.1.0",
+  "version": "3.1.1",
   "homepage": "https://github.com/FCOO/jquery-scroll-container",
   "authors": [
     "Niels Holt"
@@ -27,7 +27,7 @@
   },
   "devDependencies": {
     "bourbon": "latest",
-    "perfect-scrollbar": "https://github.com/noraesae/perfect-scrollbar.git#^0.7.1"
+    "perfect-scrollbar": "https://github.com/noraesae/perfect-scrollbar.git#^0.8.1"
   },
   "license": "MIT",
   "ignore": [
