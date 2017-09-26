@@ -176,7 +176,7 @@ COLOR AND OPACITY
     position: absolute;
     display: none;
     background: transparent;
-    z-index: 10000;
+    z-index: 1000;
     transition: box-shadow 0.1s linear; }
   .ps.scrollbar-horizontal .ps__scrollbar-x-rail:before, .ps.scrollbar-horizontal .ps__scrollbar-x-rail:after {
     top: 0;
