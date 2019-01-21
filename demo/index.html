@@ -11,21 +11,22 @@
 
   <link  href="../src/jquery-scroll-container.css" rel="stylesheet">
 
+
    <style>
-        * { box-sizing: border-box; }
+        * { _box-sizing: border-box; }
         .header {
             width: 100%;
             height: 20px;
             border-bottom: 2px solid black;
         }
 
-      
+
         .outer1 {
             position: absolute;
             left: 10px; top:10px;
             display: flex;
             flex-direction: column;
-            
+
             border: 2px solid black;
             width: 200px;
             height: 40%;
@@ -38,7 +39,7 @@
         }
 
 
-        
+
         .outer2 {
             position: absolute;
             left: 220px; top:10px;
@@ -46,7 +47,7 @@
             width: 200px;
             height: auto;
         }
-                
+
         .outer2 > div {
             max-height: 300px;
         }
@@ -67,7 +68,7 @@
             background-color: white;
             height: 100%;
             //height: 50%;
-            
+
         }
         .outer3 > div {
             max-height: 50%;
@@ -84,63 +85,64 @@
 
         .outer4 {
             position: absolute;
-            left: 20px; 
+            left: 20px;
             top:75%;
             border: 2px solid black;
-            width: auto;
+            width: 50%;
 
         }
-                
-        .outer4 > div {
-            max-width: 500px;
-        }
-        
+
+
         .container4 {
-            //height: 150px;
-            //border: 1px solid black;
+            height: 150px;
+            width : 100%;
+            border: 1px solid black;
         }
-        
+
 
         .outer5 {
             position: absolute;
-            left: 600px; 
+            left: 300px;
             top:40%;
             border: 2px solid black;
         }
-        
+
         .container5 {
-            height: 400px;
-            width: 400px;
+            height: 200px;
+            width: 200px;
             border: 1px solid black;
         }
 
 
         .innerContent {
             display: block;
-            width:100%; 
-            border: 1px solid black;
-            margin-top:4px; 
-            background-color: #eee;
+            width:100%;
+            box-sizing: border-box;
+            border: 3px solid black;
+            margin-top:4px;
+            _background-color: #eee;
             text-align: center;
         }
         .innerContent:hover {
-            background-color: blue;
-            color: white;
+            _background-color: blue;
+            _color: white;
         }
-        .scrollbar-horizontal .innerContent {
+
+
+
+        .display-flex-direction-row {
+            display: inline-flex;
+            height: 100%;
+            flex-direction: row;
+        }
+
+        .display-flex-direction-row .innerContent {
             display: inline-block;
             flex-shrink: 0;
             margin-top: 0;
             margin-left: 4px;
             width : 80px;
-            height: 100px; 
-        }
-//        .scrollbar-horizontal .innerContent:not(:first-child) {
-//            margin-left: 4px;
-//        }
-
-        .scrollbar-horizontal .jquery-scroll-container {
-            display: inline-flex; height: 100%;
+            height: 100%;
         }
 
         button {
@@ -155,7 +157,11 @@
 <body>
     <div class="outer1">
         <div class="header">HEADER1 50/90%</div>
-        <div class="container1"></div>
+        <div class="container1">
+<!--
+        <div class="first innerContent">FIRST</div><div class="normal innerContent">1</div><div class="normal innerContent">2</div><div class="normal innerContent">3</div><div class="normal innerContent">4</div><div class="normal innerContent">5</div><div class="normal innerContent">6</div><div class="normal innerContent">7</div><div class="normal innerContent">8</div><div class="normal innerContent">9</div><div class="normal innerContent">10</div><div class="normal innerContent">11</div><div class="normal innerContent">12</div><div class="normal innerContent">13</div><div class="normal innerContent">14</div><div class="normal innerContent">15</div><div class="normal innerContent">16</div><div class="normal innerContent">17</div><div class="normal innerContent">18</div><div class="normal innerContent">19</div><div class="last innerContent">## MIDDLE ##</div><div class="normal innerContent">21</div><div class="normal innerContent">22</div><div class="normal innerContent">23</div><div class="normal innerContent">24</div><div class="normal innerContent">25</div><div class="normal innerContent">26</div><div class="normal innerContent">27</div><div class="normal innerContent">28</div><div class="normal innerContent">29</div><div class="normal innerContent">30</div><div class="normal innerContent">31</div><div class="normal innerContent">32</div><div class="normal innerContent">33</div><div class="normal innerContent">34</div><div class="normal innerContent">35</div><div class="normal innerContent">36</div><div class="normal innerContent">37</div><div class="normal innerContent">38</div><div class="normal innerContent">39</div><div class="normal innerContent">40</div><div class="last innerContent">LAST</div>
+ -->
+        </div>
     </div>
 
     <div class="outer2">
@@ -165,7 +171,7 @@
 
     <div class="outerouter3">
         <div class="outer3">
-            <div class="header">HEADER3 50% of red</div>
+            <div class="header">HEADER3 50% of red (auto)</div>
             <div class="container3"></div>
         </div>
     </div>
@@ -175,7 +181,7 @@
         <div class="container4"></div>
     </div>
     <div class="outer5">
-        <div class="header">HEADER5 400px x 400px</div>
+        <div class="header">HEADER5 200px x 200px</div>
         <div class="container5"></div>
     </div>
 
@@ -183,22 +189,24 @@
 	<button onClick="remove()">Remove</button><br>
 	<button onClick="size()">Left 40% / 70%</button><br>
 	<button onClick="size2()">Red 30% / 300px</button>
-	
+
 	<script src="bower_components.js"></script>
 	<script src="modernizr-custom.js"></script>
 
     <script src="../src/jquery-scroll-container.js"></script>
-    <script src="../src/perfect-scrollbar.jquery.js"></script>
+    <script src="../src/jquery-scroll-container-simplebar.js"></script>
 
     <script>
         var $containers = [
-                $('.container1').addScrollbar(),
-                $('.container2').addScrollbar(),
-                $('.container3').addScrollbar(), 
-                $('.container4').addScrollbar({direction: 'horizontal'})
+                $('.container1').addScrollbar('vertical'),
+                $('.container2').addScrollbar('vertical'),
+                $('.container3').addScrollbar('auto'),
+                $('.container4').addScrollbar('horizontal').addClass('display-flex-direction-row')
             ];
 
-        $('.container5').addScrollbar({direction: 'both'}).append( $('<img src="tarzan.jpg"/>') ); 
+
+
+        $('.container5').addScrollbar('auto').append( $('<img src="tarzan.jpg"/>') );
 
         function each( func ){
             $.each($containers, function( index, $container ){
@@ -214,18 +222,18 @@
                     $container.append($middle);
                 }
                 else
-                    $container.append('<div class="normal innerContent">'+i+'</div>');        
+                    $container.append('<div class="normal innerContent">'+i+'</div>');
             }
             var $last = $('<div class="last innerContent">LAST</div>');
             $container.append($last);
-            
+
             $last.on('click', function(){ $middle.scrollIntoView() });
             $middle.on('click', function(){ $last.scrollIntoView() });
             $last.scrollIntoView();
 
         });
 
-       
+
 
         function add(){
             each( function( $container ){
