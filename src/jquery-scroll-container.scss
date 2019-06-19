@@ -171,28 +171,20 @@ SCROLLBAR
 
     &.simplebar-hover {
         z-index : 2;
+        background-color: $scrollbar-background;
     }
     &.simplebar-dragging {
         z-index : 3;
+        background-color: $scrollbar-background;
     }
 
-    //.simplebar-track:before = thin line inside scroll. Only visible when hover/dragging
-    &:before {
-        position: absolute;
-        content : "";
+    background-color: transparent;
+    transition      : background-color $scrollbar-transition-time linear;
 
-        background-color: black;
-        opacity         : 0;
-        transition      : opacity .2s ease-in-out;
+    &.simplebar-hover, &.simplebar-dragging {
+        background-color: $scrollbar-background;
     }
 
-    :not(.simplebar-dragging) > &.simplebar-hover:before {
-        opacity: .15;
-    }
-
-    &.simplebar-dragging:before {
-        opacity: .3;
-    }
 }
 
 .simplebar-track.simplebar-vertical {
@@ -243,14 +235,14 @@ SCROLLBAR
 .simplebar-scrollbar:before {
     position     : absolute;
     content      : "";
-    background   : #CCCCCC;
+    background   : $scrollbar-thumb;
     border-radius: $scrollbar-size / 2;
     left         : 0;
     right        : 0;
     top          : 0;
     bottom       : 0;
     margin       : 0;
-    transition   : background-color 0.2s linear, margin .2s ease-in-out;
+    transition   : background-color $scrollbar-transition-time linear, margin $scrollbar-transition-time ease-in-out;
 }
 
 .simplebar-track.simplebar-vertical .simplebar-scrollbar:before {
@@ -268,14 +260,14 @@ SCROLLBAR
     & > .simplebar-hover.simplebar-track.simplebar-vertical   .simplebar-scrollbar:before,
     & > .simplebar-hover.simplebar-track.simplebar-horizontal .simplebar-scrollbar:before {
         margin: 0;
-        background-color: #8F8F8F;
+        background-color: $scrollbar-thumb-hover;
     }
 }
 
 .simplebar-dragging.simplebar-track.simplebar-vertical   .simplebar-scrollbar:before,
 .simplebar-dragging.simplebar-track.simplebar-horizontal .simplebar-scrollbar:before {
     margin: 0;
-    background-color: #616161;
+    background-color: $scrollbar-thumb-active;
 }
 
 /****************************************************

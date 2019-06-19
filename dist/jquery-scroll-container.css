@@ -160,37 +160,33 @@ SCROLLBAR
   position: absolute;
   right: 0;
   bottom: 0;
-  pointer-events: none; }
+  pointer-events: none;
+  background-color: transparent;
+  transition: background-color 0.2s linear; }
   .simplebar-track.simplebar-hover {
-    z-index: 2; }
+    z-index: 2;
+    background-color: #f0f0f0; }
   .simplebar-track.simplebar-dragging {
-    z-index: 3; }
-  .simplebar-track:before {
-    position: absolute;
-    content: "";
-    background-color: black;
-    opacity: 0;
-    transition: opacity .2s ease-in-out; }
-  :not(.simplebar-dragging) > .simplebar-track.simplebar-hover:before {
-    opacity: .15; }
-  .simplebar-track.simplebar-dragging:before {
-    opacity: .3; }
+    z-index: 3;
+    background-color: #f0f0f0; }
+  .simplebar-track.simplebar-hover, .simplebar-track.simplebar-dragging {
+    background-color: #f0f0f0; }
 
 .simplebar-track.simplebar-vertical {
   top: 0;
   width: 0.5625rem; }
   .simplebar-track.simplebar-vertical:before {
-    width: 0.1875rem;
+    width: 0.3125rem;
     height: 100%;
-    left: 0.1875rem; }
+    left: 0.125rem; }
 
 .simplebar-track.simplebar-horizontal {
   left: 0;
   height: 0.5625rem; }
   .simplebar-track.simplebar-horizontal:before {
     width: 100%;
-    height: 0.1875rem;
-    top: 0.1875rem; }
+    height: 0.3125rem;
+    top: 0.125rem; }
 
 /****************************************************
 .simplebar-scrollbar = container for the scroll-bar
@@ -216,32 +212,32 @@ SCROLLBAR
 .simplebar-scrollbar:before {
   position: absolute;
   content: "";
-  background: #CCCCCC;
-  border-radius: 0.09375rem;
+  background: #cdcdcd;
+  border-radius: 0.15625rem;
   left: 0;
   right: 0;
   top: 0;
   bottom: 0;
   margin: 0;
-  transition: background-color 0.2s linear, margin .2s ease-in-out; }
+  transition: background-color 0.2s linear, margin 0.2s ease-in-out; }
 
 .simplebar-track.simplebar-vertical .simplebar-scrollbar:before {
-  margin-left: 0.1875rem;
-  margin-right: 0.1875rem; }
+  margin-left: 0.125rem;
+  margin-right: 0.125rem; }
 
 .simplebar-track.simplebar-horizontal .simplebar-scrollbar:before {
-  margin-top: 0.1875rem;
-  margin-bottom: 0.1875rem; }
+  margin-top: 0.125rem;
+  margin-bottom: 0.125rem; }
 
 :not(.simplebar-dragging) > .simplebar-hover.simplebar-track.simplebar-vertical .simplebar-scrollbar:before,
 :not(.simplebar-dragging) > .simplebar-hover.simplebar-track.simplebar-horizontal .simplebar-scrollbar:before {
   margin: 0;
-  background-color: #8F8F8F; }
+  background-color: #a6a6a6; }
 
 .simplebar-dragging.simplebar-track.simplebar-vertical .simplebar-scrollbar:before,
 .simplebar-dragging.simplebar-track.simplebar-horizontal .simplebar-scrollbar:before {
   margin: 0;
-  background-color: #616161; }
+  background-color: #606060; }
 
 /****************************************************
 *****************************************************

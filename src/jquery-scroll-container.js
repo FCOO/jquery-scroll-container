@@ -52,7 +52,7 @@
 
         this.scrollbarContainer = $(this.simplebar.getContentElement());
 
-        this.innerContainer = $('<div/>').appendTo(this.scrollbarContainer);
+        this.innerContainer = this.scrollbarContainer;//$('<div/>').appendTo(this.scrollbarContainer);
 
         //Update scrollbar when container or content change size
         var _sbUpdate = $.proxy( this._sbUpdate, this );

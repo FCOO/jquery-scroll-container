@@ -11,13 +11,21 @@
     https://github.com/noraesae/perfect-scrollbar
 
 ************************************************/
-$scrollbar-size  : 3rem / 16;
-$scrollbar-margin: 3rem / 16;
+$scrollbar-size  : 5rem / 16;
+$scrollbar-margin: 2rem / 16;
 $scroll-size     : $scrollbar-margin + $scrollbar-size + $scrollbar-margin;
 
 //Extended bar when hover and dragging
 $scrollbar-margin-extended: 1rem / 16;
 $scrollbar-size-extended  : $scroll-size - 2 * $scrollbar-margin-extended;
 
+//Colors for the background and the thumb
+$scrollbar-background      : rgb(240,240,240);;
 
+//Scrollbar thumb color as in Windows
+$scrollbar-thumb       : rgb(205,205,205);
+$scrollbar-thumb-hover : rgb(166,166,166);
+$scrollbar-thumb-active: rgb( 96, 96, 96);
 
+//Transition-time for background-color and width/height
+$scrollbar-transition-time: 0.2s;
