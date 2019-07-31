@@ -16,9 +16,7 @@
     },
     "dependencies": {
         "jquery": "latest",
-        "jquery-detect-element-resize": "fcoo/jquery-detect-element-resize#^1.0.0",
-        "resize-observer-polyfill": "^1.5.1",
-        "jquery.nicescroll": "inuyaksa/jquery.nicescroll#^3.7.6"
+        "jquery-detect-element-resize": "fcoo/jquery-detect-element-resize#^1.0.0"
     },
     "devDependencies": {
         "bourbon": "latest"

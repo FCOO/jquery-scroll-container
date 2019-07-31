@@ -6,16 +6,21 @@
     https://github.com/FCOO/jquery-scroll-container
     https://github.com/FCOO
 
+    Very simple version using browser scroll and add margin-right = scrollbar-widrh when
+    no scroll
+
 ****************************************************************************/
 
 (function ($ /*, window, document, undefined*/) {
     "use strict";
 
-    if ( $('html').hasClass('touchevents') || $('html').hasClass('no-touchevents') )
+    var $html = $('html');
+
+    if ( $html.hasClass('touchevents') || $html.hasClass('no-touchevents') )
         ;    //Modernizr (or someone else) has set the correct class
     else
         //Default: No touch
-        $('html').addClass('no-touchevents');
+        $html.addClass('no-touchevents');
 
 
     //Extend $.fn with scrollIntoView
@@ -48,43 +53,39 @@
 
     //Extend $.fn with internal scrollbar methods. sb = simplebar
     $.fn.extend({
-        _sbUpdate: function(){
-            this.simplebar.recalculate();
+        _sbUpdate: function(isVertical){
+            var elem = this.get(0),
+                hasScroll = isVertical ? elem.scrollHeight > elem.offsetHeight : elem.scrollWidth > elem.offsetWidth;
+            this.toggleClass('has-scroll', hasScroll);
         }
     });
 
-
-    $.fn.addScrollbar = function( direction ){
-        var options = {
-                direction: direction || 'auto'
-            };
-        options.isVertical   = (options.direction == 'vertical');
-        options.isHorizontal = (options.direction == 'horizontal');
-        options.isAuto       = (options.direction == 'auto');
-
+    $.fn.addScrollbar = function( direction, center ){
         this
-            //Set direction class
-            .toggleClass( 'scrollbar-horizontal', options.isHorizontal )
-            .toggleClass( 'scrollbar-vertical',   options.isVertical   );
+            .addClass('jq-scroll-container')
+            .toggleClass('jq-scroll-container-horizontal', direction == 'horizontal')
+            .toggleClass('jq-scroll-container-vertical', direction == 'vertical')
+            .toggleClass('jq-scroll-container-auto', direction == 'auto');
 
-        //Create simplebar
-        this.simplebar = new window.SimpleBar(this.get(0), options);
+        this.scrollContent =
+            $('<div/>')
+                .addClass('jq-scroll-content')
+                .appendTo(this);
 
-        this.scrollbarContainer = $(this.simplebar.getContentElement());
+        if ($html.hasClass('no-touchevents') && (direction != 'auto')){
+            var isVertical = direction == 'vertical';
+            scrollbarWidth = scrollbarWidth || getScrollbarWidth();
 
-        this.innerContainer = this.scrollbarContainer;//$('<div/>').appendTo(this.scrollbarContainer);
+            this.css(isVertical ? 'padding-right' : 'padding-bottom', scrollbarWidth+'px');
 
-        //Update scrollbar when container or content change size
-        var _sbUpdate = $.proxy( this._sbUpdate, this );
-        this.scrollbarContainer.resize( _sbUpdate );
-        this.innerContainer.resize( _sbUpdate );
+            if (isVertical && center)
+                this.css('padding-left', scrollbarWidth+'px');
 
-        var _sbUpdate = $.proxy( this._sbUpdate, this );
-        this.scrollbarContainer.resize( _sbUpdate );
-        this.resize( _sbUpdate );
-
-
-        return this.innerContainer;
+            var _sbUpdate = $.proxy( this._sbUpdate, this, isVertical);
+            this.scrollContent.resize( _sbUpdate );
+            _sbUpdate();
+        }
+        return this.scrollContent;
     };
 
 }(jQuery, this, document));

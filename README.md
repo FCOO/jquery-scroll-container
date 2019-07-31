@@ -4,7 +4,7 @@
 
 ## Description
 
-Create a container with auto scroll and resize using a reduced version of [simplebar](https://github.com/Grsmto/simplebar) by [Adrien Denat](https://github.com/Grsmto).
+Create a container with auto scroll and resize using default scroll-bar
  
 ## Installation
 ### bower
@@ -48,8 +48,3 @@ Copyright (c) 2019 [FCOO](https://github.com/FCOO)
 ## Contact information
 
 Niels Holt nho@fcoo.dk
-
-
-## Credits and acknowledgments
-Based on the great [simplebar](https://github.com/Grsmto/simplebar) by [Adrien Denat](https://github.com/Grsmto)
-
