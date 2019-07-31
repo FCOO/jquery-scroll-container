@@ -1,0 +1,53 @@
+/***********************************************
+jquery-scroll-container-shadow.scss,
+
+
+Add shadow inside at top/bottom or left/right when scroll
+
+Shadow at top/bottom or left/right when content isn't scrolled to beginning/end
+Based on idea from http://dabblet.com/gist/2462915
+
+****************************************************/
+$shadow-color      : rgba(0, 0, 0, 0.4);
+$no-shadow-color   : rgba(0, 0, 0, 0);
+$scroll-shadow-size: 6rem / 16;
+
+.jq-scroll-container,
+.scrollbar-vertical .simplebar-content-wrapper {
+	background:
+		//Shadow covers
+        linear-gradient(white , white),
+		linear-gradient(white, white) 0 100%,
+
+		// Shadows
+        linear-gradient($shadow-color ,   $no-shadow-color),
+		linear-gradient($no-shadow-color, $shadow-color   ) 0 100%;
+
+    background-repeat: no-repeat;
+	background-color: white;
+	background-size: 100% $scroll-shadow-size, 100% $scroll-shadow-size, 100% $scroll-shadow-size, 100% $scroll-shadow-size;
+
+	// The background that cover the shadow will scroll with the element's contents (local)
+    // The background that contain the shadow  will scroll with the page (scroll)
+    background-attachment: local, local, scroll, scroll;
+}
+
+.scrollbar-horizontal .simplebar-content-wrapper {
+	background:
+		//Shadow covers
+        linear-gradient(to right, white , white),
+		linear-gradient(to right, white, white) 100% 0,
+
+		// Shadows
+        linear-gradient(to right, $shadow-color ,   $no-shadow-color),
+		linear-gradient(to right, $no-shadow-color, $shadow-color   ) 100% 0;
+
+    background-repeat: no-repeat;
+	background-color: white;
+	background-size: $scroll-shadow-size 100%, $scroll-shadow-size 100%, $scroll-shadow-size 100%, $scroll-shadow-size 100%;
+
+	// The background that cover the shadow will scroll with the element's contents (local)
+    // The background that contain the shadow  will scroll with the page (scroll)
+    background-attachment: local, local, scroll, scroll;
+}
+

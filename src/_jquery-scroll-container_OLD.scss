@@ -1,0 +1,97 @@
+//OLD VERSION
+
+
+/****************************************************
+*****************************************************
+SCROLLBAR
+*****************************************************
+****************************************************/
+
+/****************************************************
+.simplebar-track = container for hole scroll (bg and bar)
+****************************************************/
+
+
+.simplebar-track.simplebar-vertical {
+//HER    top: 0;
+//HER    width: $scroll-size;
+    &:before {
+        width : $scrollbar-size;
+        height: 100%;
+        left  : $scrollbar-margin;
+    }
+}
+.simplebar-track.simplebar-horizontal {
+//HER    left  : 0;
+//HER    height: $scroll-size;
+    &:before {
+        width : 100%;
+        height: $scrollbar-size;
+        top   : $scrollbar-margin;
+    }
+}
+
+/****************************************************
+.simplebar-scrollbar = container for the scroll-bar
+****************************************************/
+.simplebar-scrollbar {
+    position  : absolute;
+    box-sizing: border-box;
+}
+
+.simplebar-track.simplebar-vertical .simplebar-scrollbar {
+    right     : 0;
+    width     : $scroll-size;
+    min-height: 25px; //Must be 25px
+}
+
+.simplebar-track.simplebar-horizontal .simplebar-scrollbar {
+//HER    left      : 0;
+//HER    top       : 0;
+//HER    height    : $scroll-size;
+//HER    min-width : 25px; //Must be 25px
+}
+
+
+
+/****************************************************
+.simplebar-scrollbar:before = the scroll-bar
+****************************************************/
+.simplebar-scrollbar:before {
+//HER    position     : absolute;
+//HER    content      : "";
+//HER    background   : $scrollbar-thumb;
+//HER    border-radius: $scrollbar-size / 2;
+//HER    left         : 0;
+//HER    right        : 0;
+//HER    top          : 0;
+//HER    bottom       : 0;
+//HER    margin       : 0;
+//HER    transition   : background-color $scrollbar-transition-time linear, margin $scrollbar-transition-time ease-in-out;
+}
+
+.simplebar-track.simplebar-vertical .simplebar-scrollbar:before {
+//HER    margin-left  : $scrollbar-margin;
+//HER    margin-right : $scrollbar-margin;
+}
+
+.simplebar-track.simplebar-horizontal .simplebar-scrollbar:before {
+//HER    margin-top   : $scrollbar-margin;
+//HER    margin-bottom: $scrollbar-margin;
+}
+
+//Scroll-bar get full width when hover/dragging
+:not(.simplebar-dragging) {
+    & > .simplebar-hover.simplebar-track.simplebar-vertical   .simplebar-scrollbar:before,
+    & > .simplebar-hover.simplebar-track.simplebar-horizontal .simplebar-scrollbar:before {
+        margin: 0;
+        background-color: $scrollbar-thumb-hover;
+    }
+}
+
+.simplebar-dragging.simplebar-track.simplebar-vertical   .simplebar-scrollbar:before,
+.simplebar-dragging.simplebar-track.simplebar-horizontal .simplebar-scrollbar:before {
+    margin: 0;
+    background-color: $scrollbar-thumb-active;
+}
+

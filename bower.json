@@ -1,35 +1,37 @@
 {
-  "name": "jquery-scroll-container",
-  "version": "4.1.0",
-  "homepage": "https://github.com/FCOO/jquery-scroll-container",
-  "authors": [
-    "Niels Holt"
-  ],
-  "description": "",
-  "main": [
-    "dist/jquery-scroll-container.js",
-    "dist/jquery-scroll-container.css"
-  ],
-  "repository": {
-    "type": "git",
-    "url": "git://github.com/FCOO/jquery-scroll-container.git"
-  },
-  "dependencies": {
-    "jquery": "latest",
-    "jquery-detect-element-resize": "fcoo/jquery-detect-element-resize#^1.0.0"
-  },
-  "devDependencies": {
-    "bourbon": "latest"
-  },
-  "license": "MIT",
-  "ignore": [
-    "**/.*",
-    "node_modules",
-    "bower_components",
-    "test",
-    "tests"
-  ],
-  "moduleType": [
-    "es6"
-  ]
+    "name": "jquery-scroll-container",
+    "version": "4.1.0",
+    "homepage": "https://github.com/FCOO/jquery-scroll-container",
+    "authors": [
+        "Niels Holt"
+    ],
+    "description": "",
+    "main": [
+        "dist/jquery-scroll-container.js",
+        "dist/jquery-scroll-container.css"
+    ],
+    "repository": {
+        "type": "git",
+        "url": "git://github.com/FCOO/jquery-scroll-container.git"
+    },
+    "dependencies": {
+        "jquery": "latest",
+        "jquery-detect-element-resize": "fcoo/jquery-detect-element-resize#^1.0.0",
+        "resize-observer-polyfill": "^1.5.1",
+        "jquery.nicescroll": "inuyaksa/jquery.nicescroll#^3.7.6"
+    },
+    "devDependencies": {
+        "bourbon": "latest"
+    },
+    "license": "MIT",
+    "ignore": [
+        "**/.*",
+        "node_modules",
+        "bower_components",
+        "test",
+        "tests"
+    ],
+    "moduleType": [
+        "es6"
+    ]
 }

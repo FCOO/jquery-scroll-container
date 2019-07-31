@@ -6,11 +6,19 @@
     https://github.com/FCOO/jquery-scroll-container
     https://github.com/FCOO
 
-    USING MODIFIED VERSIONS OF THE STYLE
-    FROM PERFECT-SCROLLBAR
-    https://github.com/noraesae/perfect-scrollbar
+    An adjusted and simplified version of
+    SimpleBar.js - v4.1.0 - Scrollbars, simpler.
+    https://grsmto.github.io/simplebar/
+    Made by Adrien Denat from a fork by Jonathan Nicol
+    Under MIT License
+
+    Some scss code has been removed or added and are marked with //**
+    //** Removed from original
+    Added to original //**
 
 ************************************************/
+/* stylelint-disable order/properties-alphabetical-order */
+/* stylelint-enable */
 /***********************************************
     _jquery-scroll-container-variables.scss,
 
@@ -19,28 +27,76 @@
     https://github.com/FCOO/jquery-scroll-container
     https://github.com/FCOO
 
-    USING MODIFIED VERSIONS OF THE STYLE
-    FROM PERFECT-SCROLLBAR
-    https://github.com/noraesae/perfect-scrollbar
+    An adjusted and simplified version of
+    SimpleBar.js - v4.1.0 - Scrollbars, simpler.
+    https://grsmto.github.io/simplebar/
+    Made by Adrien Denat from a fork by Jonathan Nicol
+    Under MIT License
 
 ************************************************/
+/***********************************************
+jquery-scroll-container-shadow.scss,
+
+
+Add shadow inside at top/bottom or left/right when scroll
+
+Shadow at top/bottom or left/right when content isn't scrolled to beginning/end
+Based on idea from http://dabblet.com/gist/2462915
+
+****************************************************/
+.jq-scroll-container.jq-scroll-container-horizontal {
+  overflow-x: auto;
+  overflow-y: hidden;
+}
+.jq-scroll-container.jq-scroll-container-horizontal.has-scroll {
+  padding-bottom: 0 !important;
+}
+.jq-scroll-container.jq-scroll-container-vertical {
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+.jq-scroll-container.jq-scroll-container-vertical.has-scroll {
+  padding-right: 0 !important;
+}
+.jq-scroll-container.jq-scroll-container-auto {
+  overflow-y: scroll;
+  overflow-x: scroll;
+}
+
+.jq-scroll-container.jq-scroll-container-horizontal {
+  background: linear-gradient(to right, white, white), linear-gradient(to right, white, white) 100% 0, linear-gradient(to right, red, rgba(0, 0, 0, 0)), linear-gradient(to right, rgba(0, 0, 0, 0), red) 100% 0;
+  background-repeat: no-repeat;
+  background-color: white;
+  background-size: 1rem 100%, 1rem 100%, 1rem 100%, 1rem 100%;
+  background-attachment: local, local, scroll, scroll;
+}
+
+.jq-scroll-container.jq-scroll-container-vertical {
+  background: linear-gradient(white, white), linear-gradient(white, white) 0 100%, linear-gradient(red, rgba(0, 0, 0, 0)), linear-gradient(rgba(0, 0, 0, 0), red) 0 100%;
+  background-repeat: no-repeat;
+  background-color: white;
+  background-size: 100% 1rem, 100% 1rem, 100% 1rem, 100% 1rem;
+  background-attachment: local, local, scroll, scroll;
+}
+
 /****************************************************
-.simplebar-wrapper
-    .simplebar-height-auto-observer-wrapper
-        .simplebar-height-auto-observer
-
-    .simplebar-mask
-        .simplebar-offset
-            .simplebar-content
-
-    .simplebar-placeholder
-
-    .simplebar-track.simplebar-horizontal
-        .simplebar-scrollbar
-
-    .simplebar-track.simplebar-vertical
-        .simplebar-scrollbar
-
+.scrollbar-vertical
+    .simplebar-wrapper
+        .simplebar-height-auto-observer-wrapper
+            .simplebar-height-auto-observer
+        .simplebar-mask
+            .simplebar-offset
+                .simplebar-content-wrapper
+                    .simplebar-content
+                        .resize-triggers
+                            .expand-trigger
+                            .contract-trigger
+                        /* content
+        .simplebar-placeholder
+    .simplebar-track.simplebar-horizontal[.simplebar-visible][.simplebar-hover]
+        .simplebar-scrollbar[.simplebar-visible][.simplebar-hover]
+    .simplebar-track.simplebar-vertical[.simplebar-visible][.simplebar-hover]
+        .simplebar-scrollbar[.simplebar-visible][.simplebar-hover]
 ****************************************************/
 [data-simplebar] {
   position: relative;
@@ -49,22 +105,87 @@
   justify-content: flex-start;
   align-content: flex-start;
   align-items: flex-start;
-  width: inherit;
-  height: inherit;
-  max-width: inherit;
-  max-height: inherit; }
+}
 
 .simplebar-wrapper {
   overflow: hidden;
   width: inherit;
   height: inherit;
   max-width: inherit;
-  max-height: inherit; }
+  max-height: inherit;
+}
+
+.simplebar-mask {
+  direction: inherit;
+  position: absolute;
+  overflow: hidden;
+  padding: 0;
+  margin: 0;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  width: auto !important;
+  height: auto !important;
+  z-index: 0;
+}
+
+.simplebar-offset {
+  direction: inherit !important;
+  box-sizing: inherit !important;
+  resize: none !important;
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  padding: 0;
+  margin: 0;
+  -webkit-overflow-scrolling: touch;
+}
+
+.simplebar-content-wrapper {
+  direction: inherit;
+  box-sizing: border-box !important;
+  position: relative;
+  display: block;
+  height: 100%;
+  /* Required for horizontal native scrollbar to not appear if parent is taller than natural height */
+  width: auto;
+  visibility: visible;
+  overflow: auto;
+  /* Scroll on this element otherwise element can't have a padding applied properly */
+  max-width: 100%;
+  /* Not required for horizontal scroll to trigger */
+  max-height: 100%;
+  /* Needed for vertical scroll to trigger */
+}
+
+.scrollbar-vertical .simplebar-content-wrapper {
+  padding-right: 36px !important;
+  padding-left: 36px !important;
+}
+.scrollbar-horizontal .simplebar-content-wrapper {
+  padding-bottom: 36px !important;
+}
+
+.simplebar-content:before,
+.simplebar-content:after {
+  content: ' ';
+  display: table;
+}
+
+.simplebar-placeholder {
+  max-height: 100%;
+  max-width: 100%;
+  width: 100%;
+  pointer-events: none;
+}
 
 .simplebar-height-auto-observer-wrapper {
   box-sizing: inherit !important;
   height: 100%;
-  width: inherit;
+  width: 100%;
   max-width: 1px;
   position: relative;
   float: left;
@@ -76,7 +197,8 @@
   pointer-events: none;
   flex-grow: inherit;
   flex-shrink: 0;
-  flex-basis: 0; }
+  flex-basis: 0;
+}
 
 .simplebar-height-auto-observer {
   box-sizing: inherit;
@@ -91,69 +213,24 @@
   min-width: 1px;
   overflow: hidden;
   pointer-events: none;
-  z-index: -1; }
-
-.simplebar-mask {
-  direction: inherit;
-  position: absolute;
-  overflow: hidden;
-  padding: 0;
-  margin: 0;
-  left: 0;
-  top: 0;
-  bottom: 0;
-  right: 0;
-  width: auto !important;
-  height: auto !important;
-  z-index: 0; }
-
-.simplebar-offset {
-  direction: inherit !important;
-  box-sizing: inherit !important;
-  resize: none !important;
-  position: absolute;
-  top: 0;
-  left: 0;
-  bottom: 0;
-  right: 0;
-  padding: 0;
-  margin: 0;
-  -webkit-overflow-scrolling: touch; }
-
-.simplebar-content {
-  direction: inherit;
-  box-sizing: border-box !important;
-  position: relative;
-  display: block;
-  height: 100%;
-  /* Required for horizontal native scrollbar to not appear if parent is taller than natural height */
-  width: auto;
-  visibility: visible;
-  overflow: scroll;
-  /* Scroll on this element otherwise element can't have a padding applied properly */
-  max-width: 100%;
-  /* Not required for horizontal scroll to trigger */
-  max-height: 100%;
-  /* Needed for vertical scroll to trigger */ }
-  .scrollbar-vertical .simplebar-content {
-    padding-right: 0.5625rem !important;
-    padding-left: 0.5625rem !important; }
-  .scrollbar-horizontal .simplebar-content {
-    padding-bottom: 0.5625rem !important; }
-
-.simplebar-placeholder {
-  max-height: 100%;
-  max-width: 100%;
-  width: 100%;
-  pointer-events: none; }
+  z-index: -1;
+}
 
 /****************************************************
-*****************************************************
 SCROLLBAR
-*****************************************************
-****************************************************/
-/****************************************************
+
+[data-simplebar][simplebar-dragging]
+    .simplebar-track.simplebar-horizontal[.simplebar-visible][.simplebar-hover]
+        .simplebar-scrollbar[.simplebar-visible][.simplebar-hover]
+    .simplebar-track.simplebar-vertical[.simplebar-visible][.simplebar-hover]
+        .simplebar-scrollbar[.simplebar-visible][.simplebar-hover]
+
+
 .simplebar-track = container for hole scroll (bg and bar)
+    .simplebar-scrollbar = container for the scroll-bar
+    .simplebar-scrollbar:before = the scroll-bar
+
+Note #1: Position of scrollbar is set using margin-left,-right, -top, and -bottom allowing for different dimentions
 ****************************************************/
 .simplebar-track {
   z-index: 1;
@@ -161,102 +238,127 @@ SCROLLBAR
   right: 0;
   bottom: 0;
   pointer-events: none;
+  overflow: hidden;
   background-color: transparent;
-  transition: background-color 0.2s linear; }
-  .simplebar-track.simplebar-hover {
-    z-index: 2;
-    background-color: #f0f0f0; }
-  .simplebar-track.simplebar-dragging {
-    z-index: 3;
-    background-color: #f0f0f0; }
-  .simplebar-track.simplebar-hover, .simplebar-track.simplebar-dragging {
-    background-color: #f0f0f0; }
+  transition: background-color 0.2s linear;
+}
+.simplebar-track.simplebar-hover {
+  z-index: 2;
+  background-color: #f0f0f0;
+}
+.simplebar-track.simplebar-dragging {
+  z-index: 3;
+  background-color: #f0f0f0;
+}
 
-.simplebar-track.simplebar-vertical {
-  top: 0;
-  width: 0.5625rem; }
-  .simplebar-track.simplebar-vertical:before {
-    width: 0.3125rem;
-    height: 100%;
-    left: 0.125rem; }
+[data-simplebar].simplebar-dragging .simplebar-track {
+  pointer-events: all;
+}
 
-.simplebar-track.simplebar-horizontal {
-  left: 0;
-  height: 0.5625rem; }
-  .simplebar-track.simplebar-horizontal:before {
-    width: 100%;
-    height: 0.3125rem;
-    top: 0.125rem; }
-
-/****************************************************
-.simplebar-scrollbar = container for the scroll-bar
-****************************************************/
 .simplebar-scrollbar {
   position: absolute;
-  box-sizing: border-box; }
-
-.simplebar-track.simplebar-vertical .simplebar-scrollbar {
   right: 0;
-  width: 0.5625rem;
-  min-height: 25px; }
+  width: 36px;
+  min-height: 10px;
+}
 
-.simplebar-track.simplebar-horizontal .simplebar-scrollbar {
-  left: 0;
-  top: 0;
-  height: 0.5625rem;
-  min-width: 25px; }
-
-/****************************************************
-.simplebar-scrollbar:before = the scroll-bar
-****************************************************/
 .simplebar-scrollbar:before {
   position: absolute;
-  content: "";
+  content: '';
   background: #cdcdcd;
-  border-radius: 0.15625rem;
+  border-radius: 10px;
   left: 0;
   right: 0;
   top: 0;
   bottom: 0;
-  margin: 0;
-  transition: background-color 0.2s linear, margin 0.2s ease-in-out; }
+  opacity: 0;
+  margin: 4px;
+  transition: background-color 0.2s linear, margin 0.2s ease-in-out;
+}
+
+.simplebar-track .simplebar-scrollbar.simplebar-visible:before {
+  /* When hovered, remove all transitions from drag handle */
+  opacity: 1;
+  transition: opacity 0s linear;
+}
+
+.simplebar-track.simplebar-vertical {
+  top: 0;
+  width: 36px;
+}
 
 .simplebar-track.simplebar-vertical .simplebar-scrollbar:before {
-  margin-left: 0.125rem;
-  margin-right: 0.125rem; }
+  top: 0;
+  bottom: 0;
+  margin-left: 8px;
+  margin-right: 8px;
+}
+
+.simplebar-track.simplebar-horizontal {
+  left: 0;
+  height: 36px;
+}
 
 .simplebar-track.simplebar-horizontal .simplebar-scrollbar:before {
-  margin-top: 0.125rem;
-  margin-bottom: 0.125rem; }
+  left: 0;
+  right: 0;
+  margin-top: 8px;
+  margin-bottom: 8px;
+}
 
-:not(.simplebar-dragging) > .simplebar-hover.simplebar-track.simplebar-vertical .simplebar-scrollbar:before,
-:not(.simplebar-dragging) > .simplebar-hover.simplebar-track.simplebar-horizontal .simplebar-scrollbar:before {
-  margin: 0;
-  background-color: #a6a6a6; }
+.simplebar-track.simplebar-horizontal .simplebar-scrollbar {
+  right: auto;
+  left: 0;
+  top: 0px;
+  height: 36px;
+  min-height: 0;
+  min-width: 25px;
+  width: auto;
+}
 
-.simplebar-dragging.simplebar-track.simplebar-vertical .simplebar-scrollbar:before,
+/* Rtl support */
+[data-simplebar-direction='rtl'] .simplebar-track.simplebar-vertical {
+  right: auto;
+  left: 0;
+}
+
+.hs-dummy-scrollbar-size {
+  direction: rtl;
+  position: fixed;
+  opacity: 0;
+  visibility: hidden;
+  height: 500px;
+  width: 500px;
+  overflow-y: hidden;
+  overflow-x: scroll;
+}
+
+[data-simplebar]:not(.simplebar-dragging) .simplebar-track.simplebar-hover .simplebar-scrollbar:before {
+  background-color: #a6a6a6;
+  margin: 4px;
+}
+
+[data-simplebar] .simplebar-track.simplebar-dragging .simplebar-scrollbar:before {
+  background-color: #606060;
+  margin: 4px;
+}
+
+/*
+
+:not(.simplebar-dragging) {
+    & > .simplebar-hover.simplebar-track.simplebar-vertical   .simplebar-scrollbar:before,
+    & > .simplebar-hover.simplebar-track.simplebar-horizontal .simplebar-scrollbar:before {
+        margin: 0;
+        background-color: $scrollbar-thumb-hover;
+    }
+}
+
+.simplebar-dragging.simplebar-track.simplebar-vertical   .simplebar-scrollbar:before,
 .simplebar-dragging.simplebar-track.simplebar-horizontal .simplebar-scrollbar:before {
-  margin: 0;
-  background-color: #606060; }
+    margin: 0;
+    background-color: $scrollbar-thumb-active;
+}
 
-/****************************************************
-*****************************************************
-SHADOW INSIDE AT TOP/BOTTOM OR LEFT/RIGHT WHEN SCROLL
+*/
 
-Shadow at top/bottom or left/right when content isn't scrolled to beginning/end
-Based on idea from http://dabblet.com/gist/2462915
-*****************************************************
-****************************************************/
-.scrollbar-vertical .simplebar-content {
-  background: linear-gradient(white, white), linear-gradient(white, white) 0 100%, linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0)), linear-gradient(rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.4)) 0 100%;
-  background-repeat: no-repeat;
-  background-color: white;
-  background-size: 100% 0.375rem, 100% 0.375rem, 100% 0.375rem, 100% 0.375rem;
-  background-attachment: local, local, scroll, scroll; }
-
-.scrollbar-horizontal .simplebar-content {
-  background: linear-gradient(to right, white, white), linear-gradient(to right, white, white) 100% 0, linear-gradient(to right, rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0)), linear-gradient(to right, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.4)) 100% 0;
-  background-repeat: no-repeat;
-  background-color: white;
-  background-size: 0.375rem 100%, 0.375rem 100%, 0.375rem 100%, 0.375rem 100%;
-  background-attachment: local, local, scroll, scroll; }
+/*# sourceMappingURL=jquery-scroll-container.css.map */
