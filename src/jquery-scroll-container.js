@@ -26,33 +26,12 @@
         }
     });
 
-    var scrollbarWidth = 0;
-    function getScrollbarWidth() {
-        if (typeof document === 'undefined') {
-            return 0;
-        }
-
-        var body = document.body,
-            box = document.createElement('div'),
-            boxStyle = box.style;
-        boxStyle.position = 'fixed';
-        boxStyle.left = 0;
-        boxStyle.visibility = 'hidden';
-        boxStyle.overflowY = 'scroll';
-        body.appendChild(box);
-        var width = box.getBoundingClientRect().right;
-        body.removeChild(box);
-        return width;
-    }
-
-
     //Extend $.fn with internal scrollbar methods. sb = simplebar
     $.fn.extend({
         _sbUpdate: function(){
             this.simplebar.recalculate();
         }
     });
-
 
     $.fn.addScrollbar = function( direction ){
         var options = {
@@ -70,21 +49,14 @@
         //Create simplebar
         this.simplebar = new window.SimpleBar(this.get(0), options);
 
-        this.scrollbarContainer = $(this.simplebar.getContentElement());
-
-        this.innerContainer = this.scrollbarContainer;//$('<div/>').appendTo(this.scrollbarContainer);
+        var $content = $(this.simplebar.getContentElement());
 
         //Update scrollbar when container or content change size
         var _sbUpdate = $.proxy( this._sbUpdate, this );
-        this.scrollbarContainer.resize( _sbUpdate );
-        this.innerContainer.resize( _sbUpdate );
-
-        var _sbUpdate = $.proxy( this._sbUpdate, this );
-        this.scrollbarContainer.resize( _sbUpdate );
+        $content.resize( _sbUpdate );
         this.resize( _sbUpdate );
 
-
-        return this.innerContainer;
+        return $content;
     };
 
 }(jQuery, this, document));
