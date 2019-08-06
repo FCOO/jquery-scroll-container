@@ -1,43 +1,44 @@
 {
-  "name": "jquery-scroll-container",
-  "version": "3.1.2",
-  "homepage": "https://github.com/FCOO/jquery-scroll-container",
-  "authors": [
-    "Niels Holt"
-  ],
-  "description": "",
-  "main": [
-    "dist/jquery-scroll-container.js",
-    "dist/jquery-scroll-container.css"
-  ],
-  "repository": {
-    "type": "git",
-    "url": "git://github.com/FCOO/jquery-scroll-container.git"
-  },
-  "dependencies": {
-    "jquery": "latest",
-    "jquery-detect-element-resize": "fcoo/jquery-detect-element-resize#^1.0.0"
-  },
-  "overrides": {
-    "jquery.scrollbar": {
-      "main": [
-        "jquery.scrollbar.js"
-      ]
-    }
-  },
-  "devDependencies": {
-    "bourbon": "latest",
-    "perfect-scrollbar": "https://github.com/noraesae/perfect-scrollbar.git#^0.8.1"
-  },
-  "license": "MIT",
-  "ignore": [
-    "**/.*",
-    "node_modules",
-    "bower_components",
-    "test",
-    "tests"
-  ],
-  "moduleType": [
-    "es6"
-  ]
+    "name": "jquery-scroll-container",
+    "version": "3.1.2",
+    "homepage": "https://github.com/FCOO/jquery-scroll-container",
+    "authors": [
+        "Niels Holt"
+    ],
+    "description": "",
+    "main": [
+        "dist/jquery-scroll-container.js",
+        "dist/jquery-scroll-container.css"
+    ],
+    "repository": {
+        "type": "git",
+        "url": "git://github.com/FCOO/jquery-scroll-container.git"
+    },
+    "dependencies": {
+        "jquery": "latest",
+        "jquery-detect-element-resize": "fcoo/jquery-detect-element-resize#^1.0.0",
+        "perfect-scrollbar": "https://github.com/noraesae/perfect-scrollbar.git#^1.4.0"
+    },
+    "overrides": {
+        "perfect-scrollbar": {
+            "main": [
+                "dist/perfect-scrollbar.js",
+                "css/perfect-scrollbar.css"
+            ]
+        }
+    },
+    "devDependencies": {
+        "bourbon": "latest"
+    },
+    "license": "MIT",
+    "ignore": [
+        "**/.*",
+        "node_modules",
+        "bower_components",
+        "test",
+        "tests"
+    ],
+    "moduleType": [
+        "es6"
+    ]
 }

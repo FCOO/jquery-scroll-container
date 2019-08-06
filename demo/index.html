@@ -9,46 +9,57 @@
 	<meta name='copyright' content='FCOO'>
 	<meta name='owner' content='FCOO'>
 
-  <link  href="../src/jquery-scroll-container.css" rel="stylesheet">
+    <link  href="bower_components.css" rel="stylesheet">
+    <link  href="../src/jquery-scroll-container.css" rel="stylesheet">
 
    <style>
         * { box-sizing: border-box; }
+        .outer {
+            border: 2px solid black;
+        }
+
+        .outer-flex {
+            display: flex;
+            flex-direction: column;
+        }
+
         .header {
+            flex: 0 0 auto;
             width: 100%;
             height: 20px;
             border-bottom: 2px solid black;
         }
+        .footer {
+            width: 100%;
+            height: 20px;
+            border-top: 2px solid black;
+        }
 
-      
+
         .outer1 {
             position: absolute;
-            left: 10px; top:10px;
-            display: flex;
-            flex-direction: column;
-            
-            border: 2px solid black;
+            left: 10px; top:0px;
+
             width: 200px;
-            height: 40%;
+            max-height: calc(40% - 50px);
+
         }
-        .outer1 .header {
-            flex: 0 0 auto;
-        }
+
         .container1 {
             flex: 1 1 auto;
+            height: 0%;
         }
 
-
-        
         .outer2 {
             position: absolute;
             left: 220px; top:10px;
-            border: 2px solid black;
             width: 200px;
-            height: auto;
+            height: 40%;
         }
-                
-        .outer2 > div {
-            max-height: 300px;
+
+        .container2 {
+            flex: 1 1 auto;
+            height: 0%;
         }
 
 
@@ -62,85 +73,79 @@
         }
 
         .outer3 {
-            border: 2px solid black;
+            display: flex;
+            flex-direction: column;
             width: 200px;
             background-color: white;
-            height: 100%;
-            //height: 50%;
-            
-        }
-        .outer3 > div {
-            max-height: 50%;
+            height: 50%;
         }
 
         .container3 {
-            border: 1px solid black;
+            flex: 1 1 auto;
+            height: 0%;
         }
 
-        .outerouter3 > div {
-//            max-height: 250px;
-        }
+
 
 
         .outer4 {
             position: absolute;
-            left: 20px; 
+            left: 60%;
             top:75%;
-            border: 2px solid black;
-            width: auto;
+            width: 35%;
 
         }
-                
-        .outer4 > div {
-            max-width: 500px;
-        }
-        
+
+
         .container4 {
-            //height: 150px;
-            //border: 1px solid black;
+            height: 150px;
+            width : 100%;
+            border: 1px solid black;
         }
-        
+
 
         .outer5 {
             position: absolute;
-            left: 600px; 
-            top:40%;
-            border: 2px solid black;
+            left    : 60%;
+            top     : 40%;
         }
-        
+
         .container5 {
-            height: 400px;
-            width: 400px;
+            height: 200px;
+            width: 200px;
             border: 1px solid black;
         }
 
 
         .innerContent {
             display: block;
-            width:100%; 
-            border: 1px solid black;
-            margin-top:4px; 
-            background-color: #eee;
+            width:100%;
+            box-sizing: border-box;
+            border: 3px solid black;
+            margin-top:4px;
+            _background-color: #eee;
             text-align: center;
         }
         .innerContent:hover {
-            background-color: blue;
-            color: white;
+            _background-color: blue;
+            _color: white;
         }
-        .scrollbar-horizontal .innerContent {
+
+
+
+        .display-flex-direction-row {
+            display: flex;
+            height: 100%;
+            flex-direction: row;
+        }
+
+        .display-flex-direction-row .innerContent {
             display: inline-block;
             flex-shrink: 0;
             margin-top: 0;
             margin-left: 4px;
             width : 80px;
-            height: 100px; 
-        }
-//        .scrollbar-horizontal .innerContent:not(:first-child) {
-//            margin-left: 4px;
-//        }
-
-        .scrollbar-horizontal .jquery-scroll-container {
-            display: inline-flex; height: 100%;
+            height: 100%;
         }
 
         button {
@@ -148,57 +153,62 @@
             left: 50%;
         }
 
+
+
+
     </style>
 
 </head>
 
 <body>
-    <div class="outer1">
-        <div class="header">HEADER1 50/90%</div>
-        <div class="container1"></div>
+    <div class="outer outer-flex outer1">
+        <div class="header">#1 max-h: calc(100%-50px)</div>
+           <div class="container1"></div>
+        <div class="footer">Footer</div>
     </div>
 
-    <div class="outer2">
-        <div class="header">HEADER2 max 300px</div>
+    <div class="outer outer-flex outer2">
+        <div class="header">#2 h:40%/70%</div>
         <div class="container2"></div>
+        <div class="footer">Footer</div>
     </div>
 
     <div class="outerouter3">
-        <div class="outer3">
-            <div class="header">HEADER3 50% of red</div>
+        <div class="outer outer-flex outer3">
+            <div class="header">#3: h:50% of red (auto)</div>
             <div class="container3"></div>
+        <div class="footer">Footer</div>
         </div>
     </div>
 
-    <div class="outer4">
-        <div class="header">HEADER4 max 500px</div>
+    <div class="outer outer4">
+        <div class="header">#4 ???max 500px</div>
         <div class="container4"></div>
     </div>
-    <div class="outer5">
-        <div class="header">HEADER5 400px x 400px</div>
+    <div class="outer outer5">
+        <div class="header">#5 200px x 200px</div>
         <div class="container5"></div>
     </div>
-
     <button onClick="add()">Add</button><br>
 	<button onClick="remove()">Remove</button><br>
-	<button onClick="size()">Left 40% / 70%</button><br>
+	<button onClick="size()">#2 40% / 70%</button><br>
 	<button onClick="size2()">Red 30% / 300px</button>
-	
+
 	<script src="bower_components.js"></script>
 	<script src="modernizr-custom.js"></script>
 
     <script src="../src/jquery-scroll-container.js"></script>
-    <script src="../src/perfect-scrollbar.jquery.js"></script>
+    <!-- <script src="../src/perfect-scrollbar.jquery.js"></script> -->
 
     <script>
         var $containers = [
-                $('.container1').addScrollbar(),
-                $('.container2').addScrollbar(),
-                $('.container3').addScrollbar(), 
-                $('.container4').addScrollbar({direction: 'horizontal'})
+                $('.container1').addScrollbar('vertical'),
+                $('.container2').addScrollbar('vertical'),
+                $('.container3').addScrollbar('vertical'),
+                $('.container4').addScrollbar('horizontal').addClass('display-flex-direction-row')
             ];
 
-        $('.container5').addScrollbar({direction: 'both'}).append( $('<img src="tarzan.jpg"/>') ); 
+        $('.container5').addScrollbar('auto').append( $('<img src="tarzan.jpg"/>') );
 
         function each( func ){
             $.each($containers, function( index, $container ){
@@ -208,24 +218,24 @@
 
         each( function( $container ){
             $container.append('<div class="first innerContent">FIRST</div>');
-            for (var i=1; i<=40; i++ ){
-                if (i==20){
+            for (var i=1; i<=16; i++ ){
+                if (i==8){
                     var $middle = $('<div class="last innerContent">## MIDDLE ##</div>');
                     $container.append($middle);
                 }
                 else
-                    $container.append('<div class="normal innerContent">'+i+'</div>');        
+                    $container.append('<div class="normal innerContent">'+i+'</div>');
             }
             var $last = $('<div class="last innerContent">LAST</div>');
             $container.append($last);
-            
+
             $last.on('click', function(){ $middle.scrollIntoView() });
             $middle.on('click', function(){ $last.scrollIntoView() });
             $last.scrollIntoView();
 
         });
 
-       
+
 
         function add(){
             each( function( $container ){
@@ -242,7 +252,7 @@
         var full = false;
         function size(){
             full = !full;
-            $('.outer1').css( 'height', full ? '70%' : '40%' );
+            $('.outer2').css( 'height', full ? '70%' : '40%' );
         }
 
         var scroll3IsFixed = true;

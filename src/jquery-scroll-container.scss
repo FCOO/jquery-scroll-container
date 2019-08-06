@@ -1,22 +1,28 @@
 /***********************************************
-    jquery-scroll-container.scss, 
+    jquery-scroll-container.scss,
 
     (c) 2017, FCOO
 
     https://github.com/FCOO/jquery-scroll-container
     https://github.com/FCOO
 
-    USING MODIFIED VERSIONS OF THE STYLE 
-    FROM PERFECT-SCROLLBAR
+    USING MODIFIED VERSIONS OF THE STYLE FROM PERFECT-SCROLLBAR
     https://github.com/noraesae/perfect-scrollbar
 
 ************************************************/
-//BOURBON - http://bourbon.io/
-@import "../bower_components/bourbon/app/assets/stylesheets/bourbon";
-
-
-
 @import "jquery-scroll-container-variables";
+@import "jquery-scroll-container-shadow";
+
+//Add scroll-shadow
+@include scroll-shadow-horizontal( ".scrollbar-horizontal .simplebar-content-wrapper" );
+@include scroll-shadow-vertical  ( ".scrollbar-vertical .simplebar-content-wrapper" );
+
+/****************************************************
+Add adjustmnts to original PerfectScroll style
+****************************************************/
+
+
+
 
 
 /****************************************************
@@ -26,102 +32,102 @@ SHAPE AND POSITION
 ****************************************************/
 $scrollbar-z-index: 100;
 .ps { /*1*/
-    position: relative; 
-
-    -ms-touch-action  : auto;
-    touch-action      : auto;
-    overflow          : hidden !important;
-    -ms-overflow-style: none;
-
-    // Edge
-    @supports (-ms-overflow-style: none) {
-        overflow: auto !important;
-    }
-    // IE10+
-    @media screen and (-ms-high-contrast: active), (-ms-high-contrast: none) {
-        overflow: auto !important;
-    }
-
-    //Rail for active scrollbars
-    &.ps--active-x > .ps__scrollbar-x-rail,
-    &.ps--active-y > .ps__scrollbar-y-rail {
-        display         : block;
-    }
-
-    //RAIL: Common for both rails
-    > .ps__scrollbar-x-rail, > .ps__scrollbar-y-rail {
-        display : none;
-        position: absolute; 
-    }
-
-    //BAR + BAR-BG: Common for both bars
-    > .ps__scrollbar-x-rail > .ps__scrollbar-x, 
-    > .ps__scrollbar-x-rail > .ps__scrollbar-x-bg, 
-    > .ps__scrollbar-y-rail > .ps__scrollbar-y,
-    > .ps__scrollbar-y-rail > .ps__scrollbar-y-bg {
-        position       : absolute; 
-        z-index        : $scrollbar-z-index; 
-        background-clip: content-box;
-        box-sizing     : border-box;
-        padding        : $scrollbar-margin; 
-
-        //:after gives the shape and color
-        &:after {
-            display      : block;
-            box-sizing   : border-box;
-            width        : 100%; 
-            height       : 100%; 
-            content      : ""; 
-            border-radius: $scrollbar-size / 2;
-            transition: background-color .2s linear, height .2s linear, width .2s ease-in-out, border-radius .2s ease-in-out;
-        }
-    }
-
-    //HORIZONTAL: Size and position
-    //RAIL
-    > .ps__scrollbar-x-rail {
-        bottom: 0; 
-        height: $scroll-size;
-
-        //BAR + BAR-BG
-        > .ps__scrollbar-x,
-        > .ps__scrollbar-x-bg {
-            bottom: 0; 
-            height: $scroll-size; 
-
-            //Adjust padding-width
-            padding-left : 0; 
-            padding-right: 0;
-        }
-        //BAR-BG
-        > .ps__scrollbar-x-bg { 
-            width : 100%; 
-        }
-    }
-
-    //VERTICAL: Size and position
-    //RAIL
-    > .ps__scrollbar-y-rail {
-        right: 0; 
-        width: $scroll-size;
-
-        //BAR + BAR-BG
-        > .ps__scrollbar-y,
-        > .ps__scrollbar-y-bg {
-            right: 0; 
-            width: $scroll-size;
-
-            //Adjust padding-width
-            padding-top   : 0; 
-            padding-bottom: 0;
-        }
-
-        //BAR-BG
-        > .ps__scrollbar-y-bg { 
-            height: 100%; 
-        }
-    }
-} //end of .ps /*1*/ 
+//HER    position: relative;
+//HER
+//HER    -ms-touch-action  : auto;
+//HER    touch-action      : auto;
+//HER    overflow          : hidden !important;
+//HER    -ms-overflow-style: none;
+//HER
+//HER    // Edge
+//HER    @supports (-ms-overflow-style: none) {
+//HER        overflow: auto !important;
+//HER    }
+//HER    // IE10+
+//HER    @media screen and (-ms-high-contrast: active), (-ms-high-contrast: none) {
+//HER        overflow: auto !important;
+//HER    }
+//HER
+//HER    //Rail for active scrollbars
+//HER    &.ps--active-x > .ps__scrollbar-x-rail,
+//HER    &.ps--active-y > .ps__scrollbar-y-rail {
+//HER        display         : block;
+//HER    }
+//HER
+//HER    //RAIL: Common for both rails
+//HER    > .ps__scrollbar-x-rail, > .ps__scrollbar-y-rail {
+//HER        display : none;
+//HER        position: absolute;
+//HER    }
+//HER
+//HER    //BAR + BAR-BG: Common for both bars
+//HER    > .ps__scrollbar-x-rail > .ps__scrollbar-x,
+//HER    > .ps__scrollbar-x-rail > .ps__scrollbar-x-bg,
+//HER    > .ps__scrollbar-y-rail > .ps__scrollbar-y,
+//HER    > .ps__scrollbar-y-rail > .ps__scrollbar-y-bg {
+//HER        position       : absolute;
+//HER        z-index        : $scrollbar-z-index;
+//HER        background-clip: content-box;
+//HER        box-sizing     : border-box;
+//HER        padding        : $scrollbar-margin;
+//HER
+//HER        //:after gives the shape and color
+//HER        &:after {
+//HER            display      : block;
+//HER            box-sizing   : border-box;
+//HER            width        : 100%;
+//HER            height       : 100%;
+//HER            content      : "";
+//HER            border-radius: $scrollbar-size / 2;
+//HER            transition: background-color .2s linear, height .2s linear, width .2s ease-in-out, border-radius .2s ease-in-out;
+//HER        }
+//HER    }
+//HER
+//HER    //HORIZONTAL: Size and position
+//HER    //RAIL
+//HER    > .ps__scrollbar-x-rail {
+//HER        bottom: 0;
+//HER        height: $scroll-size;
+//HER
+//HER        //BAR + BAR-BG
+//HER        > .ps__scrollbar-x,
+//HER        > .ps__scrollbar-x-bg {
+//HER            bottom: 0;
+//HER            height: $scroll-size;
+//HER
+//HER            //Adjust padding-width
+//HER            padding-left : 0;
+//HER            padding-right: 0;
+//HER        }
+//HER        //BAR-BG
+//HER        > .ps__scrollbar-x-bg {
+//HER            width : 100%;
+//HER        }
+//HER    }
+//HER
+//HER    //VERTICAL: Size and position
+//HER    //RAIL
+//HER    > .ps__scrollbar-y-rail {
+//HER        right: 0;
+//HER        width: $scroll-size;
+//HER
+//HER        //BAR + BAR-BG
+//HER        > .ps__scrollbar-y,
+//HER        > .ps__scrollbar-y-bg {
+//HER            right: 0;
+//HER            width: $scroll-size;
+//HER
+//HER            //Adjust padding-width
+//HER            padding-top   : 0;
+//HER            padding-bottom: 0;
+//HER        }
+//HER
+//HER        //BAR-BG
+//HER        > .ps__scrollbar-y-bg {
+//HER            height: 100%;
+//HER        }
+//HER    }
+} //end of .ps /*1*/
 
 /****************************************************
 *****************************************************
@@ -137,25 +143,26 @@ COLOR AND OPACITY
 @mixin scrollbar-bar( $bg-color ){
     &:after {
         background-color: #{$bg-color};
-        opacity: 1; 
+        opacity: 1;
     }
 }
 
 @mixin extended( $horizontal ){
     @if ($horizontal){
-        padding-top   : $scrollbar-margin-extended; 
-        padding-bottom: $scrollbar-margin-extended; 
+        padding-top   : $scrollbar-margin-extended;
+        padding-bottom: $scrollbar-margin-extended;
     }
     @else {
-        padding-left : $scrollbar-margin-extended; 
-        padding-right: $scrollbar-margin-extended; 
+        padding-left : $scrollbar-margin-extended;
+        padding-right: $scrollbar-margin-extended;
     }
     &:after {
         border-radius: $scrollbar-size-extended / 2;
     }
 }
 
-/*Normal*/
+//Normal
+/*
 .ps {
     .ps__scrollbar-x, .ps__scrollbar-y,
     .ps__scrollbar-x-bg, .ps__scrollbar-y-bg {
@@ -166,32 +173,34 @@ COLOR AND OPACITY
     }
 
     //BAR
-    .ps__scrollbar-x, .ps__scrollbar-y { 
-        @include scrollbar-background(.2) 
-    } 
+    .ps__scrollbar-x, .ps__scrollbar-y {
+        @include scrollbar-background(.2)
+    }
 
     //BAR-BG
-    .ps__scrollbar-x-bg, .ps__scrollbar-y-bg { 
-        @include scrollbar-background(0) 
+    .ps__scrollbar-x-bg, .ps__scrollbar-y-bg {
+        @include scrollbar-background(0)
     }
 }
+*/
 
-//Hover content and bar or scrolling contents - but only for non toush devices
+//Hover content and bar or scrolling contents - but only for non touch devices
+/*
 .no-touchevents {
     .ps {
-        /* Hover content */
+        // Hover content
         &:hover {
             //BAR
-            .ps__scrollbar-x, .ps__scrollbar-y { 
-                @include scrollbar-background(.29) 
+            .ps__scrollbar-x, .ps__scrollbar-y {
+                @include scrollbar-background(.29)
             }
             //BAR-BG
-            .ps__scrollbar-x-bg, .ps__scrollbar-y-bg { 
-                @include scrollbar-background(0.15) 
+            .ps__scrollbar-x-bg, .ps__scrollbar-y-bg {
+                @include scrollbar-background(0.15)
             }
         }
 
-        /* Hover scrollbar (bar or bar-bg) */
+        // Hover scrollbar (bar or bar-bg)
         //BAR
         .ps__scrollbar-x-bg:hover ~ .ps__scrollbar-x, .ps__scrollbar-x:hover {
             @include scrollbar-bar('#8F8F8F');
@@ -202,26 +211,26 @@ COLOR AND OPACITY
             @include extended(false);
         }
 
-        /* Dragging scrollbar */
+        // Dragging scrollbar
         &.ps--in-scrolling  {
             //BAR
-            .ps__scrollbar-x { 
+            .ps__scrollbar-x {
                 @include scrollbar-bar('#616161');
                 @include extended(true);
 
             }
-            .ps__scrollbar-y { 
+            .ps__scrollbar-y {
                 @include scrollbar-bar('#616161');
                 @include extended(false);
             }
             //BAR-BG
-            .ps__scrollbar-x-bg, .ps__scrollbar-y-bg { 
-                @include scrollbar-background(.3); 
+            .ps__scrollbar-x-bg, .ps__scrollbar-y-bg {
+                @include scrollbar-background(.3);
             }
         }
     }
 }
-
+*/
 
 //Container with contents
 .jquery-scroll-container {
@@ -234,124 +243,101 @@ COLOR AND OPACITY
     margin : 0;
 
     .scrollbar-horizontal & /*, .scrollbar-both &*/ {
-        //REMOVED: No margin/padding except for the scrollbar
-        //padding-left : $scroll-shadow-size;
-        //padding-right: $scroll-shadow-size;
-        //margin-top   : $scroll-shadow-size;
-        margin-bottom: $scroll-size; 
-
-        //REMOVED - Not nedded when margin == 0
-        //& > .resize-triggers + * {
-        //    margin-left: 0 !important;
-        //}
-        //& > *:last-child {
-        //    margin-right: 0 !important;
-        //}
+        margin-bottom: $scroll-size;
     }
 
     .scrollbar-vertical & /*, .scrollbar-both & */ {
-        //REMOVED: No margin/padding except for the scrollbar
-        //padding-top   : $scroll-shadow-size;
-        //padding-bottom: $scroll-shadow-size;
-        margin-left   : $scroll-size; 
-        margin-right  : $scroll-size; 
-
-        //REMOVED - Not nedded when margin == 0
-        //& > .resize-triggers + * {
-        //    margin-top: 0 !important;
-        //}
-        //& > *:last-child {
-        //    margin-bottom: 0 !important;
-        //}
+        margin-left   : $scroll-size;
+        margin-right  : $scroll-size;
     }
 }
 
 
 
 
-//Adding shadow at the top/bottom using the rails. Using :before and :after to allow inner shadow on <ul>-<li>
-.ps { /*2*/
-    //Extend rail to full width/height
-    .ps__scrollbar-y-rail { width : 100%; }
-    .ps__scrollbar-x-rail { height: 100%; }
-
-
-    $shadow-color   : rgba(0,0,0,0.5);
-    $no-shadow-color: rgba(0,0,0,0);
-    $shadow-size    : 1.5 * $scroll-shadow-size; 
-    $spread         : -1 * $scroll-shadow-size;
-
-    $top-shadow      : inset 0    $shadow-size $shadow-size $spread $shadow-color;
-    $no-top-shadow   : inset 0    $shadow-size $shadow-size $spread $no-shadow-color;
-    $bottom-shadow   : inset 0 -1*$shadow-size $shadow-size $spread $shadow-color;
-    $no-bottom-shadow: inset 0 -1*$shadow-size $shadow-size $spread $no-shadow-color;
-
-    $left-shadow     : inset    $shadow-size 0 $shadow-size $spread $shadow-color;
-    $no-left-shadow  : inset    $shadow-size 0 $shadow-size $spread $no-shadow-color;
-    $right-shadow    : inset -1*$shadow-size 0 $shadow-size $spread $shadow-color;
-    $no-right-shadow : inset -1*$shadow-size 0 $shadow-size $spread $no-shadow-color;
-
-
-    //Common style
-    .ps__scrollbar-x-rail, .ps__scrollbar-y-rail {
-        &:before, &:after{ 
-            content   : "";
-            position  : absolute;
-            display   : none;
-            background: transparent;
-            z-index   : 1000;
-            transition: box-shadow 0.1s linear;
-        }
-    }
-
-    //Horizontal scrolling => shadow to the left and/or right
-    &.scrollbar-horizontal {
-        .ps__scrollbar-x-rail{
-            //Position
-            &:before, &:after {
-                top   : 0;//$scroll-shadow-size;  
-                bottom: 0;//$scroll-size;
-                width : $shadow-size;
-            }
-            &:before { left : 0; }
-            &:after  { right: 0; }
-
-            //Show shadow
-            &.shadow-left:before { 
-                display   : inline-block;
-                box-shadow: $left-shadow, $no-right-shadow;    
-            }
-
-            &.shadow-right:after { 
-                display   : inline-block;
-                box-shadow: $no-left-shadow, $right-shadow;    
-            }
-        }
-    }
-
-    //Vertical scrolling => shadow at the top and/or bottom
-    &.scrollbar-vertical {
-        .ps__scrollbar-y-rail{
-            //Position
-            &:before, &:after {
-                left  : 0;//$scroll-size; 
-                right : 0;//$scroll-size; 
-                height: $shadow-size;
-            }
-            &:before { top   : 0; }
-            &:after  { bottom: 0; }
-        
-            //Show shadow
-            &.shadow-top:before { 
-                display   : inline-block;
-                box-shadow: $top-shadow, $no-bottom-shadow;    
-            }
-
-            &.shadow-bottom:after { 
-                display   : inline-block;
-                box-shadow: $no-top-shadow, $bottom-shadow;    
-            }
-        }
-    }
-} //end of .ps /*2*/
+//HER//Adding shadow at the top/bottom using the rails. Using :before and :after to allow inner shadow on <ul>-<li>
+//HER.ps { //2
+//HER    //Extend rail to full width/height
+//HER    .ps__scrollbar-y-rail { width : 100%; }
+//HER    .ps__scrollbar-x-rail { height: 100%; }
+//HER
+//HER
+//HER    $shadow-color   : rgba(0,0,0,0.5);
+//HER    $no-shadow-color: rgba(0,0,0,0);
+//HER    $shadow-size    : 1.5 * $scroll-shadow-size;
+//HER    $spread         : -1 * $scroll-shadow-size;
+//HER
+//HER    $top-shadow      : inset 0    $shadow-size $shadow-size $spread $shadow-color;
+//HER    $no-top-shadow   : inset 0    $shadow-size $shadow-size $spread $no-shadow-color;
+//HER    $bottom-shadow   : inset 0 -1*$shadow-size $shadow-size $spread $shadow-color;
+//HER    $no-bottom-shadow: inset 0 -1*$shadow-size $shadow-size $spread $no-shadow-color;
+//HER
+//HER    $left-shadow     : inset    $shadow-size 0 $shadow-size $spread $shadow-color;
+//HER    $no-left-shadow  : inset    $shadow-size 0 $shadow-size $spread $no-shadow-color;
+//HER    $right-shadow    : inset -1*$shadow-size 0 $shadow-size $spread $shadow-color;
+//HER    $no-right-shadow : inset -1*$shadow-size 0 $shadow-size $spread $no-shadow-color;
+//HER
+//HER
+//HER    //Common style
+//HER    .ps__scrollbar-x-rail, .ps__scrollbar-y-rail {
+//HER        &:before, &:after{
+//HER            content   : "";
+//HER            position  : absolute;
+//HER            display   : none;
+//HER            background: transparent;
+//HER            z-index   : 1000;
+//HER            transition: box-shadow 0.1s linear;
+//HER        }
+//HER    }
+//HER
+//HER    //Horizontal scrolling => shadow to the left and/or right
+//HER    &.scrollbar-horizontal {
+//HER        .ps__scrollbar-x-rail{
+//HER            //Position
+//HER            &:before, &:after {
+//HER                top   : 0;//$scroll-shadow-size;
+//HER                bottom: 0;//$scroll-size;
+//HER                width : $shadow-size;
+//HER            }
+//HER            &:before { left : 0; }
+//HER            &:after  { right: 0; }
+//HER
+//HER            //Show shadow
+//HER            &.shadow-left:before {
+//HER                display   : inline-block;
+//HER                box-shadow: $left-shadow, $no-right-shadow;
+//HER            }
+//HER
+//HER            &.shadow-right:after {
+//HER                display   : inline-block;
+//HER                box-shadow: $no-left-shadow, $right-shadow;
+//HER            }
+//HER        }
+//HER    }
+//HER
+//HER    //Vertical scrolling => shadow at the top and/or bottom
+//HER    &.scrollbar-vertical {
+//HER        .ps__scrollbar-y-rail{
+//HER            //Position
+//HER            &:before, &:after {
+//HER                left  : 0;//$scroll-size;
+//HER                right : 0;//$scroll-size;
+//HER                height: $shadow-size;
+//HER            }
+//HER            &:before { top   : 0; }
+//HER            &:after  { bottom: 0; }
+//HER
+//HER            //Show shadow
+//HER            &.shadow-top:before {
+//HER                display   : inline-block;
+//HER                box-shadow: $top-shadow, $no-bottom-shadow;
+//HER            }
+//HER
+//HER            &.shadow-bottom:after {
+//HER                display   : inline-block;
+//HER                box-shadow: $no-top-shadow, $bottom-shadow;
+//HER            }
+//HER        }
+//HER    }
+//HER} //end of .ps
 
