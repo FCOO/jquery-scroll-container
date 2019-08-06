@@ -1,6 +1,6 @@
 {
     "name": "jquery-scroll-container",
-    "version": "4.1.0",
+    "version": "3.1.2",
     "homepage": "https://github.com/FCOO/jquery-scroll-container",
     "authors": [
         "Niels Holt"
@@ -17,8 +17,15 @@
     "dependencies": {
         "jquery": "latest",
         "jquery-detect-element-resize": "fcoo/jquery-detect-element-resize#^1.0.0",
-        "resize-observer-polyfill": "^1.5.1",
-        "jquery.nicescroll": "inuyaksa/jquery.nicescroll#^3.7.6"
+        "perfect-scrollbar": "https://github.com/noraesae/perfect-scrollbar.git#^1.4.0"
+    },
+    "overrides": {
+        "perfect-scrollbar": {
+            "main": [
+                "dist/perfect-scrollbar.js",
+                "css/perfect-scrollbar.css"
+            ]
+        }
     },
     "devDependencies": {
         "bourbon": "latest"

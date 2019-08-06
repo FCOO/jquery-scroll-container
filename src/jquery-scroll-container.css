@@ -6,33 +6,12 @@
     https://github.com/FCOO/jquery-scroll-container
     https://github.com/FCOO
 
-    An adjusted and simplified version of
-    SimpleBar.js - v4.1.0 - Scrollbars, simpler.
-    https://grsmto.github.io/simplebar/
-    Made by Adrien Denat from a fork by Jonathan Nicol
-    Under MIT License
-
-    Some scss code has been removed or added and are marked with //**
-    //** Removed from original
-    Added to original //**
+    USING MODIFIED VERSIONS OF THE STYLE FROM PERFECT-SCROLLBAR
+    https://github.com/noraesae/perfect-scrollbar
 
 ************************************************/
-/* stylelint-disable order/properties-alphabetical-order */
-/* stylelint-enable */
 /***********************************************
-    _jquery-scroll-container-variables.scss,
-
-    (c) 2017, FCOO
-
-    https://github.com/FCOO/jquery-scroll-container
-    https://github.com/FCOO
-
-    An adjusted and simplified version of
-    SimpleBar.js - v4.1.0 - Scrollbars, simpler.
-    https://grsmto.github.io/simplebar/
-    Made by Adrien Denat from a fork by Jonathan Nicol
-    Under MIT License
-
+_jquery-scroll-container-variables.scss,
 ************************************************/
 /***********************************************
 jquery-scroll-container-shadow.scss,
@@ -44,321 +23,119 @@ Shadow at top/bottom or left/right when content isn't scrolled to beginning/end
 Based on idea from http://dabblet.com/gist/2462915
 
 ****************************************************/
-.jq-scroll-container.jq-scroll-container-horizontal {
-  overflow-x: auto;
-  overflow-y: hidden;
-}
-.jq-scroll-container.jq-scroll-container-horizontal.has-scroll {
-  padding-bottom: 0 !important;
-}
-.jq-scroll-container.jq-scroll-container-vertical {
-  overflow-y: auto;
-  overflow-x: hidden;
-}
-.jq-scroll-container.jq-scroll-container-vertical.has-scroll {
-  padding-right: 0 !important;
-}
-.jq-scroll-container.jq-scroll-container-auto {
-  overflow-y: scroll;
-  overflow-x: scroll;
-}
-
-.jq-scroll-container.jq-scroll-container-horizontal {
-  background: linear-gradient(to right, white, white), linear-gradient(to right, white, white) 100% 0, linear-gradient(to right, red, rgba(0, 0, 0, 0)), linear-gradient(to right, rgba(0, 0, 0, 0), red) 100% 0;
+.scrollbar-horizontal .simplebar-content-wrapper {
+  background: linear-gradient(to right, white, white), linear-gradient(to right, white, white) 100% 0, linear-gradient(to right, rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0)), linear-gradient(to right, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.4)) 100% 0;
   background-repeat: no-repeat;
   background-color: white;
-  background-size: 1rem 100%, 1rem 100%, 1rem 100%, 1rem 100%;
+  background-size: 0.375rem 100%, 0.375rem 100%, 0.375rem 100%, 0.375rem 100%;
   background-attachment: local, local, scroll, scroll;
-}
-
-.jq-scroll-container.jq-scroll-container-vertical {
-  background: linear-gradient(white, white), linear-gradient(white, white) 0 100%, linear-gradient(red, rgba(0, 0, 0, 0)), linear-gradient(rgba(0, 0, 0, 0), red) 0 100%;
-  background-repeat: no-repeat;
-  background-color: white;
-  background-size: 100% 1rem, 100% 1rem, 100% 1rem, 100% 1rem;
-  background-attachment: local, local, scroll, scroll;
-}
-
-/****************************************************
-.scrollbar-vertical
-    .simplebar-wrapper
-        .simplebar-height-auto-observer-wrapper
-            .simplebar-height-auto-observer
-        .simplebar-mask
-            .simplebar-offset
-                .simplebar-content-wrapper
-                    .simplebar-content
-                        .resize-triggers
-                            .expand-trigger
-                            .contract-trigger
-                        /* content
-        .simplebar-placeholder
-    .simplebar-track.simplebar-horizontal[.simplebar-visible][.simplebar-hover]
-        .simplebar-scrollbar[.simplebar-visible][.simplebar-hover]
-    .simplebar-track.simplebar-vertical[.simplebar-visible][.simplebar-hover]
-        .simplebar-scrollbar[.simplebar-visible][.simplebar-hover]
-****************************************************/
-[data-simplebar] {
-  position: relative;
-  flex-direction: column;
-  flex-wrap: wrap;
-  justify-content: flex-start;
-  align-content: flex-start;
-  align-items: flex-start;
-}
-
-.simplebar-wrapper {
-  overflow: hidden;
-  width: inherit;
-  height: inherit;
-  max-width: inherit;
-  max-height: inherit;
-}
-
-.simplebar-mask {
-  direction: inherit;
-  position: absolute;
-  overflow: hidden;
-  padding: 0;
-  margin: 0;
-  left: 0;
-  top: 0;
-  bottom: 0;
-  right: 0;
-  width: auto !important;
-  height: auto !important;
-  z-index: 0;
-}
-
-.simplebar-offset {
-  direction: inherit !important;
-  box-sizing: inherit !important;
-  resize: none !important;
-  position: absolute;
-  top: 0;
-  left: 0;
-  bottom: 0;
-  right: 0;
-  padding: 0;
-  margin: 0;
-  -webkit-overflow-scrolling: touch;
-}
-
-.simplebar-content-wrapper {
-  direction: inherit;
-  box-sizing: border-box !important;
-  position: relative;
-  display: block;
-  height: 100%;
-  /* Required for horizontal native scrollbar to not appear if parent is taller than natural height */
-  width: auto;
-  visibility: visible;
-  overflow: auto;
-  /* Scroll on this element otherwise element can't have a padding applied properly */
-  max-width: 100%;
-  /* Not required for horizontal scroll to trigger */
-  max-height: 100%;
-  /* Needed for vertical scroll to trigger */
 }
 
 .scrollbar-vertical .simplebar-content-wrapper {
-  padding-right: 36px !important;
-  padding-left: 36px !important;
-}
-.scrollbar-horizontal .simplebar-content-wrapper {
-  padding-bottom: 36px !important;
-}
-
-.simplebar-content:before,
-.simplebar-content:after {
-  content: ' ';
-  display: table;
-}
-
-.simplebar-placeholder {
-  max-height: 100%;
-  max-width: 100%;
-  width: 100%;
-  pointer-events: none;
-}
-
-.simplebar-height-auto-observer-wrapper {
-  box-sizing: inherit !important;
-  height: 100%;
-  width: 100%;
-  max-width: 1px;
-  position: relative;
-  float: left;
-  max-height: 1px;
-  overflow: hidden;
-  z-index: -1;
-  padding: 0;
-  margin: 0;
-  pointer-events: none;
-  flex-grow: inherit;
-  flex-shrink: 0;
-  flex-basis: 0;
-}
-
-.simplebar-height-auto-observer {
-  box-sizing: inherit;
-  display: block;
-  opacity: 0;
-  position: absolute;
-  top: 0;
-  left: 0;
-  height: 1000%;
-  width: 1000%;
-  min-height: 1px;
-  min-width: 1px;
-  overflow: hidden;
-  pointer-events: none;
-  z-index: -1;
+  background: linear-gradient(white, white), linear-gradient(white, white) 0 100%, linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0)), linear-gradient(rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.4)) 0 100%;
+  background-repeat: no-repeat;
+  background-color: white;
+  background-size: 100% 0.375rem, 100% 0.375rem, 100% 0.375rem, 100% 0.375rem;
+  background-attachment: local, local, scroll, scroll;
 }
 
 /****************************************************
-SCROLLBAR
-
-[data-simplebar][simplebar-dragging]
-    .simplebar-track.simplebar-horizontal[.simplebar-visible][.simplebar-hover]
-        .simplebar-scrollbar[.simplebar-visible][.simplebar-hover]
-    .simplebar-track.simplebar-vertical[.simplebar-visible][.simplebar-hover]
-        .simplebar-scrollbar[.simplebar-visible][.simplebar-hover]
-
-
-.simplebar-track = container for hole scroll (bg and bar)
-    .simplebar-scrollbar = container for the scroll-bar
-    .simplebar-scrollbar:before = the scroll-bar
-
-Note #1: Position of scrollbar is set using margin-left,-right, -top, and -bottom allowing for different dimentions
+Add adjustmnts to original PerfectScroll style
 ****************************************************/
-.simplebar-track {
-  z-index: 1;
-  position: absolute;
-  right: 0;
-  bottom: 0;
-  pointer-events: none;
-  overflow: hidden;
-  background-color: transparent;
-  transition: background-color 0.2s linear;
-}
-.simplebar-track.simplebar-hover {
-  z-index: 2;
-  background-color: #f0f0f0;
-}
-.simplebar-track.simplebar-dragging {
-  z-index: 3;
-  background-color: #f0f0f0;
+/****************************************************
+*****************************************************
+SHAPE AND POSITION
+*****************************************************
+****************************************************/
+.ps {
+  /*1*/
 }
 
-[data-simplebar].simplebar-dragging .simplebar-track {
-  pointer-events: all;
-}
-
-.simplebar-scrollbar {
-  position: absolute;
-  right: 0;
-  width: 36px;
-  min-height: 10px;
-}
-
-.simplebar-scrollbar:before {
-  position: absolute;
-  content: '';
-  background: #cdcdcd;
-  border-radius: 10px;
-  left: 0;
-  right: 0;
-  top: 0;
-  bottom: 0;
-  opacity: 0;
-  margin: 4px;
-  transition: background-color 0.2s linear, margin 0.2s ease-in-out;
-}
-
-.simplebar-track .simplebar-scrollbar.simplebar-visible:before {
-  /* When hovered, remove all transitions from drag handle */
-  opacity: 1;
-  transition: opacity 0s linear;
-}
-
-.simplebar-track.simplebar-vertical {
-  top: 0;
-  width: 36px;
-}
-
-.simplebar-track.simplebar-vertical .simplebar-scrollbar:before {
-  top: 0;
-  bottom: 0;
-  margin-left: 8px;
-  margin-right: 8px;
-}
-
-.simplebar-track.simplebar-horizontal {
-  left: 0;
-  height: 36px;
-}
-
-.simplebar-track.simplebar-horizontal .simplebar-scrollbar:before {
-  left: 0;
-  right: 0;
-  margin-top: 8px;
-  margin-bottom: 8px;
-}
-
-.simplebar-track.simplebar-horizontal .simplebar-scrollbar {
-  right: auto;
-  left: 0;
-  top: 0px;
-  height: 36px;
-  min-height: 0;
-  min-width: 25px;
-  width: auto;
-}
-
-/* Rtl support */
-[data-simplebar-direction='rtl'] .simplebar-track.simplebar-vertical {
-  right: auto;
-  left: 0;
-}
-
-.hs-dummy-scrollbar-size {
-  direction: rtl;
-  position: fixed;
-  opacity: 0;
-  visibility: hidden;
-  height: 500px;
-  width: 500px;
-  overflow-y: hidden;
-  overflow-x: scroll;
-}
-
-[data-simplebar]:not(.simplebar-dragging) .simplebar-track.simplebar-hover .simplebar-scrollbar:before {
-  background-color: #a6a6a6;
-  margin: 4px;
-}
-
-[data-simplebar] .simplebar-track.simplebar-dragging .simplebar-scrollbar:before {
-  background-color: #606060;
-  margin: 4px;
-}
-
+/****************************************************
+*****************************************************
+COLOR AND OPACITY
+*****************************************************
+****************************************************/
 /*
+.ps {
+    .ps__scrollbar-x, .ps__scrollbar-y,
+    .ps__scrollbar-x-bg, .ps__scrollbar-y-bg {
+        transition: padding .2s ease-in-out;
+        &:after {
+            transition: opacity .2s ease-in-out, background-color .2s ease-in-out, padding .2s ease-in-out, border-radius .2s ease-in-out;
+        }
+    }
 
-:not(.simplebar-dragging) {
-    & > .simplebar-hover.simplebar-track.simplebar-vertical   .simplebar-scrollbar:before,
-    & > .simplebar-hover.simplebar-track.simplebar-horizontal .simplebar-scrollbar:before {
-        margin: 0;
-        background-color: $scrollbar-thumb-hover;
+    //BAR
+    .ps__scrollbar-x, .ps__scrollbar-y {
+        @include scrollbar-background(.2)
+    }
+
+    //BAR-BG
+    .ps__scrollbar-x-bg, .ps__scrollbar-y-bg {
+        @include scrollbar-background(0)
     }
 }
-
-.simplebar-dragging.simplebar-track.simplebar-vertical   .simplebar-scrollbar:before,
-.simplebar-dragging.simplebar-track.simplebar-horizontal .simplebar-scrollbar:before {
-    margin: 0;
-    background-color: $scrollbar-thumb-active;
-}
-
 */
+/*
+.no-touchevents {
+    .ps {
+        // Hover content
+        &:hover {
+            //BAR
+            .ps__scrollbar-x, .ps__scrollbar-y {
+                @include scrollbar-background(.29)
+            }
+            //BAR-BG
+            .ps__scrollbar-x-bg, .ps__scrollbar-y-bg {
+                @include scrollbar-background(0.15)
+            }
+        }
+
+        // Hover scrollbar (bar or bar-bg)
+        //BAR
+        .ps__scrollbar-x-bg:hover ~ .ps__scrollbar-x, .ps__scrollbar-x:hover {
+            @include scrollbar-bar('#8F8F8F');
+            @include extended(true);
+        }
+        .ps__scrollbar-y-bg:hover ~ .ps__scrollbar-y, .ps__scrollbar-y:hover  {
+            @include scrollbar-bar('#8F8F8F');
+            @include extended(false);
+        }
+
+        // Dragging scrollbar
+        &.ps--in-scrolling  {
+            //BAR
+            .ps__scrollbar-x {
+                @include scrollbar-bar('#616161');
+                @include extended(true);
+
+            }
+            .ps__scrollbar-y {
+                @include scrollbar-bar('#616161');
+                @include extended(false);
+            }
+            //BAR-BG
+            .ps__scrollbar-x-bg, .ps__scrollbar-y-bg {
+                @include scrollbar-background(.3);
+            }
+        }
+    }
+}
+*/
+.jquery-scroll-container {
+  position: relative;
+  z-index: 101;
+  background-color: transparent;
+  padding: 0;
+  margin: 0;
+}
+.scrollbar-horizontal .jquery-scroll-container {
+  margin-bottom: 0.5625rem;
+}
+.scrollbar-vertical .jquery-scroll-container {
+  margin-left: 0.5625rem;
+  margin-right: 0.5625rem;
+}
 
 /*# sourceMappingURL=jquery-scroll-container.css.map */
