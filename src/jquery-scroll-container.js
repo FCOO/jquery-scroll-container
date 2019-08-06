@@ -8,7 +8,7 @@
 
 ****************************************************************************/
 
-(function ($ /*, window, document, undefined*/) {
+(function ($, window/*, document, undefined*/) {
     "use strict";
 
     if ( $('html').hasClass('touchevents') || $('html').hasClass('no-touchevents') )
@@ -16,7 +16,6 @@
     else
         //Default: No touch
         $('html').addClass('no-touchevents');
-
 
     //Extend $.fn with scrollIntoView
     $.fn.extend({
@@ -27,37 +26,11 @@
     });
 
 
-
     //Extend $.fn with internal scrollbar methods
     $.fn.extend({
         _psUpdate: function(){
             this.perfectScrollbar.update();
-//HER            this.perfectScrollbar('update');
-//HER            this._psUpdateShadow();
         },
-
-//HER        _psSetShadow: function( $rail, postfix, on ){
-//HER            $rail.toggleClass('shadow-'+postfix, on );
-//HER        },
-//HER        _psSetXShadow: function( postfix, on ){
-//HER            this._psSetShadow( this.scrollbarXRail , postfix, on );
-//HER        },
-//HER        _psSetYShadow: function( postfix, on ){
-//HER            this._psSetShadow( this.scrollbarYRail , postfix, on );
-//HER        },
-//HER        _psUpdateShadow: function(){
-//HER            //Round up due to some browser using decimal in scroll-values
-//HER            var scrollLeft = Math.ceil( this.scrollLeft() ),
-//HER                scrollTop  = Math.ceil( this.scrollTop()  );
-//HER
-//HER            this._psSetXShadow( 'left',   scrollLeft > 0 );
-//HER            this._psSetXShadow( 'right',  scrollLeft < (this.get(0).scrollWidth - this.get(0).clientWidth) );
-//HER
-//HER            this._psSetYShadow( 'top',    scrollTop > 0 );
-//HER            this._psSetYShadow( 'bottom', scrollTop < (this.get(0).scrollHeight - this.get(0).clientHeight) );
-//HER
-//HER        }
-
     });
 
     var scrollbarOptions = {
@@ -74,6 +47,10 @@
         //scrollXMarginOffset   //The number of pixels the content width can surpass the container width without enabling the X axis scroll bar. Allows some "wiggle room" or "offset break", so that X axis scroll bar is not enabled just because of a few pixels. Default: 0
         //scrollYMarginOffset   //The number of pixels the content height can surpass the container height without enabling the Y axis scroll bar. Allows some "wiggle room" or "offset break", so that Y axis scroll bar is not enabled just because of a few pixels.Default: 0
 
+
+        minScrollbarLength : 16,
+        scrollingThreshold: 0,  //Using css transition to do the job
+
         useBothWheelAxes   : true, //=> Mousewheel works in both horizontal and vertical scroll
         scrollXMarginOffset: 1,    //IE11 apears to work betten when == 1
         scrollYMarginOffset: 1,    //                --||--
@@ -81,64 +58,56 @@
         direction: 'vertical' //["vertical"|"horizontal"|"both"] (default: "vertical")
     };
 
-
-
     $.fn.addScrollbar = function( options ){
+        if ($.type( options ) == "string")
+            options = {direction: options };
+
         //Update options
         options = $.extend( scrollbarOptions, options || {} );
-        options.isVertical   = (options.direction == 'vertical');
-        options.isHorizontal = (options.direction == 'horizontal');
-        options.isBoth       = (options.direction == 'both');
 
-        options.suppressScrollX = options.isVertical;
-        options.suppressScrollY = options.isHorizontal;
+        var isVertical   = (options.direction == 'vertical'),
+            isHorizontal = (options.direction == 'horizontal'),
+            isBoth       = (options.direction == 'both'),
+            directionClassName = isHorizontal ? 'scrollbar-horizontal' :
+                                 isVertical   ? 'scrollbar-vertical' :
+                                 isBoth       ? 'scrollbar-both' :
+                                                '';
+        options.suppressScrollX = isVertical;
+        options.suppressScrollY = isHorizontal;
 
-        this.psOptions = options;
-        this
-            //Set direction class
-            .toggleClass( 'scrollbar-horizontal', this.psOptions.isHorizontal )
-            .toggleClass( 'scrollbar-vertical',   this.psOptions.isVertical   )
-            .toggleClass( 'scrollbar-both',       this.psOptions.isBoth       );
+        this.addClass( directionClassName );
 
         //Create perfect.scrollbar
-//HER        this.perfectScrollbar( options );
-        this.perfectScrollbar = new PerfectScrollbar(this.get(0), options );
+        this.perfectScrollbar = new window.PerfectScrollbar(this.get(0), options );
 
-        //Find the rail for x and y scroll
-        this.scrollbarXRail = this.find('.ps__scrollbar-x-rail');
-        this.scrollbarYRail = this.find('.ps__scrollbar-y-rail');
+        //Add class ps__rail to both x- and y-rail
+        $(this.perfectScrollbar.scrollbarXRail).addClass('ps__rail');
+        $(this.perfectScrollbar.scrollbarYRail).addClass('ps__rail');
 
-        //Add background for the bar
-        this.scrollbarXRail.prepend( $('<div/>').addClass('ps__scrollbar-x-bg') );
-        this.scrollbarYRail.prepend( $('<div/>').addClass('ps__scrollbar-y-bg') );
+        //Add class ps__thumb to both x- and y-thumb
+        $(this.perfectScrollbar.scrollbarX).addClass('ps__thumb');
+        $(this.perfectScrollbar.scrollbarY).addClass('ps__thumb');
 
-
-//HER        //Assume the the content is scrolled to the top/left
-//HER        this._psSetXShadow('right',   true  );
-//HER        this._psSetYShadow( 'bottom', true  );
-
-//HER        // Adding event to update shadows
-//HER        this.on('ps-scroll-y ps-scroll-x', $.proxy( this._psUpdateShadow, this ) );
+console.log(this.perfectScrollbar);
 
         //Add inner container to cache resize when adding/removing elements from container
         this.scrollbarContainer =
             $('<div/>')
                 .addClass('jquery-scroll-container')
+//                .addClass(directionClassName)
                 .appendTo( this );
-
 
         //Update scrollbar when container or content change size
         var _psUpdate = $.proxy( this._psUpdate, this );
         this.resize( _psUpdate );
         this.scrollbarContainer.resize( _psUpdate );
 
-//        return this;
         return this.scrollbarContainer;
     };
 
 
-/**********************************************************************
-TODO: NEW METHODS
+    /**********************************************************************
+    TODO: NEW METHODS
         //verticalScrollToElement
         this.verticalScrollToElement = function verticalScrollToElement(elem, options){
             elem = elem instanceof $ ? elem : $(elem);
@@ -180,14 +149,6 @@ TODO: NEW METHODS
         //verticalScrollPrepend
         this.verticalScrollPrepend  = function verticalScrollPrepend( elem ){ this.find('.mCSB_container').prepend( elem );    };
 
-**********************************************************************/
-
-
-
-    //Initialize/ready
-    $(function() {
-    });
-
-
+    **********************************************************************/
 
 }(jQuery, this, document));

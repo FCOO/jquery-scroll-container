@@ -10,7 +10,7 @@ Based on idea from http://dabblet.com/gist/2462915
 ****************************************************/
 $shadow-color      : red; //rgba(0, 0, 0, 0.4);
 $no-shadow-color   : rgba(0, 0, 0, 0);
-$scroll-shadow-size: 16rem / 16;
+$scroll-shadow-size: 1rem; //6rem / 16;
 
 @mixin scroll-shadow-vertical( $selector ){
      #{$selector} {

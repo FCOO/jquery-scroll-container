@@ -10610,9 +10610,9 @@ return jQuery;
 (function ( $ ) {
 	var attachEvent = document.attachEvent,
 		stylesCreated = false;
-	
+
 	var jQuery_resize = $.fn.resize;
-	
+
 	$.fn.resize = function(callback) {
 		return this.each(function() {
 			if(this == window)
@@ -10627,14 +10627,14 @@ return jQuery;
 			removeResizeListener(this, callback);
 		});
 	}
-	
+
 	if (!attachEvent) {
 		var requestFrame = (function(){
 			var raf = window.requestAnimationFrame || window.mozRequestAnimationFrame || window.webkitRequestAnimationFrame ||
 								function(fn){ return window.setTimeout(fn, 20); };
 			return function(fn){ return raf(fn); };
 		})();
-		
+
 		var cancelFrame = (function(){
 			var cancel = window.cancelAnimationFrame || window.mozCancelAnimationFrame || window.webkitCancelAnimationFrame ||
 								   window.clearTimeout;
@@ -10658,7 +10658,7 @@ return jQuery;
 			return element.offsetWidth != element.__resizeLast__.width ||
 						 element.offsetHeight != element.__resizeLast__.height;
 		}
-		
+
 		function scrollListener(e){
 			var element = this;
 			resetTriggers(this);
@@ -10673,7 +10673,7 @@ return jQuery;
 				}
 			});
 		};
-		
+
 		/* Detect CSS Animations support to detect element display/re-attach */
 		var animation = false,
 			animationstring = 'animation',
@@ -10684,8 +10684,8 @@ return jQuery;
 			pfx  = '';
 		{
 			var elm = document.createElement('fakeelement');
-			if( elm.style.animationName !== undefined ) { animation = true; }    
-			
+			if( elm.style.animationName !== undefined ) { animation = true; }
+
 			if( animation === false ) {
 				for( var i = 0; i < domPrefixes.length; i++ ) {
 					if( elm.style[ domPrefixes[i] + 'AnimationName' ] !== undefined ) {
@@ -10699,12 +10699,12 @@ return jQuery;
 				}
 			}
 		}
-		
+
 		var animationName = 'resizeanim';
 		var animationKeyframes = '@' + keyframeprefix + 'keyframes ' + animationName + ' { from { opacity: 0; } to { opacity: 0; } } ';
 		var animationStyle = keyframeprefix + 'animation: 1ms ' + animationName + '; ';
 	}
-	
+
 	function createStyles() {
 		if (!stylesCreated) {
 			//opacity:0 works around a chrome bug https://code.google.com/p/chromium/issues/detail?id=286360
@@ -10713,7 +10713,7 @@ return jQuery;
 					'.resize-triggers, .resize-triggers > div, .contract-trigger:before { content: \" \"; display: block; position: absolute; top: 0; left: 0; height: 100%; width: 100%; overflow: hidden; } .resize-triggers > div { background: #eee; overflow: auto; } .contract-trigger:before { width: 200%; height: 200%; }',
 				head = document.head || document.getElementsByTagName('head')[0],
 				style = document.createElement('style');
-			
+
 			style.type = 'text/css';
 			if (style.styleSheet) {
 				style.styleSheet.cssText = css;
@@ -10725,7 +10725,7 @@ return jQuery;
 			stylesCreated = true;
 		}
 	}
-	
+
 	window.addResizeListener = function(element, fn){
 		if (attachEvent) element.attachEvent('onresize', fn);
 		else {
@@ -10740,7 +10740,7 @@ return jQuery;
 				element.appendChild(element.__resizeTriggers__);
 				resetTriggers(element);
 				element.addEventListener('scroll', scrollListener, true);
-				
+
 				/* Listen for a css animation to detect element display/re-attach */
 				animationstartevent && element.__resizeTriggers__.addEventListener(animationstartevent, function(e) {
 					if(e.animationName == animationName)
@@ -10750,7 +10750,7 @@ return jQuery;
 			element.__resizeListeners__.push(fn);
 		}
 	};
-	
+
 	window.removeResizeListener = function(element, fn){
 		if (attachEvent) element.detachEvent('onresize', fn);
 		else {
@@ -12005,7 +12005,7 @@ var PerfectScrollbar = function PerfectScrollbar(element, userSettings) {
   updateGeometry(this);
 };
 
-PerfectScrollbar.prototype.update = function update () {
+PerfectScrollbar.prototype.update = function update () { console.log('her');
   if (!this.isAlive) {
     return;
   }
