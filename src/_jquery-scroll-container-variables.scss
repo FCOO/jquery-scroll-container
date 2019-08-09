@@ -1,33 +1,21 @@
 /***********************************************
     _jquery-scroll-container-variables.scss,
-
-    (c) 2017, FCOO
-
-    https://github.com/FCOO/jquery-scroll-container
-    https://github.com/FCOO
-
-    An adjusted and simplified version of
-    SimpleBar.js - v4.1.0 - Scrollbars, simpler.
-    https://grsmto.github.io/simplebar/
-    Made by Adrien Denat from a fork by Jonathan Nicol
-    Under MIT License
-
 ************************************************/
-$scrollbar-size  : 20px;//5rem / 16;
-$scrollbar-margin: 5px; //2rem / 16;
+$scrollbar-size  : 5rem / 16;
+$scrollbar-margin: 2rem / 16;
 
-$scrollbar-margin-min: 1px; //1rem / 16;
+$scrollbar-margin-min: 1rem / 16;
 
 $scroll-size     : $scrollbar-margin + $scrollbar-size + $scrollbar-margin;
 
 //Colors for the background and the thumb
-$scrollbar-background      : pink; //rgb(240,240,240);;
+$scrollbar-background      : rgb(240,240,240);;
 
 //Scrollbar thumb color as in Windows
-$scrollbar-thumb       : green; //rgb(205,205,205);
-$scrollbar-thumb-hover : yellow; //rgb(166,166,166);
-$scrollbar-thumb-active: blue; //rgb( 96, 96, 96);
+$scrollbar-thumb       : rgb(205,205,205);
+$scrollbar-thumb-hover : rgb(166,166,166);
+$scrollbar-thumb-active: rgb( 96, 96, 96);
 
 //Transition-time for background-color and width/height
-$scrollbar-transition-time: .2s; //0.2s;
+$scrollbar-transition-time: .2s;
 

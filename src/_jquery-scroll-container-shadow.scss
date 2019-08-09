@@ -8,49 +8,69 @@ Shadow at top/bottom or left/right when content isn't scrolled to beginning/end
 Based on idea from http://dabblet.com/gist/2462915
 
 ****************************************************/
-$shadow-color      : red; //rgba(0, 0, 0, 0.4);
+$shadow-color      : rgba(0, 0, 0, 0.4);
 $no-shadow-color   : rgba(0, 0, 0, 0);
-$scroll-shadow-size: 1rem; //6rem / 16;
+$scroll-shadow-size: 6rem / 16;
 
 @mixin scroll-shadow-vertical( $selector ){
-     #{$selector} {
-        background:
-		    //Shadow covers
-            linear-gradient(white , white),
-	    	linear-gradient(white, white) 0 100%,
+    $shadow-size  : 100% $scroll-shadow-size;
+    $top-shadow   : linear-gradient($shadow-color ,   $no-shadow-color);
+    $bottom-shadow: linear-gradient($no-shadow-color, $shadow-color   ) 0 100%;
 
-		    // Shadows
-            linear-gradient($shadow-color ,   $no-shadow-color),
-	    	linear-gradient($no-shadow-color, $shadow-color   ) 0 100%;
+    #{$selector} {
+        background-color: white;
 
-        background-repeat: no-repeat;
-	    background-color: white;
-    	background-size: 100% $scroll-shadow-size, 100% $scroll-shadow-size, 100% $scroll-shadow-size, 100% $scroll-shadow-size;
-
-    	// The background that cover the shadow will scroll with the element's contents (local)
-        // The background that contain the shadow  will scroll with the page (scroll)
-        background-attachment: local, local, scroll, scroll;
+        //Shadow only at top
+        &.no-scroll-at-start.scroll-at-end {
+            background           : $top-shadow;
+            background-size      : $shadow-size;
+            background-position-y: top;
+            background-repeat    : no-repeat;
+        }
+        //Shadow only at bottom
+        &.scroll-at-start.no-scroll-at-end {
+            background           : $bottom-shadow;
+            background-size      : $shadow-size;
+            background-position-y: bottom;
+            background-repeat    : no-repeat;
+        }
+        //Shadow both at top and bottom
+        &.no-scroll-at-start.no-scroll-at-end {
+            background           : $top-shadow, $bottom-shadow;
+            background-size      : $shadow-size;
+            background-position-y: top, bottom;
+            background-repeat    : no-repeat;
+        }
     }
 }
 
 @mixin scroll-shadow-horizontal( $selector ){
+    $shadow-size : $scroll-shadow-size 100%;
+    $left-shadow : linear-gradient(to right, $shadow-color ,   $no-shadow-color);
+    $right-shadow: linear-gradient(to right, $no-shadow-color, $shadow-color   ) 100% 0;
+
     #{$selector} {
-    	background:
-	    	//Shadow covers
-            linear-gradient(to right, white , white),
-    		linear-gradient(to right, white, white) 100% 0,
-
-	    	// Shadows
-            linear-gradient(to right, $shadow-color ,   $no-shadow-color),
-    		linear-gradient(to right, $no-shadow-color, $shadow-color   ) 100% 0;
-
-        background-repeat: no-repeat;
-	    background-color: white;
-    	background-size: $scroll-shadow-size 100%, $scroll-shadow-size 100%, $scroll-shadow-size 100%, $scroll-shadow-size 100%;
-
-    	// The background that cover the shadow will scroll with the element's contents (local)
-        // The background that contain the shadow  will scroll with the page (scroll)
-        background-attachment: local, local, scroll, scroll;
+        background-color: white;
+        //Shadow only at left
+        &.no-scroll-at-start.scroll-at-end {
+            background           : $left-shadow;
+            background-size      : $shadow-size;
+            background-position-y: left;
+            background-repeat    : no-repeat;
+        }
+        //Shadow only at right
+        &.scroll-at-start.no-scroll-at-end {
+            background           : $right-shadow;
+            background-size      : $shadow-size;
+            background-position-y: right;
+            background-repeat    : no-repeat;
+        }
+        //Shadow both at left and right
+        &.no-scroll-at-start.no-scroll-at-end {
+            background           : $left-shadow, $right-shadow;
+            background-size      : $shadow-size;
+            background-position-y: left, right;
+            background-repeat    : no-repeat;
+        }
     }
 }
-

@@ -8,8 +8,10 @@
 
 ****************************************************************************/
 
-(function ($, window/*, document, undefined*/) {
+(function ($, window, document/*, undefined*/) {
     "use strict";
+
+    //TODO var isIE11 = !!window.MSInputMethodContext && !!document.documentMode;
 
     if ( $('html').hasClass('touchevents') || $('html').hasClass('no-touchevents') )
         ;    //Modernizr (or someone else) has set the correct class
@@ -17,20 +19,30 @@
         //Default: No touch
         $('html').addClass('no-touchevents');
 
+    var scrollbarWidth = 0;
+    function getScrollbarWidth() {
+        if (typeof document === 'undefined')
+            return 0;
+
+        var body = document.body,
+            box = document.createElement('div'),
+            boxStyle = box.style;
+        boxStyle.position = 'fixed';
+        boxStyle.left = 0;
+        boxStyle.visibility = 'hidden';
+        boxStyle.overflowY = 'scroll';
+        body.appendChild(box);
+        var width = box.getBoundingClientRect().right;
+        body.removeChild(box);
+        return width;
+    }
+
     //Extend $.fn with scrollIntoView
     $.fn.extend({
         scrollIntoView: function( arg ){
             if (this.get(0).scrollIntoView)
                 this.get(0).scrollIntoView( arg );
         }
-    });
-
-
-    //Extend $.fn with internal scrollbar methods
-    $.fn.extend({
-        _psUpdate: function(){
-            this.perfectScrollbar.update();
-        },
     });
 
     var scrollbarOptions = {
@@ -52,103 +64,133 @@
         scrollingThreshold: 0,  //Using css transition to do the job
 
         useBothWheelAxes   : true, //=> Mousewheel works in both horizontal and vertical scroll
-        scrollXMarginOffset: 1,    //IE11 apears to work betten when == 1
+        scrollXMarginOffset: 1,    //IE11 apears to work betten when == 1. TODO: Should only be 1 for Edge and IE11
         scrollYMarginOffset: 1,    //                --||--
 
-        direction: 'vertical' //["vertical"|"horizontal"|"both"] (default: "vertical")
+        direction: 'vertical', //["vertical"|"horizontal"|"both"] (default: "vertical")
+
+        defaultScrollbarOnTouch: false   //If true and the browser support touchevents => use simple version using the browsers default scrollbar
     };
 
-    $.fn.addScrollbar = function( options ){
+
+    //_jscUpdateScrollShadowClass: update the classNames setting the scroll-shadow
+    $.fn._jscUpdateScrollShadowClass = function( isVertical ){
+        var elem = this.get(0),
+            hasScroll, position;
+
+        if (isVertical){
+            hasScroll = elem.scrollHeight > (elem.clientHeight + this._jscScrollOffset);
+            position = elem.scrollTop <= 0 ? 'start' :
+                       elem.scrollTop >= elem.scrollHeight - elem.clientHeight ? 'end' :
+                       null;
+        }
+        else {
+            hasScroll = elem.scrollWidth >= (elem.clientWidth + this._jscScrollOffset);
+            position = elem.scrollLeft <= 0 ? 'start' :
+                       elem.scrollLeft >= elem.scrollWidth - elem.clientWidth ? 'end' :
+                       null;
+        }
+
+        this
+            .modernizrToggle('scroll-at-start', (position == 'start') || !hasScroll)
+            .modernizrToggle('scroll-at-end', (position == 'end') || !hasScroll);
+    };
+
+
+    //addScrollBar( direction, defaultScrollbarOnTouch ) or addScrollBar( options )
+    $.fn.addScrollbar = function( options, defaultScrollbarOnTouch ){
+        var _this = this;
         if ($.type( options ) == "string")
-            options = {direction: options };
+            options = {
+                direction: options,
+                defaultScrollbarOnTouch: defaultScrollbarOnTouch
+            };
 
         //Update options
         options = $.extend( scrollbarOptions, options || {} );
 
-        var isVertical   = (options.direction == 'vertical'),
+        var observer,
+            isVertical   = (options.direction == 'vertical'),
             isHorizontal = (options.direction == 'horizontal'),
             isBoth       = (options.direction == 'both'),
-            directionClassName = isHorizontal ? 'scrollbar-horizontal' :
-                                 isVertical   ? 'scrollbar-vertical' :
-                                 isBoth       ? 'scrollbar-both' :
+            directionClassName = isHorizontal ? 'jq-scroll-container-horizontal' :
+                                 isVertical   ? 'jq-scroll-container-vertical' :
+                                 isBoth       ? 'jq-scroll-container-both' :
                                                 '';
         options.suppressScrollX = isVertical;
         options.suppressScrollY = isHorizontal;
 
-        this.addClass( directionClassName );
+        this._jscScrollOffset = isVertical ? options.scrollYMarginOffset :
+                                isVertical ? options.scrollXMarginOffset :
+                                0;
 
-        //Create perfect.scrollbar
-        this.perfectScrollbar = new window.PerfectScrollbar(this.get(0), options );
+        function updateScrollClass(){
+            _this._jscUpdateScrollShadowClass(isVertical);
+        }
 
-        //Add class ps__rail to both x- and y-rail
-        $(this.perfectScrollbar.scrollbarXRail).addClass('ps__rail');
-        $(this.perfectScrollbar.scrollbarYRail).addClass('ps__rail');
+        if (!options.defaultScrollbarOnTouch || $('html').hasClass('no-touchevents')){
+            //no-touch browser => use perfect.scrollbar
 
-        //Add class ps__thumb to both x- and y-thumb
-        $(this.perfectScrollbar.scrollbarX).addClass('ps__thumb');
-        $(this.perfectScrollbar.scrollbarY).addClass('ps__thumb');
+            this.addClass( directionClassName );
 
-console.log(this.perfectScrollbar);
+            //Create perfect.scrollbar
+            this.perfectScrollbar = new window.PerfectScrollbar(this.get(0), options );
 
-        //Add inner container to cache resize when adding/removing elements from container
-        this.scrollbarContainer =
-            $('<div/>')
-                .addClass('jquery-scroll-container')
-//                .addClass(directionClassName)
-                .appendTo( this );
+            //Add class ps__rail to both x- and y-rail
+            $(this.perfectScrollbar.scrollbarXRail).addClass('ps__rail');
+            $(this.perfectScrollbar.scrollbarYRail).addClass('ps__rail');
 
-        //Update scrollbar when container or content change size
-        var _psUpdate = $.proxy( this._psUpdate, this );
-        this.resize( _psUpdate );
-        this.scrollbarContainer.resize( _psUpdate );
+            //Add class ps__thumb to both x- and y-thumb
+            $(this.perfectScrollbar.scrollbarX).addClass('ps__thumb');
+            $(this.perfectScrollbar.scrollbarY).addClass('ps__thumb');
 
-        return this.scrollbarContainer;
+            //Add inner container to cache resize when adding/removing elements from container
+            this.scrollbarContainer =
+                $('<div/>')
+                    .addClass('jq-scroll-container')
+                    .appendTo( this );
+
+
+            //Update scroll-shadow when scrolling - not working in IE11!
+            if (!isBoth)
+                this.on('ps-scroll-'+(isVertical ? 'y' : 'x'), updateScrollClass );
+
+            //Update scrollbar when container or content change size or elements are added to/removed from the container
+            var psUpdate = function(){
+                _this.perfectScrollbar.update();
+                updateScrollClass();
+            };
+            this.resize( psUpdate );
+            this.scrollbarContainer.resize( psUpdate );
+
+            observer = new window.MutationObserver( psUpdate );
+            observer.observe(this.scrollbarContainer.get(0), { attributes: true, childList: true, subtree: true });
+
+            return this.scrollbarContainer;
+        }
+        else {
+            //Use default browser scrollbar
+//            this._jscScrollOffset = 1;
+            scrollbarWidth = scrollbarWidth || getScrollbarWidth();
+            this
+                .addClass('jq-scroll-container')
+                .addClass( directionClassName )
+                .css(isVertical ?
+                        {'padding-right': scrollbarWidth+'px', 'padding-left': scrollbarWidth+'px'} :
+                        {'padding-bottom': scrollbarWidth+'px'}
+                );
+
+            this.resize( updateScrollClass );
+            this.on( 'scroll', updateScrollClass );
+
+            observer = new window.MutationObserver( updateScrollClass );
+            observer.observe(this.get(0), { attributes: true, childList: true, subtree: true });
+
+            updateScrollClass();
+
+this.get(0).scrollTop = 0;
+            return this;
+        }
+
     };
-
-
-    /**********************************************************************
-    TODO: NEW METHODS
-        //verticalScrollToElement
-        this.verticalScrollToElement = function verticalScrollToElement(elem, options){
-            elem = elem instanceof $ ? elem : $(elem);
-            //Find the different relative positions and heights
-            var topInContents = elem.position().top,                                   //The top-position in the hole contentens
-                elemHeight    = elem.outerHeight(),                                    //The height of the element
-                boxHeight     = this.find('.mCustomScrollBox ').outerHeight(),         //The height of the scrolling-box
-                scrolledBy    = Math.abs(this.find('.mCSB_container').position().top), //Amount of scroll. >=0
-                topInBox      = topInContents - scrolledBy,                            //The elements top-position relative to the top of the scroll-box. If <0 the elem is above the scroll-box top
-                bottomInBox   = topInBox + elemHeight,                                 //The elements bottom-position relative to the top of the scroll-box. If >boxHeight the elems bottom is below the scroll-box bottom
-                deltaScroll   = 0;                                                     //The change in total scroll
-
-            if ((topInBox >= 0) && (bottomInBox <= boxHeight)){
-                //Ok - The element is inside the box
-            } else
-                if (topInBox < 0){
-                    //The elements top is above the top of the box => scroll element t top of box
-                    deltaScroll = topInBox;
-                } else {
-                    //element-top is below box-top AND element-bottom is below box-bottom => scroll up so element-bottom is just inside the box, but no more than element-top is still inside the box
-                    deltaScroll = bottomInBox - boxHeight;
-                    if ((topInBox - deltaScroll) < 0){
-                        deltaScroll += (topInBox - deltaScroll);
-                    }
-                }
-
-            if (deltaScroll)
-                this.mCustomScrollbar("scrollTo", scrolledBy + deltaScroll, {timeout:0, scrollInertia:0});
-        };
-
-        //verticalScrollElementToTop( elem ) - scroll elem to the top of the scroll-box. TODO
-
-        //verticalScrollToTop
-        this.verticalScrollToTop    = function verticalScrollToTop(options){ this.mCustomScrollbar("scrollTo", 'top', options); };
-        //verticalScrollToBottom
-        this.verticalScrollToBottom = function verticalScrollToBottom(options){ this.mCustomScrollbar("scrollTo", 'bottom', options);    };
-        //verticalScrollAppend
-        this.verticalScrollAppend   = function verticalScrollAppend( elem ){ this.find('.mCSB_container').append( elem ); };
-        //verticalScrollPrepend
-        this.verticalScrollPrepend  = function verticalScrollPrepend( elem ){ this.find('.mCSB_container').prepend( elem );    };
-
-    **********************************************************************/
-
 }(jQuery, this, document));

@@ -13,6 +13,13 @@
     <link  href="../src/jquery-scroll-container.css" rel="stylesheet">
 
    <style>
+        html, body {
+            height: 100%;
+            width: 100%;
+            margin: 0;
+            padding: 0;
+        }
+
         * { box-sizing: border-box; }
         .outer {
             border: 2px solid black;
@@ -92,7 +99,6 @@
             border: 1px solid black;
         }
 
-
         .outer5 {
             position: absolute;
             left    : 60%;
@@ -105,15 +111,10 @@
             border: 1px solid black;
         }
 
-
-
-
-
         .display-flex-direction-row {
             display: flex;
             height: 100%;
             flex-direction: row;
-            width: fit-content;
         }
 
         .display-flex-direction-row .innerContent {
@@ -122,16 +123,12 @@
             margin-top: 0;
             margin-left: 4px;
             width : 80px;
-            height: 100%;
         }
 
         button {
             position: relative;
             left: 50%;
         }
-
-
-
 
     </style>
 
@@ -166,8 +163,8 @@
         <div class="header">#5 200px x 200px</div>
         <div class="container5"></div>
     </div>
-    <button onClick="add()">Add</button><br>
-	<button onClick="remove()">Remove</button><br>
+    <button onClick="addElements()">Add</button><br>
+	<button onClick="removeElements()">Remove</button><br>
 	<button onClick="size()">#2 40% / 70%</button><br>
 	<button onClick="size2()">Red 30% / 300px</button>
 
@@ -176,9 +173,15 @@
     <script src="../src/jquery-scroll-container.js"></script>
 
     <script>
+
+/* TEST ONLY
+        $('html').addClass('touchevents');
+        $('html').removeClass('no-touchevents');
+*/
+
         var $containers = [
                 $('.container1').addScrollbar('vertical'),
-                $('.container2').addScrollbar('vertical'),
+                $('.container2').addScrollbar('vertical', true),
                 $('.container3').addScrollbar('vertical'),
                 $('.container4').addScrollbar('horizontal').addClass('display-flex-direction-row')
             ];
@@ -212,13 +215,13 @@
 
 
 
-        function add(){
+        function addElements(){
             each( function( $container ){
                 $container.find('.last').before('<div class="normal innerContent">NEW</div>');
             });
         }
 
-        function remove(){
+        function removeElements(){
             each( function( $container ){
                 $container.find('.last').siblings().last().remove();
             });
