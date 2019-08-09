@@ -1,16 +1,16 @@
 {
-    "name": "jquery-scroll-container",
-    "version": "3.1.2",
-    "homepage": "https://github.com/FCOO/jquery-scroll-container",
-    "author": "Niels Holt nho@fcoo.dk",
-    "description": "package.json is only use for building the package. see bower.json for more info",
-    "repository": {
-        "type": "git",
-        "url": "git://github.com/FCOO/jquery-scroll-container.git"
-    },
-    "dependencies": {
-        "grunt"                  : "^1.0.0",
-        "grunt-fcoo-grunt-plugin": "^4.2.0"
-    },
-    "license": "MIT"
+  "name": "jquery-scroll-container",
+  "version": "4.0.0",
+  "homepage": "https://github.com/FCOO/jquery-scroll-container",
+  "author": "Niels Holt nho@fcoo.dk",
+  "description": "package.json is only use for building the package. see bower.json for more info",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/FCOO/jquery-scroll-container.git"
+  },
+  "dependencies": {
+    "grunt": "^1.0.0",
+    "grunt-fcoo-grunt-plugin": "^4.2.0"
+  },
+  "license": "MIT"
 }
