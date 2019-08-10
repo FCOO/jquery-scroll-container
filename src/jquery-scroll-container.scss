@@ -33,6 +33,9 @@ $scrollbar-z-index: 100;
 @include scroll-shadow-vertical  ( '.ps.jq-scroll-container-vertical'   );
 
 .ps {
+    //Bug fix from https://github.com/mdbootstrap/perfect-scrollbar/issues/792
+    direction: rtl;
+
     // Scrollbar rail styles
     .ps__rail-x {
         height: $scroll-size !important;
@@ -121,6 +124,9 @@ $scrollbar-z-index: 100;
 
     //Container with contents
     .jq-scroll-container {
+        //Bug fix from https://github.com/mdbootstrap/perfect-scrollbar/issues/792
+        direction: ltr;
+
         //Move content below scrollbars
         position: relative;
         z-index : $scrollbar-z-index - 1;
