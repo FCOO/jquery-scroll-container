@@ -1,10 +1,10 @@
 /***********************************************
     _jquery-scroll-container-variables.scss,
 ************************************************/
-$scrollbar-size  : 5px;
-$scrollbar-margin: 2px;
+$scrollbar-size  : 6rem / 16; //5px;
+$scrollbar-margin: 2rem / 16; //2px;
 
-$scrollbar-margin-min: 1px;
+$scrollbar-margin-min: 1rem /16; //1px;
 
 $scroll-size     : $scrollbar-margin + $scrollbar-size + $scrollbar-margin;
 
