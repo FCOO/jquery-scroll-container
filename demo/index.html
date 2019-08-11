@@ -194,7 +194,7 @@
             });
         }
 
-        each( function( $container ){
+        each( function( $container ){ return;
             $container.append('<div class="first innerContent">FIRST</div>');
             for (var i=1; i<=16; i++ ){
                 if (i==8){
@@ -217,7 +217,8 @@
 
         function addElements(){
             each( function( $container ){
-                $container.find('.last').before('<div class="normal innerContent">NEW</div>');
+//                $container.find('.last').before('<div class="normal innerContent">NEW</div>');
+                $container.append('<div class="normal innerContent">NEW</div>');
             });
         }
 
