@@ -75,7 +75,8 @@ Class ps__rail added by jquery-scroll-container
   height: 0.625rem !important; }
 
 .ps .ps__rail-y {
-  width: 0.625rem !important; }
+  width: 0.625rem !important;
+  left: auto !important; }
 
 .ps .ps__rail {
   opacity: 1 !important;

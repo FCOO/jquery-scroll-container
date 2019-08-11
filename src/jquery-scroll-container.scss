@@ -40,6 +40,9 @@ $scrollbar-z-index: 100;
 
     .ps__rail-y {
         width: $scroll-size !important;
+
+        //Bug fix https://github.com/mdbootstrap/perfect-scrollbar/issues/792
+        left: auto !important;
     }
 
     .ps__rail {
