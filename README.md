@@ -18,7 +18,7 @@ On mobile devices (with touch-events) the browsers own scrollbars are used. Dete
 
 ## Usage
 
-    var $myContainer = $(aElement).addScrollbar( direction );
+    var $myContainer = $(aElement).addScrollbar( direction, forceDefaultScrollbar );
 
     //$myContainer is now a jQuery-element where the contents of the scroll-box can be added or removed
 
@@ -30,6 +30,8 @@ On mobile devices (with touch-events) the browsers own scrollbars are used. Dete
 - `"horizontal"` Only allows horizontal scroll and adds bottom margin to contents to make room for the slider
 - `"both"`: Allows both vertical and horizontal scroll. Do not add any margin to content
  
+### `forceDefaultScrollbar`
+If `true` the browser default scrollbar is used instead
 
 ## Modernizr
 The package uses class `touchevents` and `no-touchevents` for the `<html>` element as in [modernizr](https://modernizr.com/) test `touchevents` to enable or disable dragging the bar. 

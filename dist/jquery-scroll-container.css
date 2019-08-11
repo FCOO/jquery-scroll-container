@@ -72,10 +72,10 @@ Class ps__rail added by jquery-scroll-container
     background-repeat: no-repeat; }
 
 .ps .ps__rail-x {
-  height: 0.5625rem !important; }
+  height: 9px !important; }
 
 .ps .ps__rail-y {
-  width: 0.5625rem !important; }
+  width: 9px !important; }
 
 .ps .ps__rail {
   opacity: 1 !important;
@@ -93,7 +93,7 @@ Class ps__rail added by jquery-scroll-container
 
 .ps .ps__thumb {
   background-color: #cdcdcd;
-  border-radius: 0.15625rem;
+  border-radius: 2.5px;
   transition: background-color 0.2s linear, margin 0.2s ease-in-out !important;
   -webkit-transition: background-color 0.2s linear, margin 0.2s ease-in-out !important; }
 
@@ -101,22 +101,22 @@ Class ps__rail added by jquery-scroll-container
   height: auto !important;
   top: 0;
   bottom: 0 !important;
-  margin-top: 0.125rem;
-  margin-bottom: 0.125rem; }
+  margin-top: 2px;
+  margin-bottom: 2px; }
 
 .ps .ps__thumb-y {
   width: auto !important;
   left: 0;
   right: 0 !important;
-  margin-left: 0.125rem;
-  margin-right: 0.125rem; }
+  margin-left: 2px;
+  margin-right: 2px; }
 
 .ps .ps__rail-x:hover > .ps__thumb-x,
 .ps .ps__rail-x:focus > .ps__thumb-x,
 .ps .ps__rail-x.ps--clicking .ps__thumb-x {
   background-color: #a6a6a6;
-  margin-top: 0.0625rem;
-  margin-bottom: 0.0625rem; }
+  margin-top: 1px;
+  margin-bottom: 1px; }
 
 .ps .ps__rail-x.ps--clicking .ps__thumb-x {
   background-color: #606060; }
@@ -125,73 +125,73 @@ Class ps__rail added by jquery-scroll-container
 .ps .ps__rail-y:focus > .ps__thumb-y,
 .ps .ps__rail-y.ps--clicking .ps__thumb-y {
   background-color: #a6a6a6;
-  margin-left: 0.0625rem;
-  margin-right: 0.0625rem; }
+  margin-left: 1px;
+  margin-right: 1px; }
 
 .ps .ps__rail-y.ps--clicking .ps__thumb-y {
   background-color: #606060; }
 
 .ps.jq-scroll-container-horizontal {
-  padding-bottom: 0.5625rem; }
+  padding-bottom: 9px; }
 
 .ps.jq-scroll-container-vertical {
-  padding-left: 0.5625rem;
-  padding-right: 0.5625rem; }
+  padding-left: 9px;
+  padding-right: 9px; }
 
-.ps .jq-scroll-container {
+.ps .jq-scroll-content {
   position: relative;
   z-index: 99;
   background-color: transparent;
   padding: 0;
   margin: 0; }
 
-html.touchevents .jq-scroll-container.jq-scroll-container-horizontal {
+.jq-scroll-default.jq-scroll-container-horizontal {
   overflow-x: auto;
   overflow-y: hidden; }
-  html.touchevents .jq-scroll-container.jq-scroll-container-horizontal.no-scroll-at-start, html.touchevents .jq-scroll-container.jq-scroll-container-horizontal.no-scroll-at-end {
+  .jq-scroll-default.jq-scroll-container-horizontal.no-scroll-at-start, .jq-scroll-default.jq-scroll-container-horizontal.no-scroll-at-end {
     padding-bottom: 0 !important; }
 
-html.touchevents .jq-scroll-container.jq-scroll-container-vertical {
+.jq-scroll-default.jq-scroll-container-vertical {
   overflow-y: auto;
   overflow-x: hidden; }
-  html.touchevents .jq-scroll-container.jq-scroll-container-vertical.no-scroll-at-start, html.touchevents .jq-scroll-container.jq-scroll-container-vertical.no-scroll-at-end {
+  .jq-scroll-default.jq-scroll-container-vertical.no-scroll-at-start, .jq-scroll-default.jq-scroll-container-vertical.no-scroll-at-end {
     padding-right: 0 !important; }
 
-html.touchevents .jq-scroll-container.jq-scroll-container-both {
+.jq-scroll-default.jq-scroll-container-both {
   overflow-y: scroll;
   overflow-x: scroll; }
 
-.jq-scroll-container.jq-scroll-container-horizontal {
+.jq-scroll-default.jq-scroll-container-horizontal {
   background-color: white; }
-  .jq-scroll-container.jq-scroll-container-horizontal.no-scroll-at-start.scroll-at-end {
+  .jq-scroll-default.jq-scroll-container-horizontal.no-scroll-at-start.scroll-at-end {
     background: linear-gradient(to right, rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0));
     background-size: 0.375rem 100%;
     background-position-y: left;
     background-repeat: no-repeat; }
-  .jq-scroll-container.jq-scroll-container-horizontal.scroll-at-start.no-scroll-at-end {
+  .jq-scroll-default.jq-scroll-container-horizontal.scroll-at-start.no-scroll-at-end {
     background: linear-gradient(to right, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.4)) 100% 0;
     background-size: 0.375rem 100%;
     background-position-y: right;
     background-repeat: no-repeat; }
-  .jq-scroll-container.jq-scroll-container-horizontal.no-scroll-at-start.no-scroll-at-end {
+  .jq-scroll-default.jq-scroll-container-horizontal.no-scroll-at-start.no-scroll-at-end {
     background: linear-gradient(to right, rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0)), linear-gradient(to right, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.4)) 100% 0;
     background-size: 0.375rem 100%;
     background-position-y: left, right;
     background-repeat: no-repeat; }
 
-.jq-scroll-container.jq-scroll-container-vertical {
+.jq-scroll-default.jq-scroll-container-vertical {
   background-color: white; }
-  .jq-scroll-container.jq-scroll-container-vertical.no-scroll-at-start.scroll-at-end {
+  .jq-scroll-default.jq-scroll-container-vertical.no-scroll-at-start.scroll-at-end {
     background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0));
     background-size: 100% 0.375rem;
     background-position-y: top;
     background-repeat: no-repeat; }
-  .jq-scroll-container.jq-scroll-container-vertical.scroll-at-start.no-scroll-at-end {
+  .jq-scroll-default.jq-scroll-container-vertical.scroll-at-start.no-scroll-at-end {
     background: linear-gradient(rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.4)) 0 100%;
     background-size: 100% 0.375rem;
     background-position-y: bottom;
     background-repeat: no-repeat; }
-  .jq-scroll-container.jq-scroll-container-vertical.no-scroll-at-start.no-scroll-at-end {
+  .jq-scroll-default.jq-scroll-container-vertical.no-scroll-at-start.no-scroll-at-end {
     background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0)), linear-gradient(rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.4)) 0 100%;
     background-size: 100% 0.375rem;
     background-position-y: top, bottom;

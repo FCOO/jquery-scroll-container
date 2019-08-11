@@ -97,13 +97,12 @@
     };
 
 
-    //addScrollBar( direction, defaultScrollbarOnTouch ) or addScrollBar( options )
-    $.fn.addScrollbar = function( options, defaultScrollbarOnTouch ){
+    //addScrollBar( direction, forceDefaultScrollbar ) or addScrollBar( options, forceDefaultScrollbar )
+    $.fn.addScrollbar = function( options, forceDefaultScrollbar ){
         var _this = this;
         if ($.type( options ) == "string")
             options = {
-                direction: options,
-                defaultScrollbarOnTouch: defaultScrollbarOnTouch
+                direction: options
             };
 
         //Update options
@@ -128,7 +127,29 @@
             _this._jscUpdateScrollShadowClass(isVertical);
         }
 
-        if (!options.defaultScrollbarOnTouch || $('html').hasClass('no-touchevents')){
+        if (forceDefaultScrollbar || (options.defaultScrollbarOnTouch && $('html').hasClass('touchevents'))){
+            //Use default browser scrollbar
+            scrollbarWidth = scrollbarWidth || getScrollbarWidth();
+            this
+                .addClass('jq-scroll-default jq-scroll-content')
+                .addClass( directionClassName )
+                .css(isVertical ?
+                        {'padding-right': scrollbarWidth+'px', 'padding-left': scrollbarWidth+'px'} :
+                        {'padding-bottom': scrollbarWidth+'px'}
+                );
+
+            this.resize( updateScrollClass );
+            this.on( 'scroll', updateScrollClass );
+
+            observer = new window.MutationObserver( updateScrollClass );
+            observer.observe(this.get(0), { attributes: true, childList: true, subtree: true });
+
+            updateScrollClass();
+
+            this.get(0).scrollTop = 0;
+            return this;
+        }
+        else {
             //no-touch browser => use perfect.scrollbar
 
             this.addClass( directionClassName );
@@ -147,7 +168,7 @@
             //Add inner container to cache resize when adding/removing elements from container
             this.scrollbarContainer =
                 $('<div/>')
-                    .addClass('jq-scroll-container')
+                    .addClass('jq-scroll-content')
                     .appendTo( this );
 
 
@@ -168,29 +189,5 @@
 
             return this.scrollbarContainer;
         }
-        else {
-            //Use default browser scrollbar
-//            this._jscScrollOffset = 1;
-            scrollbarWidth = scrollbarWidth || getScrollbarWidth();
-            this
-                .addClass('jq-scroll-container')
-                .addClass( directionClassName )
-                .css(isVertical ?
-                        {'padding-right': scrollbarWidth+'px', 'padding-left': scrollbarWidth+'px'} :
-                        {'padding-bottom': scrollbarWidth+'px'}
-                );
-
-            this.resize( updateScrollClass );
-            this.on( 'scroll', updateScrollClass );
-
-            observer = new window.MutationObserver( updateScrollClass );
-            observer.observe(this.get(0), { attributes: true, childList: true, subtree: true });
-
-            updateScrollClass();
-
-this.get(0).scrollTop = 0;
-            return this;
-        }
-
     };
 }(jQuery, this, document));

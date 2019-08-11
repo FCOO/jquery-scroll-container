@@ -43,12 +43,12 @@
             box-sizing: border-box;
             border: 3px solid black;
             margin-top:4px;
-            _background-color: #eee;
+            background-color: #eee;
             text-align: center;
         }
         .innerContent:hover {
-            _background-color: blue;
-            _color: white;
+            background-color: blue;
+            color: white;
         }
         .footer {
             width: 100%;
@@ -181,8 +181,8 @@
 
         var $containers = [
                 $('.container1').addScrollbar('vertical'),
-                $('.container2').addScrollbar('vertical', true),
-                $('.container3').addScrollbar('vertical'),
+                $('.container2').addScrollbar('vertical'),
+                $('.container3').addScrollbar('vertical', true),
                 $('.container4').addScrollbar('horizontal').addClass('display-flex-direction-row')
             ];
 
@@ -194,7 +194,7 @@
             });
         }
 
-        each( function( $container ){ return;
+        each( function( $container ){
             $container.append('<div class="first innerContent">FIRST</div>');
             for (var i=1; i<=16; i++ ){
                 if (i==8){
@@ -217,8 +217,8 @@
 
         function addElements(){
             each( function( $container ){
-//                $container.find('.last').before('<div class="normal innerContent">NEW</div>');
-                $container.append('<div class="normal innerContent">NEW</div>');
+                $container.find('.last').before('<div class="normal innerContent">NEW</div>');
+//                $container.append('<div class="normal innerContent">NEW</div>');
             });
         }
 
