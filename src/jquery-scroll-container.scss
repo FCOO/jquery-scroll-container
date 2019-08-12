@@ -118,7 +118,9 @@ $scrollbar-z-index: 100;
     }
 
     &.jq-scroll-container-vertical {
-        padding-left : $scroll-size;
+        &.jq-scroll-adjust-padding-left {
+            padding-left : $scroll-size;
+        }
         padding-right: $scroll-size;
     }
 
@@ -139,14 +141,14 @@ $scrollbar-z-index: 100;
     &.jq-scroll-container-horizontal {
         overflow-x: auto;
         overflow-y: hidden;
-        &.no-scroll-at-start, &.no-scroll-at-end {
+        &.jq-scroll-adjust-padding.no-scroll-at-start, &.jq-scroll-adjust-padding.no-scroll-at-end {
             padding-bottom: 0 !important;
         }
     }
     &.jq-scroll-container-vertical {
         overflow-y: auto;
         overflow-x: hidden;
-        &.no-scroll-at-start, &.no-scroll-at-end {
+        &.jq-scroll-adjust-padding.no-scroll-at-start, &.jq-scroll-adjust-padding.no-scroll-at-end {
             padding-right: 0 !important;
         }
     }

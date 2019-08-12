@@ -136,8 +136,9 @@ Class ps__rail added by jquery-scroll-container
   padding-bottom: 0.625rem; }
 
 .ps.jq-scroll-container-vertical {
-  padding-left: 0.625rem;
   padding-right: 0.625rem; }
+  .ps.jq-scroll-container-vertical.jq-scroll-adjust-padding-left {
+    padding-left: 0.625rem; }
 
 .ps .jq-scroll-content {
   position: relative;
@@ -149,13 +150,13 @@ Class ps__rail added by jquery-scroll-container
 .jq-scroll-default.jq-scroll-container-horizontal {
   overflow-x: auto;
   overflow-y: hidden; }
-  .jq-scroll-default.jq-scroll-container-horizontal.no-scroll-at-start, .jq-scroll-default.jq-scroll-container-horizontal.no-scroll-at-end {
+  .jq-scroll-default.jq-scroll-container-horizontal.jq-scroll-adjust-padding.no-scroll-at-start, .jq-scroll-default.jq-scroll-container-horizontal.jq-scroll-adjust-padding.no-scroll-at-end {
     padding-bottom: 0 !important; }
 
 .jq-scroll-default.jq-scroll-container-vertical {
   overflow-y: auto;
   overflow-x: hidden; }
-  .jq-scroll-default.jq-scroll-container-vertical.no-scroll-at-start, .jq-scroll-default.jq-scroll-container-vertical.no-scroll-at-end {
+  .jq-scroll-default.jq-scroll-container-vertical.jq-scroll-adjust-padding.no-scroll-at-start, .jq-scroll-default.jq-scroll-container-vertical.jq-scroll-adjust-padding.no-scroll-at-end {
     padding-right: 0 !important; }
 
 .jq-scroll-default.jq-scroll-container-both {

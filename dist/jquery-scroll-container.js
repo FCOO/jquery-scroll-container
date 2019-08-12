@@ -19,23 +19,25 @@
         //Default: No touch
         $('html').addClass('no-touchevents');
 
-    var scrollbarWidth = 0;
-    function getScrollbarWidth() {
-        if (typeof document === 'undefined')
-            return 0;
+    var scrollbarWidth = null;
+    window.getScrollbarWidth = function() {
+        if (scrollbarWidth === null){
+            if (typeof document === 'undefined')
+                return 0;
 
-        var body = document.body,
-            box = document.createElement('div'),
-            boxStyle = box.style;
-        boxStyle.position = 'fixed';
-        boxStyle.left = 0;
-        boxStyle.visibility = 'hidden';
-        boxStyle.overflowY = 'scroll';
-        body.appendChild(box);
-        var width = box.getBoundingClientRect().right;
-        body.removeChild(box);
-        return width;
-    }
+            var body = document.body,
+                box = document.createElement('div'),
+                boxStyle = box.style;
+            boxStyle.position = 'fixed';
+            boxStyle.left = 0;
+            boxStyle.visibility = 'hidden';
+            boxStyle.overflowY = 'scroll';
+            body.appendChild(box);
+            scrollbarWidth = box.getBoundingClientRect().right;
+            body.removeChild(box);
+        }
+        return scrollbarWidth;
+    };
 
     //Extend $.fn with scrollIntoView
     $.fn.extend({
@@ -69,7 +71,13 @@
 
         direction: 'vertical', //["vertical"|"horizontal"|"both"] (default: "vertical")
 
-        defaultScrollbarOnTouch: false   //If true and the browser support touchevents => use simple version using the browsers default scrollbar
+        defaultScrollbarOnTouch   : false,      //If true and the browser support touchevents => use simple version using the browsers default scrollbar
+        forceDefaultScrollbar     : false,      //If true => use simple version using the browsers default scrollbar (regardless of defaultScrollbarOnTouch and touchevents-support)
+        adjustPadding             : 'scroll',   //['scroll', 'left', 'both', none']. Defines witch 'side(s)' that will have padding adjusted:
+                                                //  'left'  : Only for direction: 'vertical': The paddingLeft of the container is set equal to the width of the scrollbar
+                                                //  'scroll': Only when using browser default scrollbar: If the width of the default scrollbar > 0 => always have padding == scrollbar-width (also when no scrollbar is present)
+                                                //  'both'  : As 'left' and 'scroll'
+                                                //  'none'  : No adjustment beside the scrollbar when using perfect-scrollbar
     };
 
 
@@ -97,16 +105,17 @@
     };
 
 
-    //addScrollBar( direction, forceDefaultScrollbar ) or addScrollBar( options, forceDefaultScrollbar )
-    $.fn.addScrollbar = function( options, forceDefaultScrollbar ){
+    //addScrollBar( direction ) or addScrollBar( options )
+    $.fn.addScrollbar = function( options ){
         var _this = this;
         if ($.type( options ) == "string")
             options = {
                 direction: options
             };
 
+
         //Update options
-        options = $.extend( scrollbarOptions, options || {} );
+        options = $.extend( {},  scrollbarOptions, options || {} );
 
         var observer,
             isVertical   = (options.direction == 'vertical'),
@@ -115,7 +124,10 @@
             directionClassName = isHorizontal ? 'jq-scroll-container-horizontal' :
                                  isVertical   ? 'jq-scroll-container-vertical' :
                                  isBoth       ? 'jq-scroll-container-both' :
-                                                '';
+                                                '',
+            adjustPaddingLeft   = isVertical && ($.inArray(options.adjustPadding, ['left', 'both']) >= 0),
+            adjustPaddingScroll = $.inArray(options.adjustPadding, ['scroll', 'both']) >= 0;
+
         options.suppressScrollX = isVertical;
         options.suppressScrollY = isHorizontal;
 
@@ -127,16 +139,19 @@
             _this._jscUpdateScrollShadowClass(isVertical);
         }
 
-        if (forceDefaultScrollbar || (options.defaultScrollbarOnTouch && $('html').hasClass('touchevents'))){
+        if (options.forceDefaultScrollbar || (options.defaultScrollbarOnTouch && $('html').hasClass('touchevents'))){
             //Use default browser scrollbar
-            scrollbarWidth = scrollbarWidth || getScrollbarWidth();
+            scrollbarWidth = scrollbarWidth || window.getScrollbarWidth();
             this
                 .addClass('jq-scroll-default jq-scroll-content')
-                .addClass( directionClassName )
-                .css(isVertical ?
-                        {'padding-right': scrollbarWidth+'px', 'padding-left': scrollbarWidth+'px'} :
-                        {'padding-bottom': scrollbarWidth+'px'}
-                );
+                .addClass( directionClassName );
+
+            if (adjustPaddingLeft)
+                this.css('padding-left', scrollbarWidth+'px' );
+            if (adjustPaddingScroll)
+                this
+                    .toggleClass('jq-scroll-adjust-padding', !!scrollbarWidth)
+                    .css(isVertical ? 'padding-right' : 'padding-bottom', scrollbarWidth+'px');
 
             this.resize( updateScrollClass );
             this.on( 'scroll', updateScrollClass );
@@ -152,7 +167,9 @@
         else {
             //no-touch browser => use perfect.scrollbar
 
-            this.addClass( directionClassName );
+            this
+                .addClass( directionClassName )
+                .toggleClass('jq-scroll-adjust-padding-left', adjustPaddingLeft);
 
             //Create perfect.scrollbar
             this.perfectScrollbar = new window.PerfectScrollbar(this.get(0), options );

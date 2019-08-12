@@ -6,7 +6,7 @@
 
 Create a container with auto scroll and resize using [perfect-scrollbar](https://github.com/mdbootstrap/perfect-scrollbar) by [MDBootstrap](https://github.com/mdbootstrap).
  
-On mobile devices (with touch-events) the browsers own scrollbars are used. Detecting touch-events is done using [modernizr](https://modernizr.com/) (see below)
+On mobile devices (with touch-events) the browsers own scrollbars are used (optional). Detecting touch-events is done using [modernizr](https://modernizr.com/) (see below)
 
 ## Installation
 ### bower
@@ -15,26 +15,27 @@ On mobile devices (with touch-events) the browsers own scrollbars are used. Dete
 ## Demo
 [https://FCOO.github.io/jquery-scroll-container/demo/](https://FCOO.github.io/jquery-scroll-container/demo/)
  
-
 ## Usage
 
-    var $myContainer = $(aElement).addScrollbar( direction, forceDefaultScrollbar );
+    var $myContainer = $(aElement).addScrollbar( direction or options );
 
     //$myContainer is now a jQuery-element where the contents of the scroll-box can be added or removed
 
-### `direction`
-
-    ["vertical"|"horizontal"|"both"] (default: "vertical")
-
-- `"vertical"`: Only allows vertical scroll and adds left and right margin to contents to make room for the slider. 
-- `"horizontal"` Only allows horizontal scroll and adds bottom margin to contents to make room for the slider
-- `"both"`: Allows both vertical and horizontal scroll. Do not add any margin to content
- 
-### `forceDefaultScrollbar`
-If `true` the browser default scrollbar is used instead
+### 'options'
+- `direction`: [`"vertical"`|`"horizontal"`|`"both"`] (default: `"vertical"`)
+    - `"vertical"`: Only allows vertical scroll and adds left and right margin to contents to make room for the slider. 
+    - `"horizontal"` Only allows horizontal scroll and adds bottom margin to contents to make room for the slider
+    - `"both"`: Allows both vertical and horizontal scroll. Do not add any margin to content
+- `defaultScrollbarOnTouch: false`. If `true` and the browser support touchevents => use simple version using the browsers default scrollbar
+- `forceDefaultScrollbar: false`. If `true` => use simple version using the browsers default scrollbar (regardless of `defaultScrollbarOnTouch` and touchevents-support)
+- `adjustPadding`: [`"scroll"`, `"left"`, `"both"`, `"none"`] Defalut = `"scroll"`. Defines witch 'side(s)' that will have padding adjusted:
+	- `"left"`  : Only for `direction: "vertical"`: The `paddingLeft` of the container is set equal to the width of the scrollbar
+	- `"scroll"`: Only when using browser default scrollbar: If the width of the default scrollbar > 0 => always have `padding` == scrollbar-width (also when no scrollbar is present)
+	- `"both"`  : As `"left"` and `"scroll"`
+	- `"none"`  : No adjustment beside the scrollbar when using perfect-scrollbar
 
 ## Modernizr
-The package uses class `touchevents` and `no-touchevents` for the `<html>` element as in [modernizr](https://modernizr.com/) test `touchevents` to enable or disable dragging the bar. 
+The package uses class `touchevents` and `no-touchevents` for the `<html>` element as in [modernizr](https://modernizr.com/) test `touchevents` to enable the use of browser default scrollbar. 
 
 [modernizr](https://modernizr.com/) is not included automatic.
 
