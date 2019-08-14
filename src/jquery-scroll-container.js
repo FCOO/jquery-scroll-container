@@ -11,7 +11,7 @@
 (function ($, window, document/*, undefined*/) {
     "use strict";
 
-    //TODO var isIE11 = !!window.MSInputMethodContext && !!document.documentMode;
+    var isIE11 = !!window.MSInputMethodContext && !!document.documentMode;
 
     if ( $('html').hasClass('touchevents') || $('html').hasClass('no-touchevents') )
         ;    //Modernizr (or someone else) has set the correct class
@@ -125,7 +125,7 @@
                                  isVertical   ? 'jq-scroll-container-vertical' :
                                  isBoth       ? 'jq-scroll-container-both' :
                                                 '',
-            adjustPaddingleft   = isVertical && ($.inArray(options.adjustPadding, ['left', 'both']) >= 0),
+            adjustPaddingLeft   = isVertical && ($.inArray(options.adjustPadding, ['left', 'both']) >= 0),
             adjustPaddingScroll = $.inArray(options.adjustPadding, ['scroll', 'both']) >= 0;
 
         options.suppressScrollX = isVertical;
@@ -137,6 +137,18 @@
 
         function updateScrollClass(){
             _this._jscUpdateScrollShadowClass(isVertical);
+        }
+
+        //Add element to display scroll-shadow
+        //TODO: Not working for horizontal scroll
+//        if (!isBoth && !isIE11){
+        if (isVertical && !isIE11){
+            $('<div/>')
+                .addClass('jq-scroll-shadow top-left')
+                .appendTo(this);
+            $('<div/>')
+                .addClass('jq-scroll-shadow bottom-right')
+                .appendTo(this);
         }
 
         if (options.forceDefaultScrollbar || (options.defaultScrollbarOnTouch && $('html').hasClass('touchevents'))){

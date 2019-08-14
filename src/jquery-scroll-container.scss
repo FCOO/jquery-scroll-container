@@ -11,7 +11,7 @@
 
 ************************************************/
 @import "jquery-scroll-container-variables";
-@import "jquery-scroll-container-shadow";
+//NOT USED @import "jquery-scroll-container-shadow";
 
 /****************************************************
 Add adjustmnts to original PerfectScroll style
@@ -27,10 +27,6 @@ Class ps__rail added by jquery-scroll-container
 ****************************************************/
 
 $scrollbar-z-index: 100;
-
-//Add scroll-shadow
-@include scroll-shadow-horizontal( '.ps.jq-scroll-container-horizontal' );
-@include scroll-shadow-vertical  ( '.ps.jq-scroll-container-vertical'   );
 
 .ps {
     // Scrollbar rail styles
@@ -59,7 +55,7 @@ $scrollbar-z-index: 100;
     & > .ps__rail:focus,
     &.ps--scrolling-x > .ps__rail-x,
     &.ps--scrolling-y > .ps__rail-y {
-        z-index         : $scrollbar-z-index + 1;
+        z-index         : $scrollbar-z-index + 2;
         background-color: $scrollbar-background !important;
     }
 
@@ -158,6 +154,76 @@ $scrollbar-z-index: 100;
     }
 }
 
-//Add scroll-shadow
-@include scroll-shadow-horizontal( ".jq-scroll-default.jq-scroll-container-horizontal" );
-@include scroll-shadow-vertical  ( ".jq-scroll-default.jq-scroll-container-vertical" );
+
+//Add scroll-shadow - Not using mixin scroll-shadow-horizontal();
+$shadow-color         : rgba(0, 0, 0, 0.4);
+$no-shadow-color      : rgba(0, 0, 0, 0);
+$scroll-shadow-size   : 6;
+$scroll-shadow-size-px: #{$scroll-shadow-size}px;
+
+//Bug fix for Egde: Moving shadow one up/right
+$offset: calc( 100% - #{$scroll-shadow-size + 1}px);
+
+$top-shadow   : linear-gradient($shadow-color ,   $no-shadow-color);
+$bottom-shadow: linear-gradient($no-shadow-color, $shadow-color   ) 0 100%;
+$left-shadow  : linear-gradient(to right, $shadow-color ,   $no-shadow-color);
+$right-shadow : linear-gradient(to right, $no-shadow-color, $shadow-color   ) 100% 0;
+
+//Generel style
+.jq-scroll-shadow {
+    position: sticky;
+    top     : 0;
+    left    : 0;
+    z-index : $scrollbar-z-index + 4;
+    -webkit-backface-visibility: hidden;
+    &:before{
+        content: '';
+        display: block;
+        position: sticky;
+    }
+}
+
+//Vertical scroll
+.jq-scroll-container-vertical .jq-scroll-shadow {
+    height     : 0;
+    width      : 200%;
+    margin-left: -50%;
+    &:before {
+        height: $scroll-shadow-size-px;
+    }
+    &.top-left {
+        &:before { background: $top-shadow ; }
+    }
+    &.bottom-right {
+        top: $offset;
+        &:before {
+            background: $bottom-shadow;
+            box-shadow: 0px 1px 0px 0px $shadow-color; //Bug fix for Edge
+        }
+    }
+}
+
+//Horizontal scroll - NOT WORKING
+.jq-scroll-container-horizontal .jq-scroll-shadow {
+    height: 100%;
+    width : 0;
+    &:before {
+        width: $scroll-shadow-size-px;
+    }
+    &.top-left {
+        &:before { background: $left-shadow ; }
+    }
+    &.bottom-right {
+        left: $offset;
+        &:before {
+            background: $right-shadow;
+            box-shadow: 1px 0px 0px 0px $shadow-color; //Bug fix for Edge
+        }
+    }
+}
+
+//Hide shadow when scroll at start/end
+.scroll-at-start .jq-scroll-shadow.top-left,
+.scroll-at-end   .jq-scroll-shadow.bottom-right {
+    display: none;
+}

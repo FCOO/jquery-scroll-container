@@ -13,16 +13,6 @@
 /***********************************************
     _jquery-scroll-container-variables.scss,
 ************************************************/
-/***********************************************
-jquery-scroll-container-shadow.scss,
-
-
-Add shadow inside at top/bottom or left/right when scroll
-
-Shadow at top/bottom or left/right when content isn't scrolled to beginning/end
-Based on idea from http://dabblet.com/gist/2462915
-
-****************************************************/
 /****************************************************
 Add adjustmnts to original PerfectScroll style
 
@@ -35,42 +25,6 @@ Add adjustmnts to original PerfectScroll style
 
 Class ps__rail added by jquery-scroll-container
 ****************************************************/
-.ps.jq-scroll-container-horizontal {
-  background-color: white; }
-  .ps.jq-scroll-container-horizontal.no-scroll-at-start.scroll-at-end {
-    background: linear-gradient(to right, rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0));
-    background-size: 0.375rem 100%;
-    background-position-y: left;
-    background-repeat: no-repeat; }
-  .ps.jq-scroll-container-horizontal.scroll-at-start.no-scroll-at-end {
-    background: linear-gradient(to right, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.4)) 100% 0;
-    background-size: 0.375rem 100%;
-    background-position-y: right;
-    background-repeat: no-repeat; }
-  .ps.jq-scroll-container-horizontal.no-scroll-at-start.no-scroll-at-end {
-    background: linear-gradient(to right, rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0)), linear-gradient(to right, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.4)) 100% 0;
-    background-size: 0.375rem 100%;
-    background-position-y: left, right;
-    background-repeat: no-repeat; }
-
-.ps.jq-scroll-container-vertical {
-  background-color: white; }
-  .ps.jq-scroll-container-vertical.no-scroll-at-start.scroll-at-end {
-    background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0));
-    background-size: 100% 0.375rem;
-    background-position-y: top;
-    background-repeat: no-repeat; }
-  .ps.jq-scroll-container-vertical.scroll-at-start.no-scroll-at-end {
-    background: linear-gradient(rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.4)) 0 100%;
-    background-size: 100% 0.375rem;
-    background-position-y: bottom;
-    background-repeat: no-repeat; }
-  .ps.jq-scroll-container-vertical.no-scroll-at-start.no-scroll-at-end {
-    background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0)), linear-gradient(rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.4)) 0 100%;
-    background-size: 100% 0.375rem;
-    background-position-y: top, bottom;
-    background-repeat: no-repeat; }
-
 .ps .ps__rail-x {
   height: 0.625rem !important; }
 
@@ -89,7 +43,7 @@ Class ps__rail added by jquery-scroll-container
 .ps > .ps__rail:focus,
 .ps.ps--scrolling-x > .ps__rail-x,
 .ps.ps--scrolling-y > .ps__rail-y {
-  z-index: 101;
+  z-index: 102;
   background-color: #f0f0f0 !important; }
 
 .ps .ps__thumb {
@@ -163,38 +117,44 @@ Class ps__rail added by jquery-scroll-container
   overflow-y: scroll;
   overflow-x: scroll; }
 
-.jq-scroll-default.jq-scroll-container-horizontal {
-  background-color: white; }
-  .jq-scroll-default.jq-scroll-container-horizontal.no-scroll-at-start.scroll-at-end {
-    background: linear-gradient(to right, rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0));
-    background-size: 0.375rem 100%;
-    background-position-y: left;
-    background-repeat: no-repeat; }
-  .jq-scroll-default.jq-scroll-container-horizontal.scroll-at-start.no-scroll-at-end {
-    background: linear-gradient(to right, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.4)) 100% 0;
-    background-size: 0.375rem 100%;
-    background-position-y: right;
-    background-repeat: no-repeat; }
-  .jq-scroll-default.jq-scroll-container-horizontal.no-scroll-at-start.no-scroll-at-end {
-    background: linear-gradient(to right, rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0)), linear-gradient(to right, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.4)) 100% 0;
-    background-size: 0.375rem 100%;
-    background-position-y: left, right;
-    background-repeat: no-repeat; }
+.jq-scroll-shadow {
+  position: sticky;
+  top: 0;
+  left: 0;
+  z-index: 104;
+  -webkit-backface-visibility: hidden; }
+  .jq-scroll-shadow:before {
+    content: '';
+    display: block;
+    position: sticky; }
 
-.jq-scroll-default.jq-scroll-container-vertical {
-  background-color: white; }
-  .jq-scroll-default.jq-scroll-container-vertical.no-scroll-at-start.scroll-at-end {
-    background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0));
-    background-size: 100% 0.375rem;
-    background-position-y: top;
-    background-repeat: no-repeat; }
-  .jq-scroll-default.jq-scroll-container-vertical.scroll-at-start.no-scroll-at-end {
-    background: linear-gradient(rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.4)) 0 100%;
-    background-size: 100% 0.375rem;
-    background-position-y: bottom;
-    background-repeat: no-repeat; }
-  .jq-scroll-default.jq-scroll-container-vertical.no-scroll-at-start.no-scroll-at-end {
-    background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0)), linear-gradient(rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.4)) 0 100%;
-    background-size: 100% 0.375rem;
-    background-position-y: top, bottom;
-    background-repeat: no-repeat; }
+.jq-scroll-container-vertical .jq-scroll-shadow {
+  height: 0;
+  width: 200%;
+  margin-left: -50%; }
+  .jq-scroll-container-vertical .jq-scroll-shadow:before {
+    height: 6px; }
+  .jq-scroll-container-vertical .jq-scroll-shadow.top-left:before {
+    background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0)); }
+  .jq-scroll-container-vertical .jq-scroll-shadow.bottom-right {
+    top: calc( 100% - 7px); }
+    .jq-scroll-container-vertical .jq-scroll-shadow.bottom-right:before {
+      background: linear-gradient(rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.4)) 0 100%;
+      box-shadow: 0px 1px 0px 0px rgba(0, 0, 0, 0.4); }
+
+.jq-scroll-container-horizontal .jq-scroll-shadow {
+  height: 100%;
+  width: 0; }
+  .jq-scroll-container-horizontal .jq-scroll-shadow:before {
+    width: 6px; }
+  .jq-scroll-container-horizontal .jq-scroll-shadow.top-left:before {
+    background: linear-gradient(to right, rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0)); }
+  .jq-scroll-container-horizontal .jq-scroll-shadow.bottom-right {
+    left: calc( 100% - 7px); }
+    .jq-scroll-container-horizontal .jq-scroll-shadow.bottom-right:before {
+      background: linear-gradient(to right, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.4)) 100% 0;
+      box-shadow: 1px 0px 0px 0px rgba(0, 0, 0, 0.4); }
+
+.scroll-at-start .jq-scroll-shadow.top-left,
+.scroll-at-end .jq-scroll-shadow.bottom-right {
+  display: none; }
