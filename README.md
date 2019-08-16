@@ -21,7 +21,10 @@ On mobile devices (with touch-events) the browsers own scrollbars are used (opti
 
     //$myContainer is now a jQuery-element where the contents of the scroll-box can be added or removed
 
-### 'options'
+### `options`
+All values in options can be a simple value or a function returning the value;
+Default options can be set in `window.JqueryScrollContainer.scrollbarOptions`
+
 - `direction`: [`"vertical"`|`"horizontal"`|`"both"`] (default: `"vertical"`)
     - `"vertical"`: Only allows vertical scroll and adds left and right margin to contents to make room for the slider. 
     - `"horizontal"` Only allows horizontal scroll and adds bottom margin to contents to make room for the slider
@@ -33,6 +36,9 @@ On mobile devices (with touch-events) the browsers own scrollbars are used (opti
 	- `"scroll"`: Only when using browser default scrollbar: If the width of the default scrollbar > 0 => always have `padding` == scrollbar-width (also when no scrollbar is present)
 	- `"both"`  : As `"left"` and `"scroll"`
 	- `"none"`  : No adjustment beside the scrollbar when using perfect-scrollbar
+- `hasTouchEvents`: `true` if the browser supports touch-events and the scroll should use default scroll. Default = `function(){ return window.modernizrOn('touchevents'); }`
+
+
 
 ## Modernizr
 The package uses class `touchevents` and `no-touchevents` for the `<html>` element as in [modernizr](https://modernizr.com/) test `touchevents` to enable the use of browser default scrollbar. 

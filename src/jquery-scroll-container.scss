@@ -131,7 +131,6 @@ $scrollbar-z-index: 100;
     }
 } //end of .ps
 
-
 //Scroll using browser default scrollbar
 .jq-scroll-default {
     &.jq-scroll-container-horizontal {
@@ -183,7 +182,17 @@ $right-shadow : linear-gradient(to right, $no-shadow-color, $shadow-color   ) 10
     }
 }
 
-//Vertical scroll
+//Vertical scroll: Remove padding to allow shadow to start at the edges
+.jq-scroll-container-vertical.jq-scroll-shadow {
+    padding-top   : 0 !important;
+    padding-bottom: 0 !important;
+}
+.jq-scroll-container-horizontal.jq-scroll-shadow {
+    padding-left  : 0 !important;
+    padding-right : 0 !important;
+}
+
+
 .jq-scroll-container-vertical .jq-scroll-shadow {
     height     : 0;
     width      : 200%;

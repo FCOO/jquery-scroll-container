@@ -128,6 +128,14 @@ Class ps__rail added by jquery-scroll-container
     display: block;
     position: sticky; }
 
+.jq-scroll-container-vertical.jq-scroll-shadow {
+  padding-top: 0 !important;
+  padding-bottom: 0 !important; }
+
+.jq-scroll-container-horizontal.jq-scroll-shadow {
+  padding-left: 0 !important;
+  padding-right: 0 !important; }
+
 .jq-scroll-container-vertical .jq-scroll-shadow {
   height: 0;
   width: 200%;
