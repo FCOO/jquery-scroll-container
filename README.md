@@ -29,6 +29,7 @@ Default options can be set in `window.JqueryScrollContainer.scrollbarOptions`
     - `"vertical"`: Only allows vertical scroll and adds left and right margin to contents to make room for the slider. 
     - `"horizontal"` Only allows horizontal scroll and adds bottom margin to contents to make room for the slider
     - `"both"`: Allows both vertical and horizontal scroll. Do not add any margin to content
+- `contentClassName: ''`. Class-name added to the inner content-container
 - `defaultScrollbarOnTouch: false`. If `true` and the browser support touchevents => use simple version using the browsers default scrollbar
 - `forceDefaultScrollbar: false`. If `true` => use simple version using the browsers default scrollbar (regardless of `defaultScrollbarOnTouch` and touchevents-support)
 - `adjustPadding`: [`"scroll"`, `"left"`, `"both"`, `"none"`] Defalut = `"scroll"`. Defines witch 'side(s)' that will have padding adjusted:

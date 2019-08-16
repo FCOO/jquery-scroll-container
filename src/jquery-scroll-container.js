@@ -75,7 +75,8 @@
         scrollXMarginOffset: 1,    //IE11 apears to work betten when == 1. TODO: Should only be 1 for Edge and IE11
         scrollYMarginOffset: 1,    //                --||--
 
-        direction: 'vertical', //["vertical"|"horizontal"|"both"] (default: "vertical")
+        direction       : 'vertical', //["vertical"|"horizontal"|"both"] (default: "vertical")
+        contentClassName: '',         //Class-name added to the inner content-container
 
         defaultScrollbarOnTouch: false,       //If true and the browser support touchevents => use simple version using the browsers default scrollbar
         forceDefaultScrollbar  : false,      //If true => use simple version using the browsers default scrollbar (regardless of defaultScrollbarOnTouch and touchevents-support)
@@ -122,14 +123,6 @@
                 direction: options
             };
 
-        var thisPadding = {
-                top   : this.css('padding-top'),
-                bottom: this.css('padding-bottom'),
-                left  : this.css('padding-left'),
-                right : this.css('padding-right')
-            },
-            contentPadding = [];
-
         //Update options
         options = $.extend( {},  ns.scrollbarOptions, options || {} );
 
@@ -172,7 +165,6 @@
             $('<div/>')
                 .addClass('jq-scroll-shadow bottom-right')
                 .appendTo(this);
-            contentPadding = isVertical ? ['top', 'bottom'] : ['left', 'right'];
         }
 
 
@@ -182,14 +174,8 @@
         this.scrollbarContainer =
             $('<div/>')
                 .addClass('jq-scroll-content')
+                .addClass(options.contentClassName)
                 .appendTo( this );
-
-        //'Transfer' padding from this to scrollbarContainer
-        $.each(contentPadding, function(index, side){
-            if (thisPadding[side])
-                _this.scrollbarContainer.css('padding-'+side, thisPadding[side]);
-        });
-
 
         var scrollEventName = '',
             onResizeFunc = null;
