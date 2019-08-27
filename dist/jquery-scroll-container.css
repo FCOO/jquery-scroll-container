@@ -38,11 +38,11 @@ Class ps__rail added by jquery-scroll-container
   transition: background-color 0.2s linear !important;
   -webkit-transition: background-color 0.2s linear !important; }
 
-.ps.ps--focus > .ps__rail,
-.ps > .ps__rail:hover,
-.ps > .ps__rail:focus,
-.ps.ps--scrolling-x > .ps__rail-x,
-.ps.ps--scrolling-y > .ps__rail-y {
+.ps.no-touch.ps--focus > .ps__rail,
+.ps.no-touch > .ps__rail:hover,
+.ps.no-touch > .ps__rail:focus,
+.ps.no-touch.ps--scrolling-x > .ps__rail-x,
+.ps.no-touch.ps--scrolling-y > .ps__rail-y {
   z-index: 102;
   background-color: #f0f0f0 !important; }
 
@@ -51,6 +51,9 @@ Class ps__rail added by jquery-scroll-container
   border-radius: 0.1875rem;
   transition: background-color 0.2s linear, margin 0.2s ease-in-out !important;
   -webkit-transition: background-color 0.2s linear, margin 0.2s ease-in-out !important; }
+
+.ps.touch .ps__thumb {
+  background-color: #cdcdcd !important; }
 
 .ps .ps__thumb-x {
   height: auto !important;
@@ -66,24 +69,24 @@ Class ps__rail added by jquery-scroll-container
   margin-left: 0.125rem;
   margin-right: 0.125rem; }
 
-.ps .ps__rail-x:hover > .ps__thumb-x,
-.ps .ps__rail-x:focus > .ps__thumb-x,
-.ps .ps__rail-x.ps--clicking .ps__thumb-x {
+.ps.no-touch .ps__rail-x:hover > .ps__thumb-x,
+.ps.no-touch .ps__rail-x:focus > .ps__thumb-x,
+.ps.no-touch .ps__rail-x.ps--clicking .ps__thumb-x {
   background-color: #a6a6a6;
   margin-top: 0.0625rem;
   margin-bottom: 0.0625rem; }
 
-.ps .ps__rail-x.ps--clicking .ps__thumb-x {
+.ps.no-touch .ps__rail-x.ps--clicking .ps__thumb-x {
   background-color: #606060; }
 
-.ps .ps__rail-y:hover > .ps__thumb-y,
-.ps .ps__rail-y:focus > .ps__thumb-y,
-.ps .ps__rail-y.ps--clicking .ps__thumb-y {
+.ps.no-touch .ps__rail-y:hover > .ps__thumb-y,
+.ps.no-touch .ps__rail-y:focus > .ps__thumb-y,
+.ps.no-touch .ps__rail-y.ps--clicking .ps__thumb-y {
   background-color: #a6a6a6;
   margin-left: 0.0625rem;
   margin-right: 0.0625rem; }
 
-.ps .ps__rail-y.ps--clicking .ps__thumb-y {
+.ps.no-touch .ps__rail-y.ps--clicking .ps__thumb-y {
   background-color: #606060; }
 
 .ps.jq-scroll-container-horizontal {
@@ -119,6 +122,7 @@ Class ps__rail added by jquery-scroll-container
 
 .jq-scroll-shadow {
   position: sticky;
+  position: -webkit-sticky;
   top: 0;
   left: 0;
   z-index: 104;
@@ -128,11 +132,11 @@ Class ps__rail added by jquery-scroll-container
     display: block;
     position: sticky; }
 
-.jq-scroll-container-vertical.jq-scroll-shadow {
+.jq-scroll-container-vertical.jq-scroll-container-shadow {
   padding-top: 0 !important;
   padding-bottom: 0 !important; }
 
-.jq-scroll-container-horizontal.jq-scroll-shadow {
+.jq-scroll-container-horizontal.jq-scroll-container-shadow {
   padding-left: 0 !important;
   padding-right: 0 !important; }
 
@@ -141,27 +145,27 @@ Class ps__rail added by jquery-scroll-container
   width: 200%;
   margin-left: -50%; }
   .jq-scroll-container-vertical .jq-scroll-shadow:before {
-    height: 6px; }
+    height: 30px; }
   .jq-scroll-container-vertical .jq-scroll-shadow.top-left:before {
-    background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0)); }
+    background: linear-gradient(red, green); }
   .jq-scroll-container-vertical .jq-scroll-shadow.bottom-right {
-    top: calc( 100% - 7px); }
+    top: calc( 100% - 31px); }
     .jq-scroll-container-vertical .jq-scroll-shadow.bottom-right:before {
-      background: linear-gradient(rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.4)) 0 100%;
-      box-shadow: 0px 1px 0px 0px rgba(0, 0, 0, 0.4); }
+      background: linear-gradient(green, red) 0 100%;
+      box-shadow: 0px 1px 0px 0px red; }
 
 .jq-scroll-container-horizontal .jq-scroll-shadow {
   height: 100%;
   width: 0; }
   .jq-scroll-container-horizontal .jq-scroll-shadow:before {
-    width: 6px; }
+    width: 30px; }
   .jq-scroll-container-horizontal .jq-scroll-shadow.top-left:before {
-    background: linear-gradient(to right, rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0)); }
+    background: linear-gradient(to right, red, green); }
   .jq-scroll-container-horizontal .jq-scroll-shadow.bottom-right {
-    left: calc( 100% - 7px); }
+    left: calc( 100% - 31px); }
     .jq-scroll-container-horizontal .jq-scroll-shadow.bottom-right:before {
-      background: linear-gradient(to right, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.4)) 100% 0;
-      box-shadow: 1px 0px 0px 0px rgba(0, 0, 0, 0.4); }
+      background: linear-gradient(to right, green, red) 100% 0;
+      box-shadow: 1px 0px 0px 0px red; }
 
 .scroll-at-start .jq-scroll-shadow.top-left,
 .scroll-at-end .jq-scroll-shadow.bottom-right {

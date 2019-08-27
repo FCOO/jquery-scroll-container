@@ -80,13 +80,14 @@
 
         defaultScrollbarOnTouch: false,       //If true and the browser support touchevents => use simple version using the browsers default scrollbar
         forceDefaultScrollbar  : false,      //If true => use simple version using the browsers default scrollbar (regardless of defaultScrollbarOnTouch and touchevents-support)
+
         adjustPadding          : 'scroll',   //['scroll', 'left', 'both', none']. Defines witch 'side(s)' that will have padding adjusted:
                                              //  'left'  : Only for direction: 'vertical': The paddingLeft of the container is set equal to the width of the scrollbar
                                              //  'scroll': Only when using browser default scrollbar: If the width of the default scrollbar > 0 => always have padding == scrollbar-width (also when no scrollbar is present)
                                              //  'both'  : As 'left' and 'scroll'
                                              //  'none'  : No adjustment beside the scrollbar when using perfect-scrollbar
         //hasTouchEvents: `true` if the browser supports touch-events and the scroll should use default scroll
-        hasTouchEvents: function(){ return window.modernizrOn('touchevents'); }
+        hasTouchEvents: function(){ return $('html').hasClass('touchevents'); }
     };
 
 
@@ -158,7 +159,7 @@
         //TODO: Not working for horizontal scroll
 //        if (!isBoth && !isIE11){
         if (isVertical && !isIE11){
-            this.addClass('jq-scroll-shadow');
+            this.addClass('jq-scroll-container-shadow');
             $('<div/>')
                 .addClass('jq-scroll-shadow top-left')
                 .appendTo(this);
@@ -196,8 +197,10 @@
             onResizeFunc = updateScrollClass;
         }
         else {
-            //no-touch browser => use perfect.scrollbar
-            this.toggleClass('jq-scroll-adjust-padding-left', adjustPaddingLeft);
+            //no-touch browser OR force using perfect-scroll => use perfect.scrollbar
+            this
+                .toggleClass('jq-scroll-adjust-padding-left', adjustPaddingLeft)
+                .modernizrToggle('touch', !!options.hasTouchEvents);
 
             //Create perfect.scrollbar
             this.perfectScrollbar = new window.PerfectScrollbar(this.get(0), options );

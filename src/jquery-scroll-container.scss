@@ -49,25 +49,34 @@ $scrollbar-z-index: 100;
         -webkit-transition: background-color $scrollbar-transition-time linear !important;
     }
 
-    //Focus, hover on scrollbar, scrolling, or dragging scrollbar: visible bg-color
-    &.ps--focus > .ps__rail,
-    & > .ps__rail:hover,
-    & > .ps__rail:focus,
-    &.ps--scrolling-x > .ps__rail-x,
-    &.ps--scrolling-y > .ps__rail-y {
-        z-index         : $scrollbar-z-index + 2;
-        background-color: $scrollbar-background !important;
-    }
 
+    &.no-touch {
+        //Focus, hover on scrollbar, scrolling, or dragging scrollbar: visible bg-color but only in no-touch-mode
+        &.ps--focus > .ps__rail,
+        & > .ps__rail:hover,
+        & > .ps__rail:focus,
+        &.ps--scrolling-x > .ps__rail-x,
+        &.ps--scrolling-y > .ps__rail-y {
+            z-index         : $scrollbar-z-index + 2;
+            background-color: $scrollbar-background !important;
+        }
+    }
 
     // Scrollbar thumb styles. Shape of thump is set using horizontal margin for y-scroll adn vertical margin for x-scroll
     .ps__thumb {
         background-color: $scrollbar-thumb;
+
         border-radius   : $scrollbar-size / 2;
 
         transition          : background-color $scrollbar-transition-time linear, margin $scrollbar-transition-time ease-in-out !important;
         -webkit-transition  : background-color $scrollbar-transition-time linear, margin $scrollbar-transition-time ease-in-out !important;
     }
+
+    //Fixed background-color in touch-mode
+    &.touch .ps__thumb {
+        background-color: $scrollbar-thumb !important;
+    }
+
 
     .ps__thumb-x {
         height       : auto !important; //Overwrite height: 6px;
@@ -85,28 +94,29 @@ $scrollbar-z-index: 100;
         margin-right: $scrollbar-margin;
     }
 
-    .ps__rail-x:hover > .ps__thumb-x,
-    .ps__rail-x:focus > .ps__thumb-x,
-    .ps__rail-x.ps--clicking .ps__thumb-x {
-        background-color: $scrollbar-thumb-hover;
-        margin-top   : $scrollbar-margin-min;
-        margin-bottom: $scrollbar-margin-min;
-    }
-    .ps__rail-x.ps--clicking .ps__thumb-x {
-        background-color: $scrollbar-thumb-active;
-    }
+    &.no-touch {
+        .ps__rail-x:hover > .ps__thumb-x,
+        .ps__rail-x:focus > .ps__thumb-x,
+        .ps__rail-x.ps--clicking .ps__thumb-x {
+            background-color: $scrollbar-thumb-hover;
+            margin-top   : $scrollbar-margin-min;
+            margin-bottom: $scrollbar-margin-min;
+        }
+        .ps__rail-x.ps--clicking .ps__thumb-x {
+            background-color: $scrollbar-thumb-active;
+        }
 
-    .ps__rail-y:hover > .ps__thumb-y,
-    .ps__rail-y:focus > .ps__thumb-y,
-    .ps__rail-y.ps--clicking .ps__thumb-y {
-        background-color: $scrollbar-thumb-hover;
-        margin-left : $scrollbar-margin-min;
-        margin-right: $scrollbar-margin-min;
+        .ps__rail-y:hover > .ps__thumb-y,
+        .ps__rail-y:focus > .ps__thumb-y,
+        .ps__rail-y.ps--clicking .ps__thumb-y {
+            background-color: $scrollbar-thumb-hover;
+            margin-left : $scrollbar-margin-min;
+            margin-right: $scrollbar-margin-min;
+        }
+        .ps__rail-y.ps--clicking .ps__thumb-y {
+            background-color: $scrollbar-thumb-active;
+        }
     }
-    .ps__rail-y.ps--clicking .ps__thumb-y {
-        background-color: $scrollbar-thumb-active;
-    }
-
 
     //Add padding to allow scrollbar to be visible
     &.jq-scroll-container-horizontal {
@@ -155,9 +165,9 @@ $scrollbar-z-index: 100;
 
 
 //Add scroll-shadow - Not using mixin scroll-shadow-horizontal();
-$shadow-color         : rgba(0, 0, 0, 0.4);
-$no-shadow-color      : rgba(0, 0, 0, 0);
-$scroll-shadow-size   : 6;
+$shadow-color         : red; //rgba(0, 0, 0, 0.4);
+$no-shadow-color      : green; //rgba(0, 0, 0, 0);
+$scroll-shadow-size   : 30; //6;
 $scroll-shadow-size-px: #{$scroll-shadow-size}px;
 
 //Bug fix for Egde: Moving shadow one up/right
@@ -184,11 +194,11 @@ $right-shadow : linear-gradient(to right, $no-shadow-color, $shadow-color   ) 10
 }
 
 //Vertical scroll: Remove padding to allow shadow to start at the edges
-.jq-scroll-container-vertical.jq-scroll-shadow {
+.jq-scroll-container-vertical.jq-scroll-container-shadow {
     padding-top   : 0 !important;
     padding-bottom: 0 !important;
 }
-.jq-scroll-container-horizontal.jq-scroll-shadow {
+.jq-scroll-container-horizontal.jq-scroll-container-shadow {
     padding-left  : 0 !important;
     padding-right : 0 !important;
 }
