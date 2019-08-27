@@ -145,27 +145,27 @@ Class ps__rail added by jquery-scroll-container
   width: 200%;
   margin-left: -50%; }
   .jq-scroll-container-vertical .jq-scroll-shadow:before {
-    height: 30px; }
+    height: 6px; }
   .jq-scroll-container-vertical .jq-scroll-shadow.top-left:before {
-    background: linear-gradient(red, green); }
+    background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0)); }
   .jq-scroll-container-vertical .jq-scroll-shadow.bottom-right {
-    top: calc( 100% - 31px); }
+    top: calc( 100% - 7px); }
     .jq-scroll-container-vertical .jq-scroll-shadow.bottom-right:before {
-      background: linear-gradient(green, red) 0 100%;
-      box-shadow: 0px 1px 0px 0px red; }
+      background: linear-gradient(rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.4)) 0 100%;
+      box-shadow: 0px 1px 0px 0px rgba(0, 0, 0, 0.4); }
 
 .jq-scroll-container-horizontal .jq-scroll-shadow {
   height: 100%;
   width: 0; }
   .jq-scroll-container-horizontal .jq-scroll-shadow:before {
-    width: 30px; }
+    width: 6px; }
   .jq-scroll-container-horizontal .jq-scroll-shadow.top-left:before {
-    background: linear-gradient(to right, red, green); }
+    background: linear-gradient(to right, rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0)); }
   .jq-scroll-container-horizontal .jq-scroll-shadow.bottom-right {
-    left: calc( 100% - 31px); }
+    left: calc( 100% - 7px); }
     .jq-scroll-container-horizontal .jq-scroll-shadow.bottom-right:before {
-      background: linear-gradient(to right, green, red) 100% 0;
-      box-shadow: 1px 0px 0px 0px red; }
+      background: linear-gradient(to right, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.4)) 100% 0;
+      box-shadow: 1px 0px 0px 0px rgba(0, 0, 0, 0.4); }
 
 .scroll-at-start .jq-scroll-shadow.top-left,
 .scroll-at-end .jq-scroll-shadow.bottom-right {

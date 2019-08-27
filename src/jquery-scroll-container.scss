@@ -165,9 +165,9 @@ $scrollbar-z-index: 100;
 
 
 //Add scroll-shadow - Not using mixin scroll-shadow-horizontal();
-$shadow-color         : red; //rgba(0, 0, 0, 0.4);
-$no-shadow-color      : green; //rgba(0, 0, 0, 0);
-$scroll-shadow-size   : 30; //6;
+$shadow-color         : rgba(0, 0, 0, 0.4);
+$no-shadow-color      : rgba(0, 0, 0, 0);
+$scroll-shadow-size   : 6;
 $scroll-shadow-size-px: #{$scroll-shadow-size}px;
 
 //Bug fix for Egde: Moving shadow one up/right
