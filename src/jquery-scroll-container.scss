@@ -171,6 +171,7 @@ $right-shadow : linear-gradient(to right, $no-shadow-color, $shadow-color   ) 10
 //Generel style
 .jq-scroll-shadow {
     position: sticky;
+    position: -webkit-sticky;
     top     : 0;
     left    : 0;
     z-index : $scrollbar-z-index + 4;
