@@ -169,6 +169,8 @@
 	<button onClick="removeElements()">Remove</button><br>
 	<button onClick="size()">#2 40% / 70%</button><br>
 	<button onClick="size2()">Red 30% / 300px</button>
+	<button onClick="lock()">Lock all</button>
+	<button onClick="unlock()">UNlock all</button>
 
 	<script src="bower_components.js"></script>
 	<script src="modernizr-custom.js"></script>
@@ -185,7 +187,6 @@
                     direction:'vertical',
                     forceDefaultScrollbar: true,
                     adjustPadding: 'both'
-
                 }),
                 $('.container2').addScrollbar('vertical'),
                 $('.container3').addScrollbar('vertical'),
@@ -193,6 +194,9 @@
             ];
 
         $('.container5').addScrollbar('both').append( $('<img src="tarzan.jpg"/>') );
+
+
+
 
         function each( func ){
             $.each($containers, function( index, $container ){
@@ -218,6 +222,13 @@
             $last.scrollIntoView();
 
         });
+
+        function lock(){
+            each( function( $container ){ $container.lockScrollbar() });
+        };
+        function unlock(){
+            each( function( $container ){ $container.unlockScrollbar() });
+        };
 
 
 

@@ -46,6 +46,16 @@ The package uses class `touchevents` and `no-touchevents` for the `<html>` eleme
 
 [modernizr](https://modernizr.com/) is not included automatic.
 
+## Lock and unlock the scroll
+If [perfect-scrollbar](https://github.com/mdbootstrap/perfect-scrollbar) is used two jQuery-element methods are available to lock and unlock the scrolling of a element
+
+    var $myContainer = $(aElement).addScrollbar( direction or options );
+    ...
+    $myContainer.lockScrollbar();
+    ...
+    $myContainer.unlockScrollbar();
+
+
 ## `Element.scrollIntoView`
 The [Element.scrollIntoView](https://developer.mozilla.org/en-US/docs/Web/API/Element/scrollIntoView) is partly supported by most browser
 
