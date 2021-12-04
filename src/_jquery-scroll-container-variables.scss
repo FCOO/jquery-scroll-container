@@ -1,21 +1,22 @@
 /***********************************************
     _jquery-scroll-container-variables.scss,
 ************************************************/
-$scrollbar-size  : 6rem / 16; //5px;
-$scrollbar-margin: 2rem / 16; //2px;
+$scrollbar-size  : 6px; //6rem / 16;
+$scrollbar-margin: 2px; //2rem / 16;
 
-$scrollbar-margin-min: 1rem /16; //1px;
 
-$scroll-size     : $scrollbar-margin + $scrollbar-size + $scrollbar-margin;
+$scroll-size         : 10px;
+$scroll-border-radius: $scroll-size - 2px;
+
 
 //Colors for the background and the thumb
-$scrollbar-background      : rgb(240,240,240);;
+$scrollbar-background  : white;
 
 //Scrollbar thumb color as in Windows
 $scrollbar-thumb       : rgb(205,205,205);
 $scrollbar-thumb-hover : rgb(166,166,166);
 $scrollbar-thumb-active: rgb( 96, 96, 96);
 
-//Transition-time for background-color and width/height
+//Transition-time for background-color and width/height - no used but keep for backward combability
 $scrollbar-transition-time: .2s;
 

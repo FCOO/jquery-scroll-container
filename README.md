@@ -6,6 +6,10 @@
 
 Create a container with auto scroll and resize using [perfect-scrollbar](https://github.com/mdbootstrap/perfect-scrollbar) by [MDBootstrap](https://github.com/mdbootstrap).
  
+Contains styles to have standard scroll bars looking the same way.
+
+It detects if the browser supports [scroll styling](https://caniuse.com/?search=scroll%20styling) and set the default to use standard scroll if supported
+
 On mobile devices (with touch-events) the browsers own scrollbars are used (optional). Detecting touch-events is done using [modernizr](https://modernizr.com/) (see below)
 
 ## Installation

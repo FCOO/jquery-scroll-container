@@ -23,22 +23,33 @@
     var ns = window.JqueryScrollContainer = window.JqueryScrollContainer || {};
 
     //Get the width of default scrollbar
+    function getAnyScrollbarWidth(className){
+        if (typeof document === 'undefined')
+            return 0;
+
+        var body = document.body,
+            box = document.createElement('div'),
+            boxStyle = box.style;
+
+        box.className = className;
+        boxStyle.position = 'fixed';
+        boxStyle.left = 0;
+        boxStyle.visibility = 'hidden';
+        boxStyle.overflowY = 'scroll';
+        body.appendChild(box);
+        var result = box.getBoundingClientRect().right;
+        body.removeChild(box);
+
+        return result;
+    }
+
+
     var scrollbarWidth = null;
     window.getScrollbarWidth = function() {
         if (scrollbarWidth === null){
             if (typeof document === 'undefined')
                 return 0;
-
-            var body = document.body,
-                box = document.createElement('div'),
-                boxStyle = box.style;
-            boxStyle.position = 'fixed';
-            boxStyle.left = 0;
-            boxStyle.visibility = 'hidden';
-            boxStyle.overflowY = 'scroll';
-            body.appendChild(box);
-            scrollbarWidth = box.getBoundingClientRect().right;
-            body.removeChild(box);
+            scrollbarWidth = getAnyScrollbarWidth('jq-scroll-default');
         }
         return scrollbarWidth;
     };
@@ -116,7 +127,7 @@
         direction       : 'vertical', //["vertical"|"horizontal"|"both"] (default: "vertical")
         contentClassName: '',         //Class-name added to the inner content-container
 
-        defaultScrollbarOnTouch: false,       //If true and the browser support touchevents => use simple version using the browsers default scrollbar
+        defaultScrollbarOnTouch: false,      //If true and the browser support touchevents => use simple version using the browsers default scrollbar
         forceDefaultScrollbar  : false,      //If true => use simple version using the browsers default scrollbar (regardless of defaultScrollbarOnTouch and touchevents-support)
 
         adjustPadding          : 'scroll',   //['scroll', 'left', 'both', none']. Defines witch 'side(s)' that will have padding adjusted:
@@ -127,6 +138,14 @@
         //hasTouchEvents: `true` if the browser supports touch-events and the scroll should use default scroll
         hasTouchEvents: function(){ return $('html').hasClass('touchevents'); }
     };
+
+    //If the browser support --webkit-scrollbar => use standard scrollbar as standard
+    if (getAnyScrollbarWidth('jq-scroll-test-123') == 123){
+        ns.scrollbarOptions.forceDefaultScrollbar = true;
+    }
+
+
+
 
 
     //_jscUpdateScrollShadowClass: update the classNames setting the scroll-shadow
