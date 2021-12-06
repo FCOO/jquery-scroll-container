@@ -139,12 +139,26 @@
         hasTouchEvents: function(){ return $('html').hasClass('touchevents'); }
     };
 
-    //If the browser support --webkit-scrollbar => use standard scrollbar as standard
-    if (getAnyScrollbarWidth('jq-scroll-test-123') == 123){
-        ns.scrollbarOptions.forceDefaultScrollbar = true;
-    }
 
+    //ns.update = Test if the browser supports css for scrollbars and sets the class-name for html to use jquery-scroll-container it needed
+    ns.update = function(){
+        if (getAnyScrollbarWidth('jq-scroll-test-123') != 123) return;
 
+        var addScrollbarClassName,
+            isTouch = $.isFunction(ns.scrollbarOptions.hasTouchEvents) ? ns.scrollbarOptions.hasTouchEvents() : ns.scrollbarOptions.hasTouchEvents;
+
+        if (isTouch)
+            //Use scrollbar-classes if touch and not use browser default scrollbar on touch devices
+            addScrollbarClassName = !ns.scrollbarOptions.defaultScrollbarOnTouch;
+        else {
+            //Always use default scrollbar and scrollbar-classes on desktop (no-touch)
+            addScrollbarClassName = true;
+            ns.scrollbarOptions.forceDefaultScrollbar = true;
+        }
+        $('html').toggleClass('jq-scroll-default-css', !!addScrollbarClassName);
+    };
+
+    ns.update();
 
 
 

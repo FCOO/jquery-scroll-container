@@ -27,25 +27,25 @@ Not part of standard, but supported på Chrome and Safari
 See https://developer.mozilla.org/en-US/docs/Web/CSS/::-webkit-scrollbar
 and https://css-tricks.com/custom-scrollbars-in-webkit/
 ****************************************************/
-.jq-scroll-default {
-    &::-webkit-scrollbar {
+html.jq-scroll-default-css {
+    ::-webkit-scrollbar {
         width: $scroll-size;
     }
 
-    &::-webkit-scrollbar:horizontal {
+    ::-webkit-scrollbar:horizontal {
         height: $scroll-size;
     }
 
     /* Track */
-    &::-webkit-scrollbar-track {
+    ::-webkit-scrollbar-track {
         background-color: $scrollbar-background;
         box-shadow      : inset 0 0 6px rgba(0,0,0,0.3);
         border-radius   : $scroll-border-radius;
     }
 
     /* Handle */
-    &::-webkit-scrollbar-thumb {
-        background-color: $scrollbar-thumb;
+    ::-webkit-scrollbar-thumb {
+        background-color: red; //$scrollbar-thumb;
         border-radius   : $scroll-border-radius;
         border          : 1px solid $scrollbar-background;
         box-shadow      : inset 0 0 6px rgba(0,0,0,0.5);
