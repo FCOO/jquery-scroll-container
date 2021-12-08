@@ -6,28 +6,24 @@
     https://github.com/FCOO/jquery-scroll-container
     https://github.com/FCOO
 
-    USING MODIFIED VERSIONS OF THE STYLE FROM PERFECT-SCROLLBAR
-    https://github.com/mdbootstrap/perfect-scrollbar
-
 ************************************************/
 @import "jquery-scroll-container-variables";
-//NOT USED @import "jquery-scroll-container-shadow";
-
-
-//Special class to test if --webkit-scrollbar is supported
-.jq-scroll-test-123::-webkit-scrollbar {
-    width: 123px !important;
-}
-
-
 
 /****************************************************
 Style for default scrollbar
 Not part of standard, but supported på Chrome and Safari
 See https://developer.mozilla.org/en-US/docs/Web/CSS/::-webkit-scrollbar
 and https://css-tricks.com/custom-scrollbars-in-webkit/
+and https://www.w3schools.com/howto/howto_css_hide_scrollbars.asp
 ****************************************************/
 html.jq-scroll-default-css {
+    /* Size and color for Firefox */
+    * {
+        scrollbar-width: thin;
+        scrollbar-color: $scrollbar-thumb $scrollbar-background;
+    }
+
+    /* Size and color for Chrome, Edge etc. */
     ::-webkit-scrollbar {
         width: $scroll-size;
     }
@@ -57,148 +53,38 @@ html.jq-scroll-default-css {
             background-color: $scrollbar-thumb-active;
         }
     }
+
+    /* 'Hide scrollbar by setting all color and shadows */
+    .jq-scroll-none {
+        &::-webkit-scrollbar-track {
+            background-color: $scrollbar-background;
+            box-shadow      : none !important;
+        }
+
+        &::-webkit-scrollbar-thumb {
+            background-color: $scrollbar-background;
+            box-shadow      : none !important;
+        }
+
+    }
+
 }
 
 //Scroll using browser default scrollbar
 .jq-scroll-default {
     &.jq-scroll-container-horizontal {
-        overflow-x: auto;
+        overflow-x: scroll;
         overflow-y: hidden;
-        &.jq-scroll-adjust-padding.no-scroll-at-start, &.jq-scroll-adjust-padding.no-scroll-at-end {
-            padding-bottom: 0 !important;
-        }
     }
     &.jq-scroll-container-vertical {
-        overflow-y: auto;
+        overflow-y: scroll;
         overflow-x: hidden;
-        &.jq-scroll-adjust-padding.no-scroll-at-start, &.jq-scroll-adjust-padding.no-scroll-at-end {
-            padding-right: 0 !important;
-        }
     }
     &.jq-scroll-container-both {
         overflow-y: scroll;
         overflow-x: scroll;
     }
 }
-
-
-
-
-/****************************************************
-Add adjustments to original PerfectScroll style
-
-.ps[.ps--focus][.ps--active-y][.ps--active-x][.ps--scrolling-y][.ps--scrolling-x]
-    .ps__rail-y[.ps--clicking].ps__rail
-        .ps__thumb-y
-    .ps__rail-x[.ps--clicking].ps__rail
-        .ps__thumb-x
-
-Class ps__rail added by jquery-scroll-container
-****************************************************/
-
-$scrollbar-z-index: 100;
-
-.ps {
-    // Scrollbar rail styles
-    .ps__rail-x {
-        height: $scroll-size !important;
-    }
-
-    .ps__rail-y {
-        width: $scroll-size !important;
-
-        //Bug fix https://github.com/mdbootstrap/perfect-scrollbar/issues/792
-        left: auto !important;
-    }
-
-    .ps__rail {
-        //Allways visible and bg-color when 'active'. Using different bg-color for thumb for differnet states
-        opacity: 1 !important;
-        z-index: $scrollbar-z-index;
-    }
-
-
-    &.no-touch {
-        //Focus, hover on scrollbar, scrolling, or dragging scrollbar: visible bg-color but only in no-touch-mode
-        &.ps--focus > .ps__rail,
-        & > .ps__rail:hover,
-        & > .ps__rail:focus,
-        &.ps--scrolling-x > .ps__rail-x,
-        &.ps--scrolling-y > .ps__rail-y {
-            z-index         : $scrollbar-z-index + 2;
-            background-color: $scrollbar-background !important;
-            box-shadow      : inset 0 0 6px rgba(0,0,0,0.3);
-        }
-    }
-
-    // Scrollbar thumb styles. Shape of thump is set using horizontal margin for y-scroll adn vertical margin for x-scroll
-    .ps__thumb {
-        background-color: $scrollbar-thumb;
-        border-radius   : $scroll-border-radius;
-        border          : 1px solid $scrollbar-background;;
-        box-shadow      : inset 0 0 6px rgba(0,0,0,0.5);
-    }
-
-    //Fixed background-color in touch-mode
-    &.touch .ps__thumb {
-        background-color: $scrollbar-thumb !important;
-    }
-
-
-    .ps__thumb-x {
-        height       : auto !important; //Overwrite height: 6px;
-        top          : 0;
-        bottom       : 0 !important; //Overwrite bottom: 2px;
-    }
-
-    .ps__thumb-y {
-        width       : auto !important; //Overwrite width: 6px;
-        left        : 0;
-        right       : 0 !important;    //Overwrite 2px;
-    }
-
-    &.no-touch {
-        .ps__rail-x:hover > .ps__thumb-x,
-        .ps__rail-x:focus > .ps__thumb-x,
-        .ps__rail-x.ps--clicking .ps__thumb-x {
-            background-color: $scrollbar-thumb-hover;
-        }
-        .ps__rail-x.ps--clicking .ps__thumb-x {
-            background-color: $scrollbar-thumb-active;
-        }
-
-        .ps__rail-y:hover > .ps__thumb-y,
-        .ps__rail-y:focus > .ps__thumb-y,
-        .ps__rail-y.ps--clicking .ps__thumb-y {
-            background-color: $scrollbar-thumb-hover;
-        }
-        .ps__rail-y.ps--clicking .ps__thumb-y {
-            background-color: $scrollbar-thumb-active;
-        }
-    }
-
-    //Add padding to allow scrollbar to be visible
-    &.jq-scroll-container-horizontal {
-        padding-bottom: $scroll-size;
-    }
-
-    &.jq-scroll-container-vertical {
-        &.jq-scroll-adjust-padding-left {
-            padding-left : $scroll-size;
-        }
-        padding-right: $scroll-size;
-    }
-
-    //Container with contents
-    .jq-scroll-content {
-        //Move content below scrollbars
-        position: relative;
-        z-index : $scrollbar-z-index - 1;
-        background-color: transparent;
-        padding: 0;
-        margin : 0;
-    }
-} //end of .ps
 
 
 /****************************************************************
@@ -223,7 +109,7 @@ $right-shadow : linear-gradient(to right, $no-shadow-color, $shadow-color   ) 10
     position: -webkit-sticky;
     top     : 0;
     left    : 0;
-    z-index : $scrollbar-z-index + 4;
+    z-index : 100; //$scrollbar-z-index + 4;
     -webkit-backface-visibility: hidden;
     &:before{
         content: '';
@@ -262,7 +148,7 @@ $right-shadow : linear-gradient(to right, $no-shadow-color, $shadow-color   ) 10
     }
 }
 
-//Horizontal scroll - NOT WORKING
+/* //Horizontal scroll - NOT WORKING
 .jq-scroll-container-horizontal .jq-scroll-shadow {
     height: 100%;
     width : 0;
@@ -280,6 +166,7 @@ $right-shadow : linear-gradient(to right, $no-shadow-color, $shadow-color   ) 10
         }
     }
 }
+*/
 
 //Hide shadow when scroll at start/end
 .scroll-at-start .jq-scroll-shadow.top-left,

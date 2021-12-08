@@ -7,139 +7,63 @@
     https://github.com/FCOO/jquery-scroll-container
     https://github.com/FCOO
 
-    USING MODIFIED VERSIONS OF THE STYLE FROM PERFECT-SCROLLBAR
-    https://github.com/mdbootstrap/perfect-scrollbar
-
 ************************************************/
 /***********************************************
-    _jquery-scroll-container-variables.scss,
-************************************************/
-.jq-scroll-test-123::-webkit-scrollbar {
-  width: 123px !important; }
 
+jquery-scroll-container-variables.scss
+
+************************************************/
 /****************************************************
 Style for default scrollbar
 Not part of standard, but supported på Chrome and Safari
 See https://developer.mozilla.org/en-US/docs/Web/CSS/::-webkit-scrollbar
 and https://css-tricks.com/custom-scrollbars-in-webkit/
+and https://www.w3schools.com/howto/howto_css_hide_scrollbars.asp
 ****************************************************/
 html.jq-scroll-default-css {
+  /* Size and color for Firefox */
+  /* Size and color for Chrome, Edge etc. */
   /* Track */
-  /* Handle */ }
+  /* Handle */
+  /* 'Hide scrollbar by setting all color and shadows */ }
+  html.jq-scroll-default-css * {
+    scrollbar-width: thin;
+    scrollbar-color: #cdcdcd white; }
   html.jq-scroll-default-css ::-webkit-scrollbar {
-    width: 10px; }
+    width: 8px; }
   html.jq-scroll-default-css ::-webkit-scrollbar:horizontal {
-    height: 10px; }
+    height: 8px; }
   html.jq-scroll-default-css ::-webkit-scrollbar-track {
     background-color: white;
     box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
-    border-radius: 8px; }
+    border-radius: 6px; }
   html.jq-scroll-default-css ::-webkit-scrollbar-thumb {
     background-color: #cdcdcd;
-    border-radius: 8px;
+    border-radius: 6px;
     border: 1px solid white;
     box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.5); }
     html.jq-scroll-default-css ::-webkit-scrollbar-thumb:hover {
       background-color: #a6a6a6; }
     html.jq-scroll-default-css ::-webkit-scrollbar-thumb:active {
       background-color: #606060; }
+  html.jq-scroll-default-css .jq-scroll-none::-webkit-scrollbar-track {
+    background-color: white;
+    box-shadow: none !important; }
+  html.jq-scroll-default-css .jq-scroll-none::-webkit-scrollbar-thumb {
+    background-color: white;
+    box-shadow: none !important; }
 
 .jq-scroll-default.jq-scroll-container-horizontal {
-  overflow-x: auto;
+  overflow-x: scroll;
   overflow-y: hidden; }
-  .jq-scroll-default.jq-scroll-container-horizontal.jq-scroll-adjust-padding.no-scroll-at-start, .jq-scroll-default.jq-scroll-container-horizontal.jq-scroll-adjust-padding.no-scroll-at-end {
-    padding-bottom: 0 !important; }
 
 .jq-scroll-default.jq-scroll-container-vertical {
-  overflow-y: auto;
+  overflow-y: scroll;
   overflow-x: hidden; }
-  .jq-scroll-default.jq-scroll-container-vertical.jq-scroll-adjust-padding.no-scroll-at-start, .jq-scroll-default.jq-scroll-container-vertical.jq-scroll-adjust-padding.no-scroll-at-end {
-    padding-right: 0 !important; }
 
 .jq-scroll-default.jq-scroll-container-both {
   overflow-y: scroll;
   overflow-x: scroll; }
-
-/****************************************************
-Add adjustments to original PerfectScroll style
-
-.ps[.ps--focus][.ps--active-y][.ps--active-x][.ps--scrolling-y][.ps--scrolling-x]
-    .ps__rail-y[.ps--clicking].ps__rail
-        .ps__thumb-y
-    .ps__rail-x[.ps--clicking].ps__rail
-        .ps__thumb-x
-
-Class ps__rail added by jquery-scroll-container
-****************************************************/
-.ps .ps__rail-x {
-  height: 10px !important; }
-
-.ps .ps__rail-y {
-  width: 10px !important;
-  left: auto !important; }
-
-.ps .ps__rail {
-  opacity: 1 !important;
-  z-index: 100; }
-
-.ps.no-touch.ps--focus > .ps__rail,
-.ps.no-touch > .ps__rail:hover,
-.ps.no-touch > .ps__rail:focus,
-.ps.no-touch.ps--scrolling-x > .ps__rail-x,
-.ps.no-touch.ps--scrolling-y > .ps__rail-y {
-  z-index: 102;
-  background-color: white !important;
-  box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3); }
-
-.ps .ps__thumb {
-  background-color: #cdcdcd;
-  border-radius: 8px;
-  border: 1px solid white;
-  box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.5); }
-
-.ps.touch .ps__thumb {
-  background-color: #cdcdcd !important; }
-
-.ps .ps__thumb-x {
-  height: auto !important;
-  top: 0;
-  bottom: 0 !important; }
-
-.ps .ps__thumb-y {
-  width: auto !important;
-  left: 0;
-  right: 0 !important; }
-
-.ps.no-touch .ps__rail-x:hover > .ps__thumb-x,
-.ps.no-touch .ps__rail-x:focus > .ps__thumb-x,
-.ps.no-touch .ps__rail-x.ps--clicking .ps__thumb-x {
-  background-color: #a6a6a6; }
-
-.ps.no-touch .ps__rail-x.ps--clicking .ps__thumb-x {
-  background-color: #606060; }
-
-.ps.no-touch .ps__rail-y:hover > .ps__thumb-y,
-.ps.no-touch .ps__rail-y:focus > .ps__thumb-y,
-.ps.no-touch .ps__rail-y.ps--clicking .ps__thumb-y {
-  background-color: #a6a6a6; }
-
-.ps.no-touch .ps__rail-y.ps--clicking .ps__thumb-y {
-  background-color: #606060; }
-
-.ps.jq-scroll-container-horizontal {
-  padding-bottom: 10px; }
-
-.ps.jq-scroll-container-vertical {
-  padding-right: 10px; }
-  .ps.jq-scroll-container-vertical.jq-scroll-adjust-padding-left {
-    padding-left: 10px; }
-
-.ps .jq-scroll-content {
-  position: relative;
-  z-index: 99;
-  background-color: transparent;
-  padding: 0;
-  margin: 0; }
 
 /****************************************************************
 Add scroll-shadow - Not using mixin scroll-shadow-horizontal();
@@ -149,7 +73,7 @@ Add scroll-shadow - Not using mixin scroll-shadow-horizontal();
   position: -webkit-sticky;
   top: 0;
   left: 0;
-  z-index: 104;
+  z-index: 100;
   -webkit-backface-visibility: hidden; }
   .jq-scroll-shadow:before {
     content: '';
@@ -178,19 +102,25 @@ Add scroll-shadow - Not using mixin scroll-shadow-horizontal();
       background: linear-gradient(rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.4)) 0 100%;
       box-shadow: 0px 1px 0px 0px rgba(0, 0, 0, 0.4); }
 
+/* //Horizontal scroll - NOT WORKING
 .jq-scroll-container-horizontal .jq-scroll-shadow {
-  height: 100%;
-  width: 0; }
-  .jq-scroll-container-horizontal .jq-scroll-shadow:before {
-    width: 6px; }
-  .jq-scroll-container-horizontal .jq-scroll-shadow.top-left:before {
-    background: linear-gradient(to right, rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0)); }
-  .jq-scroll-container-horizontal .jq-scroll-shadow.bottom-right {
-    left: calc( 100% - 7px); }
-    .jq-scroll-container-horizontal .jq-scroll-shadow.bottom-right:before {
-      background: linear-gradient(to right, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.4)) 100% 0;
-      box-shadow: 1px 0px 0px 0px rgba(0, 0, 0, 0.4); }
-
+    height: 100%;
+    width : 0;
+    &:before {
+        width: $scroll-shadow-size-px;
+    }
+    &.top-left {
+        &:before { background: $left-shadow ; }
+    }
+    &.bottom-right {
+        left: $offset;
+        &:before {
+            background: $right-shadow;
+            box-shadow: 1px 0px 0px 0px $shadow-color; //Bug fix for Edge
+        }
+    }
+}
+*/
 .scroll-at-start .jq-scroll-shadow.top-left,
 .scroll-at-end .jq-scroll-shadow.bottom-right {
   display: none; }

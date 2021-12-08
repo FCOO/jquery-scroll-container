@@ -182,10 +182,12 @@
         $('html').addClass('touchevents');
         $('html').removeClass('no-touchevents');
 */
+
+window.JqueryScrollContainer.scrollbarOptions.forceDefaultScrollbar = true;
         var $containers = [
                 $('.container1').addScrollbar({
                     direction:'vertical',
-                    forceDefaultScrollbar: !window.JqueryScrollContainer.scrollbarOptions.forceDefaultScrollbar,
+                    //forceDefaultScrollbar: !window.JqueryScrollContainer.scrollbarOptions.forceDefaultScrollbar,
                     adjustPadding: 'both'
                 }),
                 $('.container2').addScrollbar('vertical'),
