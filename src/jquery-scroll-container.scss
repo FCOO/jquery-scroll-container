@@ -57,7 +57,8 @@ html.jq-scroll-default-css {
     /* 'Hide scrollbar by setting all color and shadows */
     .jq-scroll-none {
         &::-webkit-scrollbar-track {
-            background-color: $scrollbar-background;
+            background-color: transparent;
+            border-radius   : 0px;
             box-shadow      : none !important;
         }
 
