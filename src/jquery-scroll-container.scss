@@ -71,19 +71,33 @@ html.jq-scroll-default-css {
 
 }
 
-//Scroll using browser default scrollbar
+//Scroll using browser default scrollbar. On no-touch device padding>0 is added on scrollbar-side when scrollbar-width = 0 (Firefox)
 .jq-scroll-default {
     &.jq-scroll-container-horizontal {
         overflow-x: scroll;
         overflow-y: hidden;
+        html.no-touchevents & {
+            padding-bottom: $scroll-padding;
+        }
     }
     &.jq-scroll-container-vertical {
         overflow-y: scroll;
         overflow-x: hidden;
+        html.no-touchevents & {
+            padding-right: $scroll-padding;
+        }
     }
     &.jq-scroll-container-both {
         overflow-y: scroll;
         overflow-x: scroll;
+        html.no-touchevents & {
+            padding-right : $scroll-padding;
+            padding-bottom: $scroll-padding;
+        }
+    }
+
+    html.no-touchevents &.jq-scroll-padding-left {
+        padding-left: $scroll-padding-opposite !important;
     }
 }
 

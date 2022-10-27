@@ -7,7 +7,6 @@
     https://github.com/FCOO
 
 ****************************************************************************/
-
 (function ($, window, document/*, undefined*/) {
     "use strict";
 
@@ -20,27 +19,40 @@
     //Create namespace
     var ns = window.JqueryScrollContainer = window.JqueryScrollContainer || {};
 
-    var scrollbarWidth = null;
-    window.getScrollbarWidth = function() {
-        if (scrollbarWidth === null){
-            if (typeof document === 'undefined')
-                return 0;
-
-            var body = document.body,
-                box = document.createElement('div'),
-                boxStyle = box.style;
-
-            box.className       = 'jq-scroll-default';
-            boxStyle.position   = 'fixed';
-            boxStyle.left       = 0;
-            boxStyle.visibility = 'hidden';
-            boxStyle.overflowY  = 'scroll';
-            body.appendChild(box);
-            scrollbarWidth = box.getBoundingClientRect().right;
-            body.removeChild(box);
+    //Calc the scrollbar-width when the document is loaded
+    var getScrollbarWidth = window.getScrollbarWidth = function() {
+        if (typeof document === 'undefined'){
+            window.setTimeout( getScrollbarWidth, 1000 );
+            return;
         }
+
+        var body = document.body,
+            box = document.createElement('div'),
+            boxStyle = box.style;
+
+        box.className       = 'jq-scroll-default';
+        boxStyle.position   = 'fixed';
+        boxStyle.left       = 0;
+        boxStyle.visibility = 'hidden';
+        boxStyle.overflowY  = 'scroll';
+        body.appendChild(box);
+        var scrollbarWidth = box.getBoundingClientRect().right;
+        body.removeChild(box);
+
+        //Update to css-var for scrollbars
+        var root = document.querySelector(':root');
+        root.style.setProperty('--jsc-scroll-size', scrollbarWidth+'px');
+        if (scrollbarWidth > 0){
+            root.style.setProperty('--jsc-scroll-padding-opposite', scrollbarWidth+'px');
+            root.style.setProperty('--jsc-scroll-padding',          '0px');
+        }
+
         return scrollbarWidth;
     };
+
+    //Called when document is laoded
+    $(getScrollbarWidth);
+
 
     //Extend $.fn with scrollIntoView
     $.fn.extend({
@@ -131,7 +143,7 @@
         this.addClass('jq-scroll-default');
 
         if (isVertical && options.paddingLeft)
-            this.css('padding-left', window.getScrollbarWidth()+'px' );
+            this.addClass('jq-scroll-padding-left');
 
         //Update scroll-shadow when scrolling
         if (!isBoth)

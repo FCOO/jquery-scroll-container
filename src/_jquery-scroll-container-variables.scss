@@ -3,9 +3,18 @@
 jquery-scroll-container-variables.scss
 
 ************************************************/
+:root {
+    --jsc-scroll-size            : 10px; //Default = same as Firefox scrollbar-width: thin;
+    --jsc-scroll-padding-opposite: 10px; //Padding on opposite side of scrollbar. Always > 0
+    --jsc-scroll-padding         : 10px; //Padding on same side as scrollbar when scrollbar-width = 0 (only on touch device)
+}
 
-$scroll-size         : 8px; //Same as Firefox scrollbar-width: thin;
-$scroll-border-radius: $scroll-size - 2px;
+$scroll-size            : var(--jsc-scroll-size);
+$scroll-padding-opposite: var(--jsc-scroll-padding-opposite);
+$scroll-padding         : var(--jsc-scroll-padding);
+
+$scroll-border-radius   : calc(#{$scroll-padding-opposite} - 2px);
+
 
 //Colors for the background
 $scrollbar-background  : white;
