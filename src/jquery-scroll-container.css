@@ -14,9 +14,9 @@ jquery-scroll-container-variables.scss
 
 ************************************************/
 :root {
-  --jsc-scroll-size: 9px;
-  --jsc-scroll-padding: 9px;
-  --jsc-scroll-auto-padding: 9px; }
+  --jsc-scroll-size: 10px;
+  --jsc-scroll-padding: 10px;
+  --jsc-scroll-auto-padding: 10px; }
 
 /****************************************************
 Style for default scrollbar
