@@ -43,8 +43,8 @@
         var root = document.querySelector(':root');
         root.style.setProperty('--jsc-scroll-size', scrollbarWidth+'px');
         if (scrollbarWidth > 0){
-            root.style.setProperty('--jsc-scroll-padding-opposite', scrollbarWidth+'px');
-            root.style.setProperty('--jsc-scroll-padding',          '0px');
+            root.style.setProperty('--jsc-scroll-padding'     , scrollbarWidth+'px');
+            root.style.setProperty('--jsc-scroll-auto-padding', '0px');
         }
 
         return scrollbarWidth;

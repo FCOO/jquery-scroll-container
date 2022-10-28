@@ -77,27 +77,27 @@ html.jq-scroll-default-css {
         overflow-x: scroll;
         overflow-y: hidden;
         html.no-touchevents & {
-            padding-bottom: $scroll-padding;
+            padding-bottom: $scroll-auto-padding;
         }
     }
     &.jq-scroll-container-vertical {
         overflow-y: scroll;
         overflow-x: hidden;
         html.no-touchevents & {
-            padding-right: $scroll-padding;
+            padding-right: $scroll-auto-padding;
         }
     }
     &.jq-scroll-container-both {
         overflow-y: scroll;
         overflow-x: scroll;
         html.no-touchevents & {
-            padding-right : $scroll-padding;
-            padding-bottom: $scroll-padding;
+            padding-right : $scroll-auto-padding;
+            padding-bottom: $scroll-auto-padding;
         }
     }
 
     html.no-touchevents &.jq-scroll-padding-left {
-        padding-left: $scroll-padding-opposite !important;
+        padding-left: $scroll-padding !important;
     }
 }
 

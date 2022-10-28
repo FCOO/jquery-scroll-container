@@ -4,16 +4,17 @@ jquery-scroll-container-variables.scss
 
 ************************************************/
 :root {
-    --jsc-scroll-size            : 10px; //Default = same as Firefox scrollbar-width: thin;
-    --jsc-scroll-padding-opposite: 10px; //Padding on opposite side of scrollbar. Always > 0
-    --jsc-scroll-padding         : 10px; //Padding on same side as scrollbar when scrollbar-width = 0 (only on touch device)
+    --jsc-scroll-size         : 9px; //Default = same as Firefox scrollbar-width: thin;
+    --jsc-scroll-padding      : 9px; //Padding = size of scroll-bar. Always > 0
+    --jsc-scroll-auto-padding : 9px; //Padding on same side as scrollbar when scrollbar-width = 0. This is when the scrollbar is "auto" = only visible when mouse hover or dragging (touch device or Firefox version > 100)
 }
 
-$scroll-size            : var(--jsc-scroll-size);
-$scroll-padding-opposite: var(--jsc-scroll-padding-opposite);
-$scroll-padding         : var(--jsc-scroll-padding);
+$scroll-size         : var(--jsc-scroll-size);
 
-$scroll-border-radius   : calc(#{$scroll-padding-opposite} - 2px);
+$scroll-padding      : var(--jsc-scroll-padding);
+$scroll-auto-padding : var(--jsc-scroll-auto-padding);
+
+$scroll-border-radius: calc(#{$scroll-padding} - 2px);
 
 
 //Colors for the background

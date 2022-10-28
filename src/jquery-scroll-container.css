@@ -14,9 +14,9 @@ jquery-scroll-container-variables.scss
 
 ************************************************/
 :root {
-  --jsc-scroll-size: 10px;
-  --jsc-scroll-padding-opposite: 10px;
-  --jsc-scroll-padding: 10px; }
+  --jsc-scroll-size: 9px;
+  --jsc-scroll-padding: 9px;
+  --jsc-scroll-auto-padding: 9px; }
 
 /****************************************************
 Style for default scrollbar
@@ -41,10 +41,10 @@ html.jq-scroll-default-css {
   html.jq-scroll-default-css ::-webkit-scrollbar-track {
     background-color: white;
     box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
-    border-radius: calc(var(--jsc-scroll-padding-opposite) - 2px); }
+    border-radius: calc(var(--jsc-scroll-padding) - 2px); }
   html.jq-scroll-default-css ::-webkit-scrollbar-thumb {
     background-color: #cdcdcd;
-    border-radius: calc(var(--jsc-scroll-padding-opposite) - 2px);
+    border-radius: calc(var(--jsc-scroll-padding) - 2px);
     border: 1px solid white;
     box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.5); }
     html.jq-scroll-default-css ::-webkit-scrollbar-thumb:hover {
@@ -63,23 +63,23 @@ html.jq-scroll-default-css {
   overflow-x: scroll;
   overflow-y: hidden; }
   html.no-touchevents .jq-scroll-default.jq-scroll-container-horizontal {
-    padding-bottom: var(--jsc-scroll-padding); }
+    padding-bottom: var(--jsc-scroll-auto-padding); }
 
 .jq-scroll-default.jq-scroll-container-vertical {
   overflow-y: scroll;
   overflow-x: hidden; }
   html.no-touchevents .jq-scroll-default.jq-scroll-container-vertical {
-    padding-right: var(--jsc-scroll-padding); }
+    padding-right: var(--jsc-scroll-auto-padding); }
 
 .jq-scroll-default.jq-scroll-container-both {
   overflow-y: scroll;
   overflow-x: scroll; }
   html.no-touchevents .jq-scroll-default.jq-scroll-container-both {
-    padding-right: var(--jsc-scroll-padding);
-    padding-bottom: var(--jsc-scroll-padding); }
+    padding-right: var(--jsc-scroll-auto-padding);
+    padding-bottom: var(--jsc-scroll-auto-padding); }
 
 html.no-touchevents .jq-scroll-default.jq-scroll-padding-left {
-  padding-left: var(--jsc-scroll-padding-opposite) !important; }
+  padding-left: var(--jsc-scroll-padding) !important; }
 
 /****************************************************************
 Add scroll-shadow - Not using mixin scroll-shadow-horizontal();
