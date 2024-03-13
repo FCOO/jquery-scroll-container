@@ -16,7 +16,8 @@ jquery-scroll-container-variables.scss
 :root {
   --jsc-scroll-size: 10px;
   --jsc-scroll-padding: 10px;
-  --jsc-scroll-auto-padding: 10px; }
+  --jsc-scroll-auto-padding: 10px;
+}
 
 /****************************************************
 Style for default scrollbar
@@ -30,56 +31,70 @@ html.jq-scroll-default-css {
   /* Size and color for Chrome, Edge etc. */
   /* Track */
   /* Handle */
-  /* 'Hide scrollbar by setting all color and shadows */ }
-  html.jq-scroll-default-css * {
-    scrollbar-width: thin;
-    scrollbar-color: #cdcdcd white; }
-  html.jq-scroll-default-css ::-webkit-scrollbar {
-    width: var(--jsc-scroll-size); }
-  html.jq-scroll-default-css ::-webkit-scrollbar:horizontal {
-    height: var(--jsc-scroll-size); }
-  html.jq-scroll-default-css ::-webkit-scrollbar-track {
-    background-color: white;
-    box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
-    border-radius: calc(var(--jsc-scroll-padding) - 2px); }
-  html.jq-scroll-default-css ::-webkit-scrollbar-thumb {
-    background-color: #cdcdcd;
-    border-radius: calc(var(--jsc-scroll-padding) - 2px);
-    border: 1px solid white;
-    box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.5); }
-    html.jq-scroll-default-css ::-webkit-scrollbar-thumb:hover {
-      background-color: #a6a6a6; }
-    html.jq-scroll-default-css ::-webkit-scrollbar-thumb:active {
-      background-color: #606060; }
-  html.jq-scroll-default-css .jq-scroll-none::-webkit-scrollbar-track {
-    background-color: transparent;
-    border-radius: 0px;
-    box-shadow: none !important; }
-  html.jq-scroll-default-css .jq-scroll-none::-webkit-scrollbar-thumb {
-    background-color: white;
-    box-shadow: none !important; }
+  /* 'Hide scrollbar by setting all color and shadows */
+}
+html.jq-scroll-default-css * {
+  scrollbar-width: thin;
+  scrollbar-color: rgb(205, 205, 205) white;
+}
+html.jq-scroll-default-css ::-webkit-scrollbar {
+  width: var(--jsc-scroll-size);
+}
+html.jq-scroll-default-css ::-webkit-scrollbar:horizontal {
+  height: var(--jsc-scroll-size);
+}
+html.jq-scroll-default-css ::-webkit-scrollbar-track {
+  background-color: white;
+  box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+  border-radius: calc(var(--jsc-scroll-padding) - 2px);
+}
+html.jq-scroll-default-css ::-webkit-scrollbar-thumb {
+  background-color: rgb(205, 205, 205);
+  border-radius: calc(var(--jsc-scroll-padding) - 2px);
+  border: 1px solid white;
+  box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.5);
+}
+html.jq-scroll-default-css ::-webkit-scrollbar-thumb:hover {
+  background-color: rgb(166, 166, 166);
+}
+html.jq-scroll-default-css ::-webkit-scrollbar-thumb:active {
+  background-color: rgb(96, 96, 96);
+}
+html.jq-scroll-default-css .jq-scroll-none::-webkit-scrollbar-track {
+  background-color: transparent;
+  border-radius: 0px;
+  box-shadow: none !important;
+}
+html.jq-scroll-default-css .jq-scroll-none::-webkit-scrollbar-thumb {
+  background-color: white;
+  box-shadow: none !important;
+}
 
 .jq-scroll-default.jq-scroll-container-horizontal {
   overflow-x: scroll;
-  overflow-y: hidden; }
-  html.no-touchevents .jq-scroll-default.jq-scroll-container-horizontal {
-    padding-bottom: var(--jsc-scroll-auto-padding); }
-
+  overflow-y: hidden;
+}
+html.no-touchevents .jq-scroll-default.jq-scroll-container-horizontal {
+  padding-bottom: var(--jsc-scroll-auto-padding);
+}
 .jq-scroll-default.jq-scroll-container-vertical {
   overflow-y: scroll;
-  overflow-x: hidden; }
-  html.no-touchevents .jq-scroll-default.jq-scroll-container-vertical {
-    padding-right: var(--jsc-scroll-auto-padding); }
-
+  overflow-x: hidden;
+}
+html.no-touchevents .jq-scroll-default.jq-scroll-container-vertical {
+  padding-right: var(--jsc-scroll-auto-padding);
+}
 .jq-scroll-default.jq-scroll-container-both {
   overflow-y: scroll;
-  overflow-x: scroll; }
-  html.no-touchevents .jq-scroll-default.jq-scroll-container-both {
-    padding-right: var(--jsc-scroll-auto-padding);
-    padding-bottom: var(--jsc-scroll-auto-padding); }
-
+  overflow-x: scroll;
+}
+html.no-touchevents .jq-scroll-default.jq-scroll-container-both {
+  padding-right: var(--jsc-scroll-auto-padding);
+  padding-bottom: var(--jsc-scroll-auto-padding);
+}
 html.no-touchevents .jq-scroll-default.jq-scroll-padding-left {
-  padding-left: var(--jsc-scroll-padding) !important; }
+  padding-left: var(--jsc-scroll-padding) !important;
+}
 
 /****************************************************************
 Add scroll-shadow - Not using mixin scroll-shadow-horizontal();
@@ -90,33 +105,42 @@ Add scroll-shadow - Not using mixin scroll-shadow-horizontal();
   top: 0;
   left: 0;
   z-index: 100;
-  -webkit-backface-visibility: hidden; }
-  .jq-scroll-shadow:before {
-    content: '';
-    display: block;
-    position: sticky; }
+  -webkit-backface-visibility: hidden;
+}
+.jq-scroll-shadow:before {
+  content: "";
+  display: block;
+  position: sticky;
+}
 
 .jq-scroll-container-vertical.jq-scroll-container-shadow {
   padding-top: 0 !important;
-  padding-bottom: 0 !important; }
+  padding-bottom: 0 !important;
+}
 
 .jq-scroll-container-horizontal.jq-scroll-container-shadow {
   padding-left: 0 !important;
-  padding-right: 0 !important; }
+  padding-right: 0 !important;
+}
 
 .jq-scroll-container-vertical .jq-scroll-shadow {
   height: 0;
   width: 200%;
-  margin-left: -50%; }
-  .jq-scroll-container-vertical .jq-scroll-shadow:before {
-    height: 6px; }
-  .jq-scroll-container-vertical .jq-scroll-shadow.top-left:before {
-    background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0)); }
-  .jq-scroll-container-vertical .jq-scroll-shadow.bottom-right {
-    top: calc( 100% - 7px); }
-    .jq-scroll-container-vertical .jq-scroll-shadow.bottom-right:before {
-      background: linear-gradient(rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.4)) 0 100%;
-      box-shadow: 0px 1px 0px 0px rgba(0, 0, 0, 0.4); }
+  margin-left: -50%;
+}
+.jq-scroll-container-vertical .jq-scroll-shadow:before {
+  height: 6px;
+}
+.jq-scroll-container-vertical .jq-scroll-shadow.top-left:before {
+  background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0));
+}
+.jq-scroll-container-vertical .jq-scroll-shadow.bottom-right {
+  top: calc(100% - 7px);
+}
+.jq-scroll-container-vertical .jq-scroll-shadow.bottom-right:before {
+  background: linear-gradient(rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.4)) 0 100%;
+  box-shadow: 0px 1px 0px 0px rgba(0, 0, 0, 0.4);
+}
 
 /* //Horizontal scroll - NOT WORKING
 .jq-scroll-container-horizontal .jq-scroll-shadow {
@@ -139,4 +163,5 @@ Add scroll-shadow - Not using mixin scroll-shadow-horizontal();
 */
 .scroll-at-start .jq-scroll-shadow.top-left,
 .scroll-at-end .jq-scroll-shadow.bottom-right {
-  display: none; }
+  display: none;
+}

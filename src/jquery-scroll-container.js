@@ -83,13 +83,13 @@
         if (isVertical){
             noScroll = elem.scrollHeight <= elem.clientHeight;
             position = elem.scrollTop <= 0 ? 'start' :
-                       elem.scrollTop >= elem.scrollHeight - elem.clientHeight ? 'end' :
+                       Math.ceil(elem.scrollTop) >= elem.scrollHeight - elem.clientHeight ? 'end' :
                        null;
         }
         else {
             noScroll = elem.scrollWidth < elem.clientWidth;
             position = elem.scrollLeft <= 0 ? 'start' :
-                       elem.scrollLeft >= elem.scrollWidth - elem.clientWidth ? 'end' :
+                       Math.ceil(elem.scrollLeft) >= elem.scrollWidth - elem.clientWidth ? 'end' :
                        null;
         }
 
