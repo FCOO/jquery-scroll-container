@@ -4,6 +4,8 @@
 
 ## Description
 
+### css for scrollbars
+
 Contains css to make scrollbars look *thin*
 
 On mobile devices (with touch-events) the browsers own scrollbars are used. Detecting touch-events is done using [modernizr](https://modernizr.com/) (see below)
@@ -12,6 +14,14 @@ On mobile devices (with touch-events) the browsers own scrollbars are used. Dete
 
 **NOTE Version 7.x differ largely from version 6.x and 5.x**
 
+### Create container with scrollbars and scroll-shadow
+
+	 var $myContainer = $(aElement).addScrollbar( direction or options );
+
+### Create a dragable horizontal and vertical scrolling container
+Including [ScrollBooster](https://ilyashubin.github.io/scrollbooster/)
+
+
 ## Installation
 ### bower
 `bower install https://github.com/FCOO/jquery-scroll-container.git --save`
@@ -19,7 +29,7 @@ On mobile devices (with touch-events) the browsers own scrollbars are used. Dete
 ## Demo
 [https://FCOO.github.io/jquery-scroll-container/demo/](https://FCOO.github.io/jquery-scroll-container/demo/)
  
-## Usage
+## $.fn.addScrollbar(options)
 
     var $myContainer = $(aElement).addScrollbar( direction or options );
 
@@ -32,6 +42,16 @@ On mobile devices (with touch-events) the browsers own scrollbars are used. Dete
     - `"both"`: Allows both vertical and horizontal scroll. Do not add any margin to content
 - `contentClassName: ''`. Class-name added to the inner content-container
 - `paddingLeft: false`. Only for direction`:'vertical'`. If `true` the container gets `padding-left` equal the width of the scrollbar to center content
+
+
+## ScrollBooster
+
+	var myScrollBooster = $(aElement).addScrollBooster(options );
+
+### Methods
+		$.fn.getScrollBooster: function()
+		$.fn.sbUpdate(): function()
+		$.fn.sbScrollTo: function(left, top)
 
 
 ## Modernizr
